@@ -14,11 +14,26 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable(); // Cho phép nhận giá trị rỗng
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            // Các cột bổ sung
+            $table->string('address')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('profile_picture')->nullable();
+            $table->string('role')->default('user');
+            $table->text('bio')->nullable();
+            $table->boolean('is_active')->default(true);
+        });
+
+        // Thêm các chỉ định khác cho các cột
+        Schema::table('users', function (Blueprint $table) {
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_unicode_ci';
         });
     }
 
