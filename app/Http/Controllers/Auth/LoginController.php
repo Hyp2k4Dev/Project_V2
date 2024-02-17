@@ -34,8 +34,14 @@ class LoginController extends Controller
 
         // Attempt to authenticate the user
         if (Auth::attempt($credentials)) {
-            // Authentication successful, redirect to the intended destination
-            return redirect()->intended('/');
+            // Kiểm tra vai trò của người dùng sau khi đăng nhập thành công
+            if (Auth::user()->role === 'admin') {
+                // Nếu là admin, chuyển hướng đến trang dashboard của admin
+                return redirect()->route('admin.dashboard');
+            } else {
+                // Nếu là user, chuyển hướng đến trang chính
+                return redirect()->intended('/');
+            }
         }
 
         // Authentication failed, redirect back with error message
