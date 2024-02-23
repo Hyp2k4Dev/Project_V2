@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('home') }}">Home</a>
+                            <a class="nav-link active" href="{{ route('main') }}">Home</a>
                         </li>
                         <!-- Thêm nút đăng xuất -->
                         <li class="nav-item">

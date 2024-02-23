@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
-
+namespace App\Http\Controllers\Backend;
 use App\Models\Order;
 use App\Models\Product;
 

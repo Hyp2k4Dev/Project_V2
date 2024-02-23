@@ -95,4 +95,10 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index')->with('success', 'Người dùng đã được xóa thành công.');
     }
+
+    public function main()
+    {
+        // Thực hiện các logic cần thiết và trả về view tương ứng
+        return view('user.main');
+    }
 }
