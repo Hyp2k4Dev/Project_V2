@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('home') }}">Home</a>
+                            <a class="nav-link active" href="{{ route('main') }}">Home</a>
                         </li>
                         <!-- Thêm nút đăng xuất -->
                         <li class="nav-item">
@@ -33,6 +33,10 @@
                                 @csrf
                                 <button type="submit" class="nav-link btn btn-link">Logout</button>
                             </form>
+                        </li>
+                        <!-- Thêm nút thêm sản phẩm -->
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="{{ route('admin.product.create') }}">Thêm sản phẩm</a>
                         </li>
                     </ul>
                 </div>

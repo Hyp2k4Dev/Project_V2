@@ -56,20 +56,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($order as $order)
-                    <tr>
-                        <td>{{ $order->id }}</td>
-                        <td>{{ ucfirst($order->status) }}</td>
-                        <td>{{ $order->total }}</td>
-                        <!-- Thêm các dữ liệu khác tương ứng với từng cột -->
-                    </tr>
-                    @endforeach
+                    <!-- Không bao gồm vòng lặp foreach cho $order -->
                 </tbody>
             </table>
         </div>
     </div>
-
-
 </div>
 @endsection
 
