@@ -34,6 +34,10 @@
                                 <button type="submit" class="nav-link btn btn-link">Logout</button>
                             </form>
                         </li>
+                        <!-- Thêm nút thêm sản phẩm -->
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="{{ route('admin.product.create') }}">Thêm sản phẩm</a>
+                        </li>
                     </ul>
                 </div>
             </div>
