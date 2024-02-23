@@ -5,20 +5,21 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AdminDashboardController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Frontend\HomeFE;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
+// fE
+Route::get('/', [HomeFE::class, 'index'])->name('frontend.home');
+
+
+
+
+
+
+
+//be
 // Route cho trang chủ
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Route cho đăng nhập và đăng xuất
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
