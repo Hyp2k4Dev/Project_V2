@@ -20,10 +20,11 @@ class CreateProductsTable extends Migration
             $table->string('Origin', 26);
             $table->string('Material', 50);
             $table->string('Status_Sneaker', 35);
-            $table->string('Product_Code', 20)->unique(); // Unique product code
+            $table->string('Product_Code', 20)->unique();
             $table->integer('Price');
             $table->string('Size', 50);
-            $table->timestamps(); // Thêm trường created_at và updated_at
+            $table->string('Image')->nullable();
+            $table->timestamps();
         });
     }
 

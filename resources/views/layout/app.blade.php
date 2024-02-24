@@ -36,7 +36,7 @@
                         </li>
                         <!-- Thêm nút thêm sản phẩm -->
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary" href="{{ route('admin.product.create') }}">Thêm sản phẩm</a>
+                            <a class="nav-link btn btn-primary" href="{{ route('admin.product.add_image') }}">Thêm sản phẩm</a>
                         </li>
                     </ul>
                 </div>

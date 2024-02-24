@@ -14,7 +14,7 @@
     <header class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="path_to_your_logo" alt="Your Logo" width="50" height="50">
+                <img src="./img/429050312_312580321807310_4350134904698494059_n.png" alt="Your Logo" width="50" height="50">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -56,8 +56,6 @@
     <footer class="mt-5">
     </footer>
 
-    <!-- Script tags, links to external JS files, etc. -->
-    <!-- Link to Bootstrap JS and jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-uj0sGVu7aA9BmdvT+cbXrjW/5en+9KU/rkQzo0h2u5I9VXJXuYZnXsX8u0Fk7z0r" crossorigin="anonymous"></script>
 </body>
 

@@ -66,6 +66,12 @@
                             <input type="text" name="size" id="size" class="form-control" required>
                         </div>
 
+                        <div class="form-group">
+                            <label for="image">Ảnh Sản Phẩm:</label>
+                            <input type="file" name="image" id="image" class="form-control-file" required>
+                            <small class="form-text text-muted">Chọn ảnh có kích thước tối đa 2MB và định dạng JPG, PNG, JPEG, GIF, SVG.</small>
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Thêm Sản Phẩm</button>
                     </form>
                 </div>

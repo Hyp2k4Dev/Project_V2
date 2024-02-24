@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\AdminDashboardController;
 use App\Http\Controllers\Backend\LoginController;
 use App\Http\Controllers\Backend\RegisterController;
@@ -22,8 +21,13 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Admin routes
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/product/create', [ProductController::class, 'create'])->name('admin.product.create');
-    Route::post('/product/store', [ProductController::class, 'store'])->name('admin.product.store');
+    Route::get('/product/add_image', [ProductController::class, 'addImage'])->name('admin.product.add_image');
+    Route::match(['get', 'post'], '/admin/product/store', [ProductController::class, 'store'])->name('admin.product.store');
+    Route::get('admin/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.product.edit');
+    Route::put('admin/product/{id}', [ProductController::class, 'update'])->name('admin.product.update');
+
+    // Thêm route cho tính năng xoá sản phẩm
+    Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('admin.product.destroy');
 });
 
 // User routes
@@ -32,6 +36,6 @@ Route::middleware(['role:user'])->prefix('user')->group(function () {
 });
 
 // Common routes for both frontend and backend
-Route::post('/users', [UserController::class, 'main'])->name('users.main'); // Not sure about this route, you may need to adjust it
-Route::get('/product/upload', [ProductController::class, 'index']); // Not sure about this route, you may need to adjust it
-Route::post('/product/upload', [ProductController::class, 'store']); // Not sure about this route, you may need to adjust it
+Route::post('/users', [UserController::class, 'main'])->name('users.main'); // Example route, adjust as needed
+Route::get('/product/upload', [ProductController::class, 'index'])->name('product.upload'); // Example route, adjust as needed
+Route::post('/product/upload', [ProductController::class, 'store'])->name('product.store'); // Example route, adjust as needed
