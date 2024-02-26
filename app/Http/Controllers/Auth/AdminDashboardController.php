@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Backend\Auth;
 
 use App\Models\Order;
 
@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class AdminDashboardController extends Controller
+class AdminDashboardController extends Backend
 {
     public function index()
     {
@@ -32,7 +32,7 @@ class AdminDashboardController extends Controller
 
         // Lấy danh sách đơn hàng từ model Order
         $order = Order::all();
-        return view('admin.dashboard', compact('orderStatus', 'notifications', 'customerMessages', 'customerReviews','order'));
+        return view('admin.dashboard', compact('orderStatus', 'notifications', 'customerMessages', 'customerReviews', 'order'));
 
         // Trả về view admin.dashboard với các dữ liệu cần thiết
     }

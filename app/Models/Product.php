@@ -10,20 +10,17 @@ class Product extends Model
     use HasFactory;
 
     public $fillable = [
-        'Name_sneaker',
-        'Quantity',
-        'Brand',
-        'Color',
-        'Origin',
-        'Material',
-        'Status_Sneaker',
-        'Product_Code',
-        'Price',
-        'Size',
-        'Image'
-    ];
-    public function getSameNameCountAttribute()
-    {
-        return Product::where('Name_sneaker', $this->Name_sneaker)->count();
-    }
+    'Name_sneaker',
+    'Quantity',
+    'Brand',
+    'Color',
+    'Origin',
+    'Material',
+    'Status_Sneaker',
+    'Product_Code',
+    'Price',
+    'Size',
+    'Image'
+];
+
 }
