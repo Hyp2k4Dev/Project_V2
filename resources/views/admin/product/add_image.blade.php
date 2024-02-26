@@ -8,13 +8,10 @@
                 <div class="card-header">Thêm Sản Phẩm Mới</div>
 
                 <div class="card-body">
-                    <<<<<<< HEAD <!-- Thông báo -->
                         <div id="successMessage" class="alert alert-success" style="display: none;"></div>
 
                         <div id="failMessage" class="alert alert-danger" style="display: none;"></div>
 
-                        =======
-                        >>>>>>> 454c109b4d36eab69d0160f307f0473fb84153f9
                         <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
@@ -87,57 +84,4 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD @endsection @push('scripts') <script>
-    // Hiển thị thông báo và ẩn sau 3 giây
-    function showSuccessMessage(message) {
-    var successMessage = document.getElementById('successMessage');
-    successMessage.innerHTML = message;
-    successMessage.style.display = 'block';
-    setTimeout(function() {
-    successMessage.style.display = 'none';
-    }, 3000);
-    }
-
-    // Xử lý khi submit form
-    document.querySelector('form').addEventListener('submit', function(event) {
-    // Hiển thị thông báo khi thêm sản phẩm thành công
-    showSuccessMessage('Thêm sản phẩm thành công.');
-
-    // Bạn cần thêm mã xử lý thêm sản phẩm ở đây
-
-    // Ngăn chặn form submit mặc định
-    event.preventDefault();
-    });
-
-    function showFailMessage(message) {
-    var failMessage = document.getElementById('failMessage');
-    failMessage.innerHTML = message;
-    failMessage.style.display = 'block';
-    setTimeout(function() {
-    failMessage.style.display = 'none';
-    }, 3000);
-    }
-
-    // Xử lý khi submit form
-    document.querySelector('form').addEventListener('submit', function(event) {
-    // Kiểm tra điều kiện nếu có lỗi
-    var hasError = true; // Giả sử có lỗi để minh họa
-
-    if (hasError) {
-    // Hiển thị thông báo thất bại nếu có lỗi
-    showFailMessage('Thêm sản phẩm không thành công.');
-
-    // Ngăn chặn form submit mặc định
-    event.preventDefault();
-    } else {
-    // Hiển thị thông báo thành công nếu không có lỗi
-    showSuccessMessage('Thêm sản phẩm thành công.');
-
-    // Bạn cần thêm mã xử lý thêm sản phẩm ở đây
-    }
-    });
-    </script>
-    @endpush
-    =======
-    @endsection
-    >>>>>>> 454c109b4d36eab69d0160f307f0473fb84153f9
+@endsection
