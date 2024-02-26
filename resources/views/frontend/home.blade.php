@@ -41,6 +41,7 @@
             <div class="sreach">
                 <p>Product</p>
                 <input type="text" placeholder="input product ...">
+                <i class="bi bi-search"></i>
             </div>
         </div>
     </div>
