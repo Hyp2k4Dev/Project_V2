@@ -10,7 +10,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Your custom CSS -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <link rel="stylesheet" href="/css/be/app.css">
 </head>
 
 <body>
@@ -18,16 +19,15 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="">Your Brand</a>
+                <img src="{{ asset('images/logo-shop.png') }}" alt="Logo" width="100px" height="100px">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('main') }}">Home</a>
+                            <a class="nav-link active" href="{{ route('admin.dashboard') }}">Home</a>
                         </li>
-                        <!-- Thêm nút đăng xuất -->
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf

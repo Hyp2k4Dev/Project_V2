@@ -6,6 +6,7 @@ use App\Models\Postimage;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -27,26 +28,29 @@ class ProductController extends Controller
         return view('admin.product.edit', compact('product'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'Name_sneaker' => 'required|string',
-            'Quantity' => 'required|integer',
-            'Brand' => 'required|string',
-            'Color' => 'required|string',
-            'Origin' => 'required|string',
-            'Material' => 'required|string',
-            'Status_Sneaker' => 'required|string',
-            'Product_Code' => 'required|string|unique:products,product_code,' . $id,
-            'Price' => 'required|numeric',
-            'Size' => 'required|string',
-        ]);
 
-        $product = Product::findOrFail($id);
-        $product->fill($validatedData)->save();
+public function update(Request $request, $id)
+{
+    $validatedData = $request->validate([
+        'Name_sneaker' => 'required|string',
+        'Quantity' => 'required|integer',
+        'Brand' => 'required|string',
+        'Color' => 'required|string',
+        'Origin' => 'required|string',
+        'Material' => 'required|string',
+        'Status_Sneaker' => 'required|string',
+        'Product_Code' => ['required', 'string', Rule::unique('products')->ignore($id)],
+        'Price' => 'required|numeric',
+        'Size' => 'required|string',
+    ]);
+dd($validatedData);
+    $product = Product::findOrFail($id);
+    $product->update($validatedData);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Product updated successfully');
-    }
+    return redirect()->route('admin.dashboard')->with('success', 'Product updated successfully');
+}
+
+
 
     public function destroy($id)
     {
@@ -65,14 +69,14 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'quantity' => 'required|integer',
+            'quantity' => 'required|integer|min:0',
             'brand' => 'required|string',
             'color' => 'required|string',
             'origin' => 'required|string',
             'material' => 'required|string',
             'status' => 'required|string',
             'product_code' => 'required|string|unique:products',
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0',
             'size' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
