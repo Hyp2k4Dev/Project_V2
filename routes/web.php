@@ -36,6 +36,6 @@ Route::middleware(['role:user'])->prefix('user')->group(function () {
 });
 
 // Common routes for both frontend and backend
-Route::post('/users', [UserController::class, 'main'])->name('users.main'); // Example route, adjust as needed
-Route::get('/product/upload', [ProductController::class, 'index'])->name('product.upload'); // Example route, adjust as needed
-Route::post('/product/upload', [ProductController::class, 'store'])->name('product.store'); // Example route, adjust as needed
+Route::post('/users', [UserController::class, 'main'])->name('users.main');
+Route::get('/product/upload', [ProductController::class, 'index'])->name('product.upload');
+Route::post('/product/upload', [ProductController::class, 'store'])->name('product.store');

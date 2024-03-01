@@ -1,7 +1,9 @@
 @extends('layout.app')
 
 @section('content')
+
 <div class="container">
+    <div class="hidden" id="data" data-product= "{{ $products }}"></div>
     <div class="row">
         <div class="col-md-6">
             <h2>Order Status</h2>
@@ -92,6 +94,7 @@
 
 @push('scripts')
 <script>
+    
     document.getElementById('orderStatusFilter').addEventListener('change', function() {
         let status = this.value;
         if (status) {
@@ -100,5 +103,11 @@
             window.location.href = '/admin/dashboard';
         }
     });
+
+    const dataEl = document.getElementById('data');
+    console.log(dataEl);
+
 </script>
+</script>
+
 @endpush

@@ -45,7 +45,7 @@ class LoginController extends Controller
         }
 
         // Authentication failed, redirect back with error message
-        return redirect()->route('login')->withErrors([
+        return redirect()->route('login')->withErrors([ 
             'name' => 'Tên người dùng hoặc mật khẩu không đúng.',
         ]);
     }
