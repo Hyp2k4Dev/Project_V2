@@ -12,6 +12,7 @@
                     <form method="POST" action="{{ route('admin.product.update', $product->id) }}">
                         @csrf
                         @method('PUT')
+                        >>>>>>> 88eb574e0e6c9331b7a5295d0fe67121667e3020
 
                         <div class="form-group">
                             <label for="name">{{ __('Name') }}</label>
