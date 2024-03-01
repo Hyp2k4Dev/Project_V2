@@ -12,7 +12,7 @@
 <body>
     <div class="header">
         <div class="header-left">
-            <a href="#"><img src="{{ asset('images/s.png') }}" alt="Mô tả của hình ảnh"></a>
+            <a href="#"><img src="{{ asset('images/logo-shop.png') }}" alt="Mô tả của hình ảnh"></a>
             <div class="option-header">
                 <a href="#">Product</a>
                 <a href="#">About</a>

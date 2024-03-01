@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 17, 2024 lúc 11:52 AM
+-- Thời gian đã tạo: Th3 01, 2024 lúc 12:34 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Phiên bản PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -54,11 +54,12 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(5, '2014_10_12_000000_create_users_table', 1),
-(6, '2014_10_12_100000_create_password_reset_tokens_table', 1),
-(7, '2019_08_19_000000_create_failed_jobs_table', 1),
-(8, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(9, '2024_02_16_164500_create_orders_table', 2);
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2024_02_16_164500_create_orders_table', 1),
+(6, '2024_02_24_100606_create_products_table', 2);
 
 -- --------------------------------------------------------
 
@@ -106,23 +107,33 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `shoes`
+-- Cấu trúc bảng cho bảng `products`
 --
 
-CREATE TABLE `shoes` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `email_verified_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `password` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `phone_number` int(11) NOT NULL,
-  `date_of_birth` datetime NOT NULL,
-  `profile_picture` int(11) DEFAULT NULL,
-  `role` varchar(255) NOT NULL,
-  `bio` varchar(255) DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `Name_sneaker` varchar(200) NOT NULL,
+  `Quantity` int(11) NOT NULL,
+  `Brand` varchar(35) NOT NULL,
+  `Color` varchar(50) NOT NULL,
+  `Origin` varchar(26) NOT NULL,
+  `Material` varchar(50) NOT NULL,
+  `Status_Sneaker` varchar(35) NOT NULL,
+  `Product_Code` varchar(20) NOT NULL,
+  `Price` int(11) NOT NULL,
+  `Size` varchar(50) NOT NULL,
+  `Image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `products`
+--
+
+INSERT INTO `products` (`id`, `Name_sneaker`, `Quantity`, `Brand`, `Color`, `Origin`, `Material`, `Status_Sneaker`, `Product_Code`, `Price`, `Size`, `Image`, `created_at`, `updated_at`) VALUES
+(17, 'Nike Air Force 1', 1, 'Nike', 'Trắng', 'Hoa Kỳ', 'Vải', 'New', '1000', 129, '43', '/storage/product_images/424621.jpg', '2024-03-01 04:18:11', '2024-03-01 04:18:11'),
+(18, 'Nike Air Force 1', 3, 'Nike', 'Trắng', 'Hoa Kỳ', 'Vải', 'New', '1001', 129, '44', '/storage/product_images/565313.jpg', '2024-03-01 04:20:35', '2024-03-01 04:20:35');
 
 -- --------------------------------------------------------
 
@@ -153,11 +164,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `address`, `phone_number`, `date_of_birth`, `profile_picture`, `role`, `bio`, `is_active`) VALUES
-(1, 'nguyenvana', NULL, NULL, '$2y$12$3SNxVswKMo.0wxUL/bPoKeORzRXlj0Cwene/WadYUDiosZR2R7qPa', NULL, '2024-02-16 04:42:41', '2024-02-16 04:42:41', NULL, NULL, NULL, NULL, 'user', NULL, 1),
-(2, 'a123', NULL, NULL, '$2y$12$owFkWEG66LDsiT8uQHtra.bmbgXzZb1cx6zXZgFYqQ4yBGpGQJk3e', NULL, '2024-02-16 04:55:17', '2024-02-16 04:55:17', NULL, NULL, NULL, NULL, 'user', NULL, 1),
-(3, 'aaaa', NULL, NULL, '$2y$12$qunaRvQeZVxeALSSSdKSUOdfCEsC5QXMyQ3BglqjkUv722IaYTRFy', NULL, '2024-02-16 04:56:42', '2024-02-16 04:56:42', NULL, NULL, NULL, NULL, 'user', NULL, 1),
-(4, 'vuhuyhuong', NULL, NULL, '$2y$12$bLwAHRNiVxyowMvgiBGg7OFdoxjPaZXF/kbUuUwKEAw/rRyrewf5a', NULL, '2024-02-16 06:17:31', '2024-02-16 06:17:31', NULL, NULL, NULL, NULL, 'user', NULL, 1),
-(5, 'Nguyễn Hoàng Hiệp', NULL, NULL, '$2y$12$gBlRycl6CXjm.eKxis3wfeswD/veOydKGOehOUdH4vT4AgoMOTIWG', NULL, '2024-02-16 09:00:14', '2024-02-16 09:00:14', NULL, NULL, NULL, NULL, 'admin', NULL, 1);
+(1, 'Nguyễn Hoàng Hiệp', NULL, NULL, '$2y$12$oIgmD.3roS/aNr5tfIuD3OAtZ3kgRLYesDHr8lTW8d1hZ3xOXoKru', NULL, '2024-02-24 09:27:55', '2024-02-24 09:27:55', NULL, NULL, NULL, NULL, 'admin', NULL, 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -197,10 +204,11 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Chỉ mục cho bảng `shoes`
+-- Chỉ mục cho bảng `products`
 --
-ALTER TABLE `shoes`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `products_product_code_unique` (`Product_Code`);
 
 --
 -- Chỉ mục cho bảng `users`
@@ -223,7 +231,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
@@ -238,16 +246,16 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `shoes`
+-- AUTO_INCREMENT cho bảng `products`
 --
-ALTER TABLE `shoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
