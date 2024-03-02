@@ -8,74 +8,62 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Edit Product') }}</div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 0b5e423b350d544d8e5d5b2afd9ceabe21680e6a
                 <div class="card-body">
                     <form method="POST" action="{{ route('admin.product.update', $product->id) }}">
                         @csrf
                         @method('PUT')
-<<<<<<< HEAD
-                        <div class="card-body">
-                            <form method="POST" action="{{ route('admin.product.edit', $product->id) }}">
-                                @csrf
-                                @method('PUT')
-                                <div class="form-group">
-                                    <label for="name">{{ __('Name') }}</label>
-                                    <input id="name" type="text" class="form-control" name="Name_sneaker" value="{{ $product->Name_sneaker }}" required autofocus>
-                                </div>
-=======
-                        >>>>>>> 88eb574e0e6c9331b7a5295d0fe67121667e3020
->>>>>>> 0b5e423b350d544d8e5d5b2afd9ceabe21680e6a
-
-                                <div class="form-group">
-                                    <label for="quantity">{{ __('Quantity') }}</label>
-                                    <input id="quantity" type="number" class="form-control" name="Quantity" value="{{ $product->Quantity }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="brand">{{ __('Brand') }}</label>
-                                    <input id="brand" type="text" class="form-control" name="Brand" value="{{ $product->Brand }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="color">{{ __('Color') }}</label>
-                                    <input id="color" type="text" class="form-control" name="Color" value="{{ $product->Color }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="origin">{{ __('Origin') }}</label>
-                                    <input id="origin" type="text" class="form-control" name="Origin" value="{{ $product->Origin }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="material">{{ __('Material') }}</label>
-                                    <input id="material" type="text" class="form-control" name="Material" value="{{ $product->Material }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="status">{{ __('Status') }}</label>
-                                    <input id="status" type="text" class="form-control" name="Status_Sneaker" value="{{ $product->Status_Sneaker }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="price">{{ __('Price') }}</label>
-                                    <input id="price" type="number" class="form-control" name="Price" value="{{ $product->Price }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="size">{{ __('Size') }}</label>
-                                    <input id="size" type="text" class="form-control" name="Size" value="{{ $product->Size }}" required>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Update Product') }}
-                                </button>
-                            </form>
+                        <div class="form-group">
+                            <label for="name">{{ __('Name') }}</label>
+                            <input id="name" type="text" class="form-control" name="Name_sneaker" value="{{ $product->Name_sneaker }}" required autofocus>
                         </div>
+
+                        <div class="form-group">
+                            <label for="quantity">{{ __('Quantity') }}</label>
+                            <input id="quantity" type="number" class="form-control" name="Quantity" value="{{ $product->Quantity }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="brand">{{ __('Brand') }}</label>
+                            <input id="brand" type="text" class="form-control" name="Brand" value="{{ $product->Brand }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="color">{{ __('Color') }}</label>
+                            <input id="color" type="text" class="form-control" name="Color" value="{{ $product->Color }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="origin">{{ __('Origin') }}</label>
+                            <input id="origin" type="text" class="form-control" name="Origin" value="{{ $product->Origin }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="material">{{ __('Material') }}</label>
+                            <input id="material" type="text" class="form-control" name="Material" value="{{ $product->Material }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status">{{ __('Status') }}</label>
+                            <input id="status" type="text" class="form-control" name="Status_Sneaker" value="{{ $product->Status_Sneaker }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">{{ __('Price') }}</label>
+                            <input id="price" type="number" class="form-control" name="Price" value="{{ $product->Price }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="size">{{ __('Size') }}</label>
+                            <input id="size" type="text" class="form-control" name="Size" value="{{ $product->Size }}" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('Update Product') }}
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    @endsection
+</div>
+@endsection
