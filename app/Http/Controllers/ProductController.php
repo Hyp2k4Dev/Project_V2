@@ -29,26 +29,30 @@ class ProductController extends Controller
     }
 
 
-public function update(Request $request, $id)
-{
-    $validatedData = $request->validate([
-        'Name_sneaker' => 'required|string',
-        'Quantity' => 'required|integer',
-        'Brand' => 'required|string',
-        'Color' => 'required|string',
-        'Origin' => 'required|string',
-        'Material' => 'required|string',
-        'Status_Sneaker' => 'required|string',
-        'Product_Code' => ['required', 'string', Rule::unique('products')->ignore($id)],
-        'Price' => 'required|numeric',
-        'Size' => 'required|string',
-    ]);
-dd($validatedData);
-    $product = Product::findOrFail($id);
-    $product->update($validatedData);
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'Name_sneaker' => 'required|string|max:255',
+            'Quantity' => 'required|integer|min:0',
+            'Brand' => 'required|string',
+            'Color' => 'required|string',
+            'Origin' => 'required|string',
+            'Material' => 'required|string',
+            'Status_Sneaker' => 'required|string',
+            'Price' => 'required|numeric',
+            'Size' => 'required|string',
+        ]);
 
-    return redirect()->route('admin.dashboard')->with('success', 'Product updated successfully');
-}
+
+        if ($request->filled('Product_Code')) {
+            $validatedData['Product_Code'] = $request->input('Product_Code');
+        }
+
+        $product = Product::findOrFail($id);
+        $product->update($validatedData);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Product updated successfully');
+    }
 
 
 
@@ -88,6 +92,24 @@ dd($validatedData);
 
         if ($request->file('image')->getSize() > 2048 * 1024) {
             return redirect()->back()->with('error', 'Kích thước hình ảnh không được vượt quá 2MB.');
+        }
+
+        // Kiểm tra các thông tin trừ tên sản phẩm có trùng lặp không
+        $duplicatedFields = [
+            'Brand' => $request->brand,
+            'Color' => $request->color,
+            'Origin' => $request->origin,
+            'Material' => $request->material,
+            'Status_Sneaker' => $request->status,
+            'Price' => $request->price,
+            'Size' => $request->size,
+        ];
+
+        foreach ($duplicatedFields as $field => $value) {
+            $existingProduct = Product::where($field, $value)->first();
+            if ($existingProduct) {
+                return back()->with('error', "Thông tin '$field' đã tồn tại cho sản phẩm khác.");
+            }
         }
 
         $destinationPath = 'public/product_images';

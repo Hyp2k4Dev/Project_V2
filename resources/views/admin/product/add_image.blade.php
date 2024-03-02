@@ -29,7 +29,7 @@
 
                         <div class="form-group">
                             <label for="description">Mô Tả:</label>
-                            <textarea name="description" id="description" class="form-control" required></textarea>
+                            <textarea name="description" id="description" class="form-control" ></textarea>
                         </div>
 
                         <div class="form-group">
