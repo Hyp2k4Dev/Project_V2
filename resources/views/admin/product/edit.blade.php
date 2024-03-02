@@ -8,11 +8,15 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Edit Product') }}</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0b5e423b350d544d8e5d5b2afd9ceabe21680e6a
                 <div class="card-body">
                     <form method="POST" action="{{ route('admin.product.update', $product->id) }}">
                         @csrf
                         @method('PUT')
+<<<<<<< HEAD
                         <div class="card-body">
                             <form method="POST" action="{{ route('admin.product.edit', $product->id) }}">
                                 @csrf
@@ -21,6 +25,9 @@
                                     <label for="name">{{ __('Name') }}</label>
                                     <input id="name" type="text" class="form-control" name="Name_sneaker" value="{{ $product->Name_sneaker }}" required autofocus>
                                 </div>
+=======
+                        >>>>>>> 88eb574e0e6c9331b7a5295d0fe67121667e3020
+>>>>>>> 0b5e423b350d544d8e5d5b2afd9ceabe21680e6a
 
                                 <div class="form-group">
                                     <label for="quantity">{{ __('Quantity') }}</label>

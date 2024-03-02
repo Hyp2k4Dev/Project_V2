@@ -29,30 +29,26 @@ class ProductController extends Controller
     }
 
 
-    public function update(Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'Name_sneaker' => 'required|string|max:255',
-            'Quantity' => 'required|integer|min:0',
-            'Brand' => 'required|string',
-            'Color' => 'required|string',
-            'Origin' => 'required|string',
-            'Material' => 'required|string',
-            'Status_Sneaker' => 'required|string',
-            'Price' => 'required|numeric',
-            'Size' => 'required|string',
-        ]);
+public function update(Request $request, $id)
+{
+    $validatedData = $request->validate([
+        'Name_sneaker' => 'required|string',
+        'Quantity' => 'required|integer',
+        'Brand' => 'required|string',
+        'Color' => 'required|string',
+        'Origin' => 'required|string',
+        'Material' => 'required|string',
+        'Status_Sneaker' => 'required|string',
+        'Product_Code' => ['required', 'string', Rule::unique('products')->ignore($id)],
+        'Price' => 'required|numeric',
+        'Size' => 'required|string',
+    ]);
+dd($validatedData);
+    $product = Product::findOrFail($id);
+    $product->update($validatedData);
 
-
-        if ($request->filled('Product_Code')) {
-            $validatedData['Product_Code'] = $request->input('Product_Code');
-        }
-
-        $product = Product::findOrFail($id);
-        $product->update($validatedData);
-
-        return redirect()->route('admin.dashboard')->with('success', 'Product updated successfully');
-    }
+    return redirect()->route('admin.dashboard')->with('success', 'Product updated successfully');
+}
 
 
 
