@@ -39,6 +39,29 @@
             </div>
         </div>
     </div>
+
+    <div class="product-hot-new">
+        @foreach($products as $product)
+        <a href="#" class="item-product">
+            <div class="img-product">
+                <img src="{{ asset($product->Image) }}" alt="Product Image">
+            </div>
+            <p class="title">{{ $product->Name_sneaker }}</p>
+            <p class="description">
+                <?php
+                $description = $product->Description;
+                if (strlen($description) > 200) {
+                    $trimmedDescription = substr($description, 0, 200) . '...';
+                    echo $trimmedDescription;
+                } else {
+                    echo $description;
+                }
+                ?>
+            </p>
+            <p class="price"> {{ $product->Price }} đ</p>
+        </a>
+        @endforeach
+    </div>
 </body>
 
 </html>
