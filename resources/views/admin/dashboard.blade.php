@@ -52,7 +52,15 @@
             </div>
         </div>
     </div>
-
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h2>Search</h2>
+            <input type="text" id="searchInput" placeholder="Search products...">
+            <div class="input-group-append">
+                <button class="btn-search" type="button" id="searchButton">Search</button>
+            </div>
+        </div>
+    </div>
     <div class="row mt-4">
         <div class="col-md-12">
             <h2>Product List</h2>
@@ -120,6 +128,4 @@
     const dataEl = document.getElementById('data');
     console.log(dataEl);
 </script>
-</script>
-
 @endpush
