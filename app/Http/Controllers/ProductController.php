@@ -73,6 +73,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'description' => 'required|string',
             'quantity' => 'required|integer|min:0',
             'brand' => 'required|string',
             'color' => 'required|string',
@@ -82,12 +83,12 @@ class ProductController extends Controller
             'product_code' => 'required|string|unique:products',
             'price' => 'required|numeric|min:0',
             'size' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
-        $existingProduct = Product::where('Size', $request->size)->first();
+        $existingProduct = Product::where('Product_Code', $request->product_code)->first();
         if ($existingProduct) {
-            return back()->with('error', 'Sản phẩm có cùng kích cỡ đã tồn tại.');
+            return back()->with('error', 'Sản phẩm với product code này đã tồn tại.');
         }
 
         if ($request->file('image')->getSize() > 2048 * 1024) {
@@ -120,6 +121,7 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->Name_sneaker = $request->name;
+        $product->Description = $request->description;
         $product->Quantity = $request->quantity;
         $product->Brand = $request->brand;
         $product->Color = $request->color;

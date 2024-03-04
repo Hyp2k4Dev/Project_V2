@@ -2,16 +2,31 @@
 
 @section('content')
 <style>
+    .product-image {
+        transition: transform 0.2s;
+    }
+
+    .product-image:hover {
+        transform: scale(2);
+    }
+
     a {
         text-decoration: none;
     }
 
     .edit-btn {
+        text-align: center;
+        display: inline-block;
+        width: 70px;
         border-radius: 5px;
         background-color: green;
         color: white;
         border: 1px solid green;
         padding: 5px 5px 9px 5px;
+    }
+
+    .edit-btn:hover {
+        background-color: darkgreen;
     }
 </style>
 
@@ -69,6 +84,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <!-- <th>Description<th> -->
                         <th>Quantity</th>
                         <th>Brand</th>
                         <th>Color</th>
@@ -87,6 +103,7 @@
                     <tr>
                         <td>{{ $product->id }}</td>
                         <td>{{ $product->Name_sneaker }}</td>
+                        <!-- <td>{{ $product->Description}}</td> -->
                         <td>{{ $product->Quantity }}</td>
                         <td>{{ $product->Brand }}</td>
                         <td>{{ $product->Color }}</td>
@@ -96,7 +113,7 @@
                         <td>{{ $product->Product_Code }}</td>
                         <td>{{ $product->Price }}</td>
                         <td>{{ $product->Size }}</td>
-                        <td><img src="{{ asset($product->Image) }}" alt="Product Image" style="width: 100px; height: 100px;"></td>
+                        <td><img src="{{ asset($product->Image) }}" class="product-image" alt="Product Image" style="width: 100px; height: 100%;"></td>
                         <td>
                             <a href="{{ route('admin.product.edit', $product->id) }}" class="edit-btn">Edit</a>
                             <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST" style="display: inline;">
