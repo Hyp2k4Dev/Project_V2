@@ -95,22 +95,22 @@ class ProductController extends Controller
         }
 
         // Kiểm tra các thông tin trừ tên sản phẩm có trùng lặp không
-        $duplicatedFields = [
-            'Brand' => $request->brand,
-            'Color' => $request->color,
-            'Origin' => $request->origin,
-            'Material' => $request->material,
-            'Status_Sneaker' => $request->status,
-            'Price' => $request->price,
-            'Size' => $request->size,
-        ];
+        // $duplicatedFields = [
+        //     'Brand' => $request->brand,
+        //     'Color' => $request->color,
+        //     'Origin' => $request->origin,
+        //     'Material' => $request->material,
+        //     'Status_Sneaker' => $request->status,
+        //     'Price' => $request->price,
+        //     'Size' => $request->size,
+        // ];
 
-        foreach ($duplicatedFields as $field => $value) {
-            $existingProduct = Product::where($field, $value)->first();
-            if ($existingProduct) {
-                return back()->with('error', "Thông tin '$field' đã tồn tại cho sản phẩm khác.");
-            }
-        }
+        // foreach ($duplicatedFields as $field => $value) {
+        //     $existingProduct = Product::where($field, $value)->first();
+        //     if ($existingProduct) {
+        //         return back()->with('error', "Thông tin '$field' đã tồn tại cho sản phẩm khác.");
+        //     }
+        // }
 
         $destinationPath = 'public/product_images';
         $randomize = rand(111111, 999999);

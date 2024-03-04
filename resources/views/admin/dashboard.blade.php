@@ -1,9 +1,23 @@
 @extends('layout.app')
 
 @section('content')
+<style>
+    a {
+        text-decoration: none;
+    }
+
+    .edit-btn {
+        border-radius: 5px;
+        background-color: green;
+        color: white;
+        border: 1px solid green;
+        padding: 5px 5px 9px 5px;
+    }
+</style>
+
 
 <div class="container">
-    <div class="hidden" id="data" data-product= "{{ $products }}"></div>
+    <div class="hidden" id="data" data-product="{{ $products }}"></div>
     <div class="row">
         <div class="col-md-6">
             <h2>Order Status</h2>
@@ -76,7 +90,7 @@
                         <td>{{ $product->Size }}</td>
                         <td><img src="{{ asset($product->Image) }}" alt="Product Image" style="width: 100px; height: 100px;"></td>
                         <td>
-                            <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('admin.product.edit', $product->id) }}" class="edit-btn">Edit</a>
                             <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -94,7 +108,6 @@
 
 @push('scripts')
 <script>
-    
     document.getElementById('orderStatusFilter').addEventListener('change', function() {
         let status = this.value;
         if (status) {
@@ -106,7 +119,6 @@
 
     const dataEl = document.getElementById('data');
     console.log(dataEl);
-
 </script>
 </script>
 
