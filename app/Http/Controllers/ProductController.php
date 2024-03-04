@@ -71,6 +71,8 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $productCode = 'HTH-' . $request->input('product_code');
+        $request->merge(['product_code' => $productCode]);
         $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
@@ -83,7 +85,7 @@ class ProductController extends Controller
             'product_code' => 'required|string|unique:products',
             'price' => 'required|numeric|min:0',
             'size' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:4096',
         ]);
 
         $existingProduct = Product::where('Product_Code', $request->product_code)->first();
@@ -91,8 +93,8 @@ class ProductController extends Controller
             return back()->with('error', 'Sản phẩm với product code này đã tồn tại.');
         }
 
-        if ($request->file('image')->getSize() > 2048 * 1024) {
-            return redirect()->back()->with('error', 'Kích thước hình ảnh không được vượt quá 2MB.');
+        if ($request->file('image')->getSize() > 4 * 1024 * 1024) {
+            return redirect()->back()->with('error', 'Kích thước hình ảnh không được vượt quá 4MB.');
         }
 
         // Kiểm tra các thông tin trừ tên sản phẩm có trùng lặp không
