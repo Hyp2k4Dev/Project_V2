@@ -10,6 +10,9 @@ use App\Http\Controllers\Frontend\HomeFE;
 
 // Frontend routes
 Route::get('/', [HomeFE::class, 'index'])->name('frontend.home');
+Route::get('/product', [HomeFE::class, 'product'])->name('frontend.product');
+Route::get('/about', [HomeFE::class, 'product'])->name('frontend.product');
+Route::get('/blog', [HomeFE::class, 'product'])->name('frontend.product');
 
 // Authentication routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

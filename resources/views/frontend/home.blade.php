@@ -15,7 +15,7 @@
         <div class="header-left">
             <a href="{{ route('frontend.home') }}"><img src="{{ asset('images/logo-shop.png') }}" alt="Mô tả của hình ảnh"></a>
             <div class="option-header">
-                <a href="#">Product</a>
+                <a href="/product">Product</a>
                 <a href="#">About</a>
                 <a href="#">Blog</a>
             </div>
@@ -47,19 +47,21 @@
             <div class="img-product">
                 <img src="{{ asset($product->Image) }}" alt="Product Image">
             </div>
-            <p class="title">{{ $product->Name_sneaker }}</p>
-            <p class="description">
-                <?php
-                $description = $product->Description;
-                if (strlen($description) > 200) {
-                    $trimmedDescription = substr($description, 0, 200) . '...';
-                    echo $trimmedDescription;
-                } else {
-                    echo $description;
-                }
-                ?>
-            </p>
-            <p class="price"> {{ $product->Price }} đ</p>
+            <div class="infor">
+                <p class="title">{{ $product->Name_sneaker }}</p>
+                <p class="description">
+                    <?php
+                    $description = $product->Description;
+                    if (strlen($description) > 268) {
+                        $trimmedDescription = substr($description, 0, 268) . '...';
+                        echo $trimmedDescription;
+                    } else {
+                        echo $description;
+                    }
+                    ?>
+                </p>
+                <p class="price"> {{ $product->Price }} đ</p>
+            </div>
         </a>
         @endforeach
     </div>
