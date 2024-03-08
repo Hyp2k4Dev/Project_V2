@@ -140,12 +140,13 @@ body {
     display: flex;
     justify-content: space-between;
 }
-<<<<<<< HEAD
-.reviewSection{
+
+.reviewSection {
     position: relative;
     padding: 200px 0 200px 0;
 }
-.reviewSection>img{
+
+.reviewSection>img {
     background-color: #f3ffff;
     padding: 0;
     margin: 0;
@@ -153,22 +154,25 @@ body {
     height: 400px;
     object-fit: cover;
 }
-.homeReview{
+
+.homeReview {
     position: absolute;
     top: 250px;
     padding: 0 20px 20px 80px;
 }
-.homeReview>p{
 
-}
-.upper-case{
+.homeReview>p {}
+
+.upper-case {
     text-transform: uppercase;
     font-size: 16px;
     line-height: 24px;
     font-weight: 600;
 }
+
 .reviews-container {
-    width: 300px; /* Điều chỉnh kích thước container theo ý muốn */
+    width: 300px;
+    /* Điều chỉnh kích thước container theo ý muốn */
     overflow: hidden;
 }
 
@@ -179,7 +183,7 @@ body {
 
 .review.active {
     display: block;
-=======
+}
 
 .product-hot-new {
     display: grid;
@@ -247,5 +251,4 @@ body {
     flex-direction: column;
     flex: 1 1 0%;
     height: 150px;
->>>>>>> ee69f57fbbec165089d8e81741e424b45af2a7ad
 }
