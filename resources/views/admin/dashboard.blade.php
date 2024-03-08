@@ -1,6 +1,8 @@
 @extends('layout.app')
 
 @section('content')
+
+<link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
 <style>
     .product-image {
         transition: transform 0.2s;
@@ -29,7 +31,7 @@
         background-color: darkgreen;
     }
 </style>
-
+<link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
 
 <div class="container">
     <div class="hidden" id="data" data-product="{{ $products }}"></div>
