@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>HTH SNEAKER STORE</title>
+    <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/fe/homepage.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="{{ asset('js/homepage.js') }}"></script>
@@ -13,9 +14,9 @@
 <body>
     <div class="header">
         <div class="header-left">
-            <a href="#"><img src="{{ asset('images/logo-shop.png') }}" alt="Mô tả của hình ảnh"></a>
+            <a href="{{ route('frontend.home') }}"><img src="{{ asset('images/logo-shop.png') }}" alt="Mô tả của hình ảnh"></a>
             <div class="option-header">
-                <a href="#">Product</a>
+                <a href="/product">Product</a>
                 <a href="#">About</a>
                 <a href="#">Blog</a>
             </div>
@@ -40,6 +41,7 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     <div class="reviewSection">
         <img src="{{ asset('images/section-background.png') }}" alt="Mô tả của hình ảnh">
         <div class="homeReview">
@@ -85,6 +87,33 @@
         
 
     
+=======
+
+    <div class="product-hot-new">
+        @foreach($products as $product)
+        <a href="#" class="item-product">
+            <div class="img-product">
+                <img src="{{ asset($product->Image) }}" alt="Product Image">
+            </div>
+            <div class="infor">
+                <p class="title">{{ $product->Name_sneaker }}</p>
+                <p class="description">
+                    <?php
+                    $description = $product->Description;
+                    if (strlen($description) > 268) {
+                        $trimmedDescription = substr($description, 0, 268) . '...';
+                        echo $trimmedDescription;
+                    } else {
+                        echo $description;
+                    }
+                    ?>
+                </p>
+                <p class="price"> {{ $product->Price }} đ</p>
+            </div>
+        </a>
+        @endforeach
+    </div>
+>>>>>>> ee69f57fbbec165089d8e81741e424b45af2a7ad
 </body>
 
 </html>

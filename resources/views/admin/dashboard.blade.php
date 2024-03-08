@@ -1,9 +1,38 @@
 @extends('layout.app')
 
 @section('content')
+<style>
+    .product-image {
+        transition: transform 0.2s;
+    }
+
+    .product-image:hover {
+        transform: scale(2);
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .edit-btn {
+        text-align: center;
+        display: inline-block;
+        width: 70px;
+        border-radius: 5px;
+        background-color: green;
+        color: white;
+        border: 1px solid green;
+        padding: 5px 5px 9px 5px;
+    }
+
+    .edit-btn:hover {
+        background-color: darkgreen;
+    }
+</style>
+
 
 <div class="container">
-    <div class="hidden" id="data" data-product= "{{ $products }}"></div>
+    <div class="hidden" id="data" data-product="{{ $products }}"></div>
     <div class="row">
         <div class="col-md-6">
             <h2>Order Status</h2>
@@ -38,7 +67,15 @@
             </div>
         </div>
     </div>
-
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h2>Search</h2>
+            <input type="text" id="searchInput" placeholder="Search products...">
+            <div class="input-group-append">
+                <button class="btn-search" type="button" id="searchButton">Search</button>
+            </div>
+        </div>
+    </div>
     <div class="row mt-4">
         <div class="col-md-12">
             <h2>Product List</h2>
@@ -47,6 +84,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <!-- <th>Description<th> -->
                         <th>Quantity</th>
                         <th>Brand</th>
                         <th>Color</th>
@@ -65,6 +103,7 @@
                     <tr>
                         <td>{{ $product->id }}</td>
                         <td>{{ $product->Name_sneaker }}</td>
+                        <!-- <td>{{ $product->Description}}</td> -->
                         <td>{{ $product->Quantity }}</td>
                         <td>{{ $product->Brand }}</td>
                         <td>{{ $product->Color }}</td>
@@ -74,9 +113,9 @@
                         <td>{{ $product->Product_Code }}</td>
                         <td>{{ $product->Price }}</td>
                         <td>{{ $product->Size }}</td>
-                        <td><img src="{{ asset($product->Image) }}" alt="Product Image" style="width: 100px; height: 100px;"></td>
+                        <td><img src="{{ asset($product->Image) }}" class="product-image" alt="Product Image" style="width: 100px; height: 100%;"></td>
                         <td>
-                            <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('admin.product.edit', $product->id) }}" class="edit-btn">Edit</a>
                             <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -94,7 +133,6 @@
 
 @push('scripts')
 <script>
-    
     document.getElementById('orderStatusFilter').addEventListener('change', function() {
         let status = this.value;
         if (status) {
@@ -106,8 +144,5 @@
 
     const dataEl = document.getElementById('data');
     console.log(dataEl);
-
 </script>
-</script>
-
 @endpush

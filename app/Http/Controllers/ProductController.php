@@ -71,8 +71,11 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $productCode = 'HTH-' . $request->input('product_code');
+        $request->merge(['product_code' => $productCode]);
         $request->validate([
             'name' => 'required|string',
+            'description' => 'required|string',
             'quantity' => 'required|integer|min:0',
             'brand' => 'required|string',
             'color' => 'required|string',
@@ -82,35 +85,35 @@ class ProductController extends Controller
             'product_code' => 'required|string|unique:products',
             'price' => 'required|numeric|min:0',
             'size' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:4096',
         ]);
 
-        $existingProduct = Product::where('Size', $request->size)->first();
+        $existingProduct = Product::where('Product_Code', $request->product_code)->first();
         if ($existingProduct) {
-            return back()->with('error', 'Sản phẩm có cùng kích cỡ đã tồn tại.');
+            return back()->with('error', 'Sản phẩm với product code này đã tồn tại.');
         }
 
-        if ($request->file('image')->getSize() > 2048 * 1024) {
-            return redirect()->back()->with('error', 'Kích thước hình ảnh không được vượt quá 2MB.');
+        if ($request->file('image')->getSize() > 4 * 1024 * 1024) {
+            return redirect()->back()->with('error', 'Kích thước hình ảnh không được vượt quá 4MB.');
         }
 
         // Kiểm tra các thông tin trừ tên sản phẩm có trùng lặp không
-        $duplicatedFields = [
-            'Brand' => $request->brand,
-            'Color' => $request->color,
-            'Origin' => $request->origin,
-            'Material' => $request->material,
-            'Status_Sneaker' => $request->status,
-            'Price' => $request->price,
-            'Size' => $request->size,
-        ];
+        // $duplicatedFields = [
+        //     'Brand' => $request->brand,
+        //     'Color' => $request->color,
+        //     'Origin' => $request->origin,
+        //     'Material' => $request->material,
+        //     'Status_Sneaker' => $request->status,
+        //     'Price' => $request->price,
+        //     'Size' => $request->size,
+        // ];
 
-        foreach ($duplicatedFields as $field => $value) {
-            $existingProduct = Product::where($field, $value)->first();
-            if ($existingProduct) {
-                return back()->with('error', "Thông tin '$field' đã tồn tại cho sản phẩm khác.");
-            }
-        }
+        // foreach ($duplicatedFields as $field => $value) {
+        //     $existingProduct = Product::where($field, $value)->first();
+        //     if ($existingProduct) {
+        //         return back()->with('error', "Thông tin '$field' đã tồn tại cho sản phẩm khác.");
+        //     }
+        // }
 
         $destinationPath = 'public/product_images';
         $randomize = rand(111111, 999999);
@@ -120,6 +123,7 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->Name_sneaker = $request->name;
+        $product->Description = $request->description;
         $product->Quantity = $request->quantity;
         $product->Brand = $request->brand;
         $product->Color = $request->color;

@@ -7,18 +7,27 @@
     outline: none;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
 
     height: 1000px;
 }
 
 .header {
-    max-width: 1280px;
-    margin: 0 auto;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 20;
+    border-bottom: 1px solid #eaecf0;
+    width: 100%;
+    margin-bottom: 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 10px 55px;
 }
 
 .header-left {
@@ -131,6 +140,7 @@ body {
     display: flex;
     justify-content: space-between;
 }
+<<<<<<< HEAD
 .reviewSection{
     position: relative;
     padding: 200px 0 200px 0;
@@ -169,4 +179,73 @@ body {
 
 .review.active {
     display: block;
+=======
+
+.product-hot-new {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 25px;
+    max-width: 1280px;
+    margin: 8rem auto 0 auto;
+}
+
+.item-product {
+    padding: 18px;
+    /* border: 1px solid #757575; */
+    border-radius: 25px;
+    box-shadow: 0px 2px 1px 0px rgba(16, 24, 40, .06), 0px 1px 10px 0px rgba(16, 24, 40, .1);
+}
+
+.item-product img {
+    border-radius: 20px;
+    height: 216px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 1s ease-in-out;
+    /* opacity: 0.9; */
+}
+
+.img-product {
+    margin-bottom: 15px;
+    height: 216px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.item-product img:hover {
+    transform: scale(1.09);
+}
+
+.item-product .title {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 700;
+    color: #20252e;
+    margin-bottom: 8px;
+}
+
+.item-product .price {
+    margin-top: auto;
+    font-size: 18px;
+    margin-right: 10px;
+    font-weight: 700;
+    color: #e76868;
+    text-align: end;
+}
+
+.item-product .description {
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #475467;
+}
+
+.infor {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    height: 150px;
+>>>>>>> ee69f57fbbec165089d8e81741e424b45af2a7ad
 }

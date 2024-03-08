@@ -64,7 +64,7 @@
 
                         <div class="form-group">
                             <label for="product_code">Mã Sản Phẩm:</label>
-                            <input type="text" name="product_code" id="product_code" class="form-control" required>
+                            <input type="text" name="product_code" id="product_code" class="form-control" placeholder="This code must be 'HTH-XXXXX' " required>
                         </div>
 
                         <div class="form-group">
