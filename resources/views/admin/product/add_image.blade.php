@@ -1,24 +1,98 @@
 @extends('layout.app')
 
 @section('content')
+<style>
+    .card-header {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .form-group label {
+        font-weight: bold;
+    }
+
+    #imagePreview {
+        display: none;
+        width: 200px;
+        height: auto;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .success-icon {
+        color: #28a745;
+    }
+
+    .fail-icon {
+        color: #dc3545;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .alert {
+        margin-top: 20px;
+        display: none;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="card">
-                <div class="card-header">Thêm Sản Phẩm Mới</div>
+                <div class="card-header"> <a href=""></a>Thêm Sản Phẩm Mới</div>
 
                 <div class="card-body">
-                    <div id="successMessage" class="alert alert-success" style="display: none;"></div>
+                    <div id="successMessage" class="alert alert-success" style="display: none;">
+                        <i class="fa fa-check-circle success-icon"></i> Thêm sản phẩm thành công
+                    </div>
 
-                    <div id="failMessage" class="alert alert-danger" style="display: none;"></div>
+                    <div id="failMessage" class="alert alert-danger" style="display: none;">
+                        <i class="fa fa-times-circle fail-icon"></i> Thêm sản phẩm thất bại
+                    </div>
 
-                    <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
+                    <form id="productForm" action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="image">Ảnh Sản Phẩm:</label>
                             <input type="file" name="image" id="image" accept="image/*" class="form-control-file" required>
                             <img id="imagePreview" src="#" alt="Preview" style="display: none; width: 200px; height: 100%;">
-
+                            <br>
                             <small class="form-text text-muted">Chọn ảnh có kích thước tối đa 2MB và định dạng JPG, PNG, JPEG, GIF, SVG.</small>
                         </div>
 
@@ -29,7 +103,7 @@
 
                         <div class="form-group">
                             <label for="description">Mô Tả:</label>
-                            <textarea name="description" id="description" class="form-control" ></textarea>
+                            <textarea name="description" id="description" class="form-control"></textarea>
                         </div>
 
                         <div class="form-group">

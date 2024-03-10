@@ -9,7 +9,7 @@
     }
 
     .product-image:hover {
-        transform: scale(2);
+        transform: scale(1.1);
     }
 
     a {
@@ -28,47 +28,51 @@
     }
 
     .edit-btn:hover {
-        background-color: darkgreen;
+        background-color: #218838;
+    }
+
+    .delete-btn {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: #dc3545;
+        color: white;
+        border: 1px solid #dc3545;
+        transition: background-color 0.3s;
+    }
+
+    .delete-btn:hover {
+        background-color: #c82333;
+    }
+
+    .search-container {
+        margin-bottom: 20px;
+    }
+
+    .search-input {
+        width: 70%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .search-button {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .table th,
+    .table td {
+        text-align: center;
     }
 </style>
 <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
 
 <div class="container">
-    <div class="hidden" id="data" data-product="{{ $products }}"></div>
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Order Status</h2>
-            <ul class="list-group">
-                @foreach($orderStatus as $status => $count)
-                <li class="list-group-item">{{ ucfirst($status) }}: {{ $count }}</li>
-                @endforeach
-            </ul>
-        </div>
-        <div class="col-md-6">
-            <h2>Notifications</h2>
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <h2>Customer Messages</h2>
-                    <ul class="list-group">
-                        @foreach($customerMessages as $message)
-                        <li class="list-group-item">{{ $message }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <h2>Customer Reviews</h2>
-                    <ul class="list-group">
-                        @foreach($customerReviews as $review)
-                        <li class="list-group-item">{{ $review }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row mt-4">
         <div class="col-md-12">
             <h2>Search</h2>
@@ -86,7 +90,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <!-- <th>Description<th> -->
                         <th>Quantity</th>
                         <th>Brand</th>
                         <th>Color</th>
@@ -105,7 +108,6 @@
                     <tr>
                         <td>{{ $product->id }}</td>
                         <td>{{ $product->Name_sneaker }}</td>
-                        <!-- <td>{{ $product->Description}}</td> -->
                         <td>{{ $product->Quantity }}</td>
                         <td>{{ $product->Brand }}</td>
                         <td>{{ $product->Color }}</td>
@@ -118,10 +120,10 @@
                         <td><img src="{{ asset($product->Image) }}" class="product-image" alt="Product Image" style="width: 100px; height: 100%;"></td>
                         <td>
                             <a href="{{ route('admin.product.edit', $product->id) }}" class="edit-btn">Edit</a>
-                            <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST" style="display: inline;">
+                            <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm chứ?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="delete-btn">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -135,16 +137,9 @@
 
 @push('scripts')
 <script>
-    document.getElementById('orderStatusFilter').addEventListener('change', function() {
-        let status = this.value;
-        if (status) {
-            window.location.href = '/admin/dashboard?status=' + status;
-        } else {
-            window.location.href = '/admin/dashboard';
-        }
+    document.getElementById('searchButton').addEventListener('click', function() {
+        let searchInput = document.getElementById('searchInput').value;
+        window.location.href = '/admin/dashboard?search=' + searchInput;
     });
-
-    const dataEl = document.getElementById('data');
-    console.log(dataEl);
 </script>
 @endpush

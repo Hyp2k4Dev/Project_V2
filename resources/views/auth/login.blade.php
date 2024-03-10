@@ -45,11 +45,6 @@
     <div class="container login-container">
         <div class="login-form">
             <h2>Login</h2>
-            @if(session('error'))
-            <div class="alert alert-danger" role="alert">
-                {{ session('error') }}
-            </div>
-            @endif
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
