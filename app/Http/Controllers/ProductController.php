@@ -88,32 +88,17 @@ class ProductController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg|max:4096',
         ]);
 
-        $existingProduct = Product::where('Product_Code', $request->product_code)->first();
+        $existingProduct = $this->existingProduct($request->product_code);
         if ($existingProduct) {
-            return back()->with('error', 'Sản phẩm với product code này đã tồn tại.');
+            return response()->json(['error' => 'Mã sản phẩm đã tồn tại. Vui lòng nhập mã sản phẩm khác.']);
         }
+        return response()->json(['success' => 'Sản phẩm được tạo thành công.']);
+
 
         if ($request->file('image')->getSize() > 4 * 1024 * 1024) {
             return redirect()->back()->with('error', 'Kích thước hình ảnh không được vượt quá 4MB.');
         }
 
-        // Kiểm tra các thông tin trừ tên sản phẩm có trùng lặp không
-        // $duplicatedFields = [
-        //     'Brand' => $request->brand,
-        //     'Color' => $request->color,
-        //     'Origin' => $request->origin,
-        //     'Material' => $request->material,
-        //     'Status_Sneaker' => $request->status,
-        //     'Price' => $request->price,
-        //     'Size' => $request->size,
-        // ];
-
-        // foreach ($duplicatedFields as $field => $value) {
-        //     $existingProduct = Product::where($field, $value)->first();
-        //     if ($existingProduct) {
-        //         return back()->with('error', "Thông tin '$field' đã tồn tại cho sản phẩm khác.");
-        //     }
-        // }
 
         $destinationPath = 'public/product_images';
         $randomize = rand(111111, 999999);
@@ -143,5 +128,9 @@ class ProductController extends Controller
     {
         $imageData = Postimage::all();
         return view('Image.view_image', compact('imageData'));
+    }
+    private function existingProduct($productCode)
+    {
+        return Product::where('Product_Code', $productCode)->first();
     }
 }
