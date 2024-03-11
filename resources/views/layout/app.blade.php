@@ -1,5 +1,3 @@
-<!-- resources/views/layouts/app.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,19 +10,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Your custom CSS -->
     <link rel="stylesheet" href="/css/be/app.css">
+    <style>
+        
+    </style>
 </head>
 
 <body>
     <header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <img src="{{ asset('images/logo-shop.png') }}" alt="Logo" width="100px" height="100px">
+            <div class="container"> <!-- Thêm lớp justify-content-end để căn phải -->
+                <a href="{{ route('admin.dashboard') }}">
+                    <img src="{{ asset('images/logo-shop.png') }}" alt="Logo" width="70px" height="70px">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav"> <!-- Không cần thêm lớp ml-auto -->
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ route('admin.dashboard') }}">Home</a>
                         </li>
@@ -33,10 +36,6 @@
                                 @csrf
                                 <button type="submit" class="nav-link btn btn-link">Logout</button>
                             </form>
-                        </li>
-                        <!-- Thêm nút thêm sản phẩm -->
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary" href="{{ route('admin.product.add_image') }}">Thêm sản phẩm</a>
                         </li>
                     </ul>
                 </div>
@@ -51,7 +50,7 @@
 
     <footer class="bg-dark text-light text-center py-3">
         <!-- Footer content -->
-        &copy; 2024 Your Website. All rights reserved.
+        &copy; 2024 HTH Store. All rights reserved.
     </footer>
 
     <!-- Bootstrap JS -->

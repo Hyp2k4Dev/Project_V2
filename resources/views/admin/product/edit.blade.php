@@ -3,6 +3,14 @@
 @extends('layout.app')
 
 @section('content')
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+    body {
+        font-family: "Poppins", sans-serif;
+        color: #444444;
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -40,6 +48,10 @@
                         <div class="form-group">
                             <label for="material">{{ __('Material') }}</label>
                             <input id="material" type="text" class="form-control" name="Material" value="{{ $product->Material }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_code">{{ __('Product Code') }}</label>
+                            <input id="product_code" type="text" class="form-control" name="Product_Code" value="{{ $product->Product_Code }}" required>
                         </div>
 
                         <div class="form-group">

@@ -1,81 +1,113 @@
 @extends('layout.app')
 
 @section('content')
-<style>
-    .card-header {
-        background-color: #007bff;
-        color: white;
-    }
+<!DOCTYPE html>
+<html lang="en">
 
-    .form-group label {
-        font-weight: bold;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'>
+    <title>Thêm Sản Phẩm Mới</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
-    #imagePreview {
-        display: none;
-        width: 200px;
-        height: auto;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Raleway, sans-serif;
+        }
 
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+        }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
+        .form-group label {
+            font-weight: bold;
+            font-family: 'Raleway', sans-serif;
+        }
 
-    .success-icon {
-        color: #28a745;
-    }
+        #imagePreview {
+            display: none;
+            width: 200px;
+            height: auto;
+        }
 
-    .fail-icon {
-        color: #dc3545;
-    }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
 
-    .form-group {
-        margin-bottom: 20px;
-    }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
 
-    .form-group label {
-        margin-bottom: 5px;
-    }
+        .success-icon {
+            color: #28a745;
+        }
 
-    .form-control {
-        width: 100%;
-        padding: 8px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
+        .fail-icon {
+            color: #dc3545;
+        }
 
-    .form-control:focus {
-        outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-    .btn-primary {
-        padding: 10px 20px;
-        border-radius: 5px;
-    }
+        .form-group label {
+            margin-bottom: 5px;
+        }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
 
-    .alert {
-        margin-top: 20px;
-        display: none;
-    }
+        .form-control:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
 
-    .required {
-        color: red;
-        margin-left: 3px;
-    }
-</style>
+        .btn-primary {
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .alert {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .required {
+            color: red;
+            margin-left: 3px;
+        }
+
+        /* Thêm CSS để tạo responsive layout */
+        @media (min-width: 576px) {
+            .offset-md-2 {
+                margin-left: 16.66667%;
+            }
+
+            .col-md-8 {
+                flex: 0 0 66.66667%;
+                max-width: 66.66667%;
+            }
+        }
+    </style>
+</head>
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">

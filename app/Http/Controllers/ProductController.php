@@ -13,7 +13,6 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        dd($products);
         return view('admin.dashboard', compact('products'));
     }
 
@@ -38,6 +37,7 @@ class ProductController extends Controller
             'Color' => 'required|string',
             'Origin' => 'required|string',
             'Material' => 'required|string',
+            'Product_Code' => 'required|string',
             'Status_Sneaker' => 'required|string',
             'Price' => 'required|numeric',
             'Size' => 'required|string',
@@ -92,13 +92,10 @@ class ProductController extends Controller
         if ($existingProduct) {
             return response()->json(['error' => 'Mã sản phẩm đã tồn tại. Vui lòng nhập mã sản phẩm khác.']);
         }
-        return response()->json(['success' => 'Sản phẩm được tạo thành công.']);
-
 
         if ($request->file('image')->getSize() > 4 * 1024 * 1024) {
             return redirect()->back()->with('error', 'Kích thước hình ảnh không được vượt quá 4MB.');
         }
-
 
         $destinationPath = 'public/product_images';
         $randomize = rand(111111, 999999);
@@ -121,7 +118,7 @@ class ProductController extends Controller
         $product->Image = Storage::url("$destinationPath/$fileName");
         $product->save();
 
-        return back()->with('success', 'Product uploaded successfully.');
+        return response()->json(['success' => 'Sản phẩm được tạo thành công.']);
     }
 
     public function viewImage()
