@@ -252,7 +252,6 @@
                         <p class="product-quantity">Quantity: {{ $product->Quantity}}</p>
                         <p class="product-size">Size: {{ $product->Size}}</p>
                         <p class="product-code">Product Code: {{$product->Product_Code}}</p>
-
                     </div>
                 </div>
             </div>

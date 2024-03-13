@@ -1,20 +1,29 @@
 document.addEventListener('DOMContentLoaded', function () {
     let reviews = document.querySelectorAll('.review');
-    let currentIndex = 0;
+    let buttons = document.querySelectorAll('.review-buttons button');
 
     function showReview(index) {
         reviews.forEach(review => review.classList.remove('active'));
         reviews[index].classList.add('active');
     }
 
-    function nextReview() {
-        currentIndex = (currentIndex + 1) % reviews.length;
-        showReview(currentIndex);
+    function selectReview(index) {
+        showReview(index);
     }
 
-    // Tự động chuyển đổi đánh giá sau mỗi 5 giây
-    setInterval(nextReview, 4000);
+    function autoSwitchReview() {
+        let currentIndex = Array.from(reviews).findIndex(review => review.classList.contains('active'));
+        let nextIndex = (currentIndex + 1) % reviews.length;
+        showReview(nextIndex);
+    }
 
-    // Hiển thị đánh giá đầu tiên khi trang được tải
-    showReview(currentIndex);
+    setInterval(autoSwitchReview, 5000);
+
+    showReview(0);
+
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', function () {
+            selectReview(index);
+        });
+    });
 });
