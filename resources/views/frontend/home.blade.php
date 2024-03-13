@@ -41,6 +41,30 @@
             </div>
         </div>
     </div>
+    <div class="product-hot-new">
+        @foreach($products as $product)
+        <a href="#" class="item-product">
+            <div class="img-product">
+                <img src="{{ asset($product->Image) }}" alt="Product Image">
+            </div>
+            <div class="infor">
+                <p class="title">{{ $product->Name_sneaker }}</p>
+                <p class="description">
+                    <?php
+                    $description = $product->Description;
+                    if (strlen($description) > 268) {
+                        $trimmedDescription = substr($description, 0, 268) . '...';
+                        echo $trimmedDescription;
+                    } else {
+                        echo $description;
+                    }
+                    ?>
+                </p>
+                <p class="price"> {{ $product->Price }} đ</p>
+            </div>
+        </a>
+        @endforeach
+    </div>
     <div class="reviewSection">
         <img src="{{ asset('images/section-background.png') }}" alt="Mô tả của hình ảnh">
         <div class="homeReview">
@@ -84,34 +108,8 @@
                     <!-- Thêm nút hoặc menu thả xuống cho các đánh giá khác nếu cần -->
                 </div>
             </div>
-
-
-
-
-            <div class="product-hot-new">
-                @foreach($products as $product)
-                <a href="#" class="item-product">
-                    <div class="img-product">
-                        <img src="{{ asset($product->Image) }}" alt="Product Image">
-                    </div>
-                    <div class="infor">
-                        <p class="title">{{ $product->Name_sneaker }}</p>
-                        <p class="description">
-                            <?php
-                            $description = $product->Description;
-                            if (strlen($description) > 268) {
-                                $trimmedDescription = substr($description, 0, 268) . '...';
-                                echo $trimmedDescription;
-                            } else {
-                                echo $description;
-                            }
-                            ?>
-                        </p>
-                        <p class="price"> {{ $product->Price }} đ</p>
-                    </div>
-                </a>
-                @endforeach
-            </div>
+        </div>
+    </div>
 </body>
 
 </html>

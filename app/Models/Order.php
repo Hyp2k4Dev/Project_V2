@@ -7,15 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory;
+    protected $table = 'orders';
 
-    
-    protected $fillable = [
-        'product_id',
-        'quantity',
-        'status',
-        // Thêm các trường khác cần thiết ở đây
-    ];
+    protected $fillable = ['customer_id', 'order_date', 'total_amount'];
 
-    // Định nghĩa các quan hệ với các model khác nếu cần thiết
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class, 'order_id');
+    }
 }

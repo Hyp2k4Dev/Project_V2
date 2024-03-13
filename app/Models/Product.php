@@ -10,17 +10,21 @@ class Product extends Model
     use HasFactory;
 
     public $fillable = [
-    'Name_sneaker',
-    'Quantity',
-    'Brand',
-    'Color',
-    'Origin',
-    'Material',
-    'Status_Sneaker',
-    'Product_Code',
-    'Price',
-    'Size',
-    'Image'
-];
+        'Name_sneaker',
+        'Quantity',
+        'Brand',
+        'Color',
+        'Origin',
+        'Material',
+        'Status_Sneaker',
+        'Product_Code',
+        'Price',
+        'Size',
+        'Image'
+    ];
 
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class, 'product_id');
+    }
 }
