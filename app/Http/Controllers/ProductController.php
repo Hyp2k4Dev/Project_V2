@@ -13,6 +13,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
+        dd($products);
         return view('admin.dashboard', compact('products'));
     }
 
@@ -37,7 +38,6 @@ class ProductController extends Controller
             'Color' => 'required|string',
             'Origin' => 'required|string',
             'Material' => 'required|string',
-            'Product_Code' => 'required|string',
             'Status_Sneaker' => 'required|string',
             'Price' => 'required|numeric',
             'Size' => 'required|string',
@@ -74,28 +74,28 @@ class ProductController extends Controller
         $productCode = 'HTH-' . $request->input('product_code');
         $request->merge(['product_code' => $productCode]);
         $request->validate([
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'quantity' => 'required|integer|min:0',
-            'brand' => 'required|string',
-            'color' => 'required|string',
-            'origin' => 'required|string',
-            'material' => 'required|string',
-            'status' => 'required|string',
-            'product_code' => 'required|string|unique:products',
-            'price' => 'required|numeric|min:0',
-            'size' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:4096',
+            // 'name' => 'required|string',
+            // // 'description' => 'required|string',
+            // 'quantity' => 'required|integer|min:0',
+            // 'brand' => 'required|string',
+            // 'color' => 'required|string',
+            // 'origin' => 'required|string',
+            // 'material' => 'required|string',
+            // 'status' => 'required|string',
+            // 'product_code' => 'required|string|unique:products',
+            // 'price' => 'required|numeric|min:0',
+            // 'size' => 'required|string|max:2',
+            // 'image' => 'required|image|mimes:jpeg,png,jpg|max:4096',
         ]);
 
-        $existingProduct = $this->existingProduct($request->product_code);
+        $existingProduct = Product::where('Product_Code', $request->product_code)->first();
         if ($existingProduct) {
-            return response()->json(['error' => 'Mã sản phẩm đã tồn tại. Vui lòng nhập mã sản phẩm khác.']);
+            return back()->with('error', 'Sản phẩm với product code này đã tồn tại.');
         }
-
         if ($request->file('image')->getSize() > 4 * 1024 * 1024) {
             return redirect()->back()->with('error', 'Kích thước hình ảnh không được vượt quá 4MB.');
         }
+
 
         $destinationPath = 'public/product_images';
         $randomize = rand(111111, 999999);
@@ -118,16 +118,12 @@ class ProductController extends Controller
         $product->Image = Storage::url("$destinationPath/$fileName");
         $product->save();
 
-        return response()->json(['success' => 'Sản phẩm được tạo thành công.']);
+        return back()->with('success', 'Product uploaded successfully.');
     }
 
     public function viewImage()
     {
         $imageData = Postimage::all();
         return view('Image.view_image', compact('imageData'));
-    }
-    private function existingProduct($productCode)
-    {
-        return Product::where('Product_Code', $productCode)->first();
     }
 }
