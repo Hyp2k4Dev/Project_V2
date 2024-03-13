@@ -140,6 +140,49 @@ body {
     justify-content: space-between;
 }
 
+.reviewSection {
+    position: relative;
+    padding: 200px 0 200px 0;
+}
+
+.reviewSection>img {
+    background-color: #f3ffff;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.homeReview {
+    position: absolute;
+    top: 250px;
+    padding: 0 20px 20px 80px;
+}
+
+.homeReview>p {}
+
+.upper-case {
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+}
+
+.reviews-container {
+    width: 300px;
+    /* Điều chỉnh kích thước container theo ý muốn */
+    overflow: hidden;
+}
+
+.review {
+    display: none;
+    padding: 10px;
+}
+
+.review.active {
+    display: block;
+}
 .product-hot-new {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

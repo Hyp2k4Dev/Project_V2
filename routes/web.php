@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\RegisterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\HomeFE;
+use App\Http\Controllers\Order\OrderController;
 
 // Frontend routes
 Route::get('/', [HomeFE::class, 'index'])->name('frontend.home');
@@ -14,12 +15,16 @@ Route::get('/product', [HomeFE::class, 'product'])->name('frontend.product');
 Route::get('/about', [HomeFE::class, 'product'])->name('frontend.product');
 Route::get('/blog', [HomeFE::class, 'product'])->name('frontend.product');
 
+//order
+Route::get('/order', [OrderController::class, 'index'])->name('frontend.order');
+Route::post('/order-submit', [OrderController::class, 'createOrder']);
+
 // Authentication routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
+// Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+// Route::post('/register', [RegisterController::class, 'register']);
 
 // Admin routes
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
@@ -28,6 +33,8 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/admin/product/store', [ProductController::class, 'store'])->name('admin.product.store');
     Route::get('admin/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.product.edit');
     Route::put('admin/product/{id}', [ProductController::class, 'update'])->name('admin.product.update');
+    Route::post('/check-product-code', 'ProductController@checkProductCode')->name('admin.product.check_code');
+    Route::get('/analytic', [AdminDashboardController::class, 'index'])->name('admin.analytic');
 
     // Thêm route cho tính năng xoá sản phẩm
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('admin.product.destroy');

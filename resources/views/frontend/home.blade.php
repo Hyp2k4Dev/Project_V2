@@ -75,11 +75,18 @@
                 <h1>Đánh giá từ những người <br>đã mua sản phẩm</h1>
                 <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
                 <img src="https://mixivivu.com/quote.svg" alt="#" style="padding:40px 10px 0 0;" >
+        <img src="{{ asset('images/section-background.png') }}" alt="Mô tả của hình ảnh">
+        <div class="homeReview">
+            <h1>Đánh giá từ những người <br>đã mua sản phẩm</h1>
+            <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
+            <img src="https://mixivivu.com/quote.svg" alt="#" style="padding:40px 10px 0 0;">
             <div class="reviews-container">
                 <div class="review active">
                     <p class="subHeading">Trải Nghiệm Tuyệt Vời với Đôi Giày Mới!</p>
                     <p>Tôi vô cùng hài lòng với trải nghiệm của mình khi mua giày từ cửa hàng này.
                         <br> Đôi giày mới không chỉ làm tôi hạnh phúc vì vẻ ngoại hình tuyệt vời mà còn mang lại cảm giác thoải mái không thể tin được."</p>
+                        <br> Đôi giày mới không chỉ làm tôi hạnh phúc vì vẻ ngoại hình tuyệt vời mà còn mang lại cảm giác thoải mái không thể tin được."
+                    </p>
                     <p class="author">- Anh Trung</p>
                 </div>
                 <div class="review">
@@ -162,6 +169,17 @@
             </div>
         </div>
     </div>
-
+                <div class="review-buttons">
+                    <button onclick="showReview(0)">Đánh Giá 1</button>
+                    <button onclick="showReview(1)">Đánh Giá 2</button>
+                    <button onclick="showReview(2)">Đánh Giá 3</button>
+                    <button onclick="showReview(3)">Đánh Giá 4</button>
+                    <button onclick="showReview(4)">Đánh Giá 5</button>
+                    <!-- Thêm nút hoặc menu thả xuống cho các đánh giá khác nếu cần -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </body>
 </html>
