@@ -6,7 +6,7 @@ use App\Models\Postimage;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
+use App\Models\Size;
 
 class ProductController extends Controller
 {
@@ -71,38 +71,19 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $productCode = 'HTH-' . $request->input('product_code');
-        $request->merge(['product_code' => $productCode]);
+        // Validate request
         $request->validate([
-            // 'name' => 'required|string',
-            // // 'description' => 'required|string',
-            // 'quantity' => 'required|integer|min:0',
-            // 'brand' => 'required|string',
-            // 'color' => 'required|string',
-            // 'origin' => 'required|string',
-            // 'material' => 'required|string',
-            // 'status' => 'required|string',
-            // 'product_code' => 'required|string|unique:products',
-            // 'price' => 'required|numeric|min:0',
-            // 'size' => 'required|string|max:2',
-            // 'image' => 'required|image|mimes:jpeg,png,jpg|max:4096',
+            // Your validation rules here
         ]);
 
-        $existingProduct = Product::where('Product_Code', $request->product_code)->first();
-        if ($existingProduct) {
-            return back()->with('error', 'Sản phẩm với product code này đã tồn tại.');
-        }
-        if ($request->file('image')->getSize() > 4 * 1024 * 1024) {
-            return redirect()->back()->with('error', 'Kích thước hình ảnh không được vượt quá 4MB.');
-        }
-
-
+        // Store product image
         $destinationPath = 'public/product_images';
         $randomize = rand(111111, 999999);
         $extension = $request->file('image')->getClientOriginalExtension();
         $fileName = $randomize . '.' . $extension;
         $imagePath = $request->file('image')->storeAs($destinationPath, $fileName);
 
+        // Create new product
         $product = new Product();
         $product->Name_sneaker = $request->name;
         $product->Description = $request->description;
@@ -117,6 +98,13 @@ class ProductController extends Controller
         $product->Size = $request->size;
         $product->Image = Storage::url("$destinationPath/$fileName");
         $product->save();
+
+        // Create size entry for the product
+        $size = new Size();
+        $size->product_id = $product->id; // Assuming product_id is the foreign key
+        $size->size_name = $request->size;
+        $size->quantity = $request->quantity; // Or whatever quantity you want to set
+        $size->save();
 
         return back()->with('success', 'Product uploaded successfully.');
     }
