@@ -41,6 +41,10 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 89bc0a542e5d50516f9ce90bf999840c913404dd
     <div class="product-hot-new">
         @foreach($products as $product)
         <a href="#" class="item-product">
@@ -108,8 +112,11 @@
                     <!-- Thêm nút hoặc menu thả xuống cho các đánh giá khác nếu cần -->
                 </div>
             </div>
+<<<<<<< HEAD
         </div>
     </div>
+=======
+>>>>>>> 89bc0a542e5d50516f9ce90bf999840c913404dd
 </body>
 
 </html>
