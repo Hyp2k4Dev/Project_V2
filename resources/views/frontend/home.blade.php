@@ -10,7 +10,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('js/homepage.js') }}"></script>
 </head>
 
@@ -72,11 +71,6 @@
     <div class="reviewSection">
             <img src="{{ asset('images/section-background.png') }}" alt="Mô tả của hình ảnh">
         <div class="homeReview">
-                <h1>Đánh giá từ những người <br>đã mua sản phẩm</h1>
-                <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
-                <img src="https://mixivivu.com/quote.svg" alt="#" style="padding:40px 10px 0 0;" >
-        <img src="{{ asset('images/section-background.png') }}" alt="Mô tả của hình ảnh">
-        <div class="homeReview">
             <h1>Đánh giá từ những người <br>đã mua sản phẩm</h1>
             <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
             <img src="https://mixivivu.com/quote.svg" alt="#" style="padding:40px 10px 0 0;">
@@ -135,12 +129,41 @@
                 <p>Khám phá thế giới giày với những thương hiệu hàng đầu như Nike, Adidas, Balenciaga, Converse, và Vans - nơi đa dạng và phong cách đỉnh cao đáp ứng mọi sở thích và xu hướng.</p>
         </div>
     </div>
-    <div class="card">
-        <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="newBlog">
+        <div class="row" id="cardContainer">
+            <div class="col-md-4 mb-3 boxCard">
+                <div class="card">
+                    <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title 1</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3 boxCard">
+                <div class="card">
+                    <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title 2</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3 boxCard">
+                <div class="card">
+                    <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title 3</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4" style="padding-right: 100px">
+            <button id="showMoreBtn" class="btn btn-primary">Xem thêm</button>
         </div>
     </div>
     <div class="footer">
@@ -166,17 +189,6 @@
                     <li><a href="#">Chính sách bảo mật</a></li>
                     <li><a href="#">Điều khoản sử dụng</a></li>
                 </ul>
-            </div>
-        </div>
-    </div>
-                <div class="review-buttons">
-                    <button onclick="showReview(0)">Đánh Giá 1</button>
-                    <button onclick="showReview(1)">Đánh Giá 2</button>
-                    <button onclick="showReview(2)">Đánh Giá 3</button>
-                    <button onclick="showReview(3)">Đánh Giá 4</button>
-                    <button onclick="showReview(4)">Đánh Giá 5</button>
-                    <!-- Thêm nút hoặc menu thả xuống cho các đánh giá khác nếu cần -->
-                </div>
             </div>
         </div>
     </div>

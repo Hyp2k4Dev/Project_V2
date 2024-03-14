@@ -139,50 +139,6 @@ body {
     display: flex;
     justify-content: space-between;
 }
-
-.reviewSection {
-    position: relative;
-    padding: 200px 0 200px 0;
-}
-
-.reviewSection>img {
-    background-color: #f3ffff;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-}
-
-.homeReview {
-    position: absolute;
-    top: 250px;
-    padding: 0 20px 20px 80px;
-}
-
-.homeReview>p {}
-
-.upper-case {
-    text-transform: uppercase;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 600;
-}
-
-.reviews-container {
-    width: 300px;
-    /* Điều chỉnh kích thước container theo ý muốn */
-    overflow: hidden;
-}
-
-.review {
-    display: none;
-    padding: 10px;
-}
-
-.review.active {
-    display: block;
-}
 .product-hot-new {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -209,6 +165,7 @@ body {
 }
 
 .img-product {
+    text-decoration: none;
     margin-bottom: 15px;
     height: 216px;
     width: 100%;
@@ -243,42 +200,36 @@ body {
     font-weight: 500;
     color: #475467;
 }
-
-.infor {
-    justify-content: space-between;
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0%;
-    height: 150px;
-}
 .reviewSection {
     position: relative;
     padding: 200px 0 200px 0;
 }
-.reviewSection > img {
+
+.reviewSection>img {
     background-color: #f3ffff;
     padding: 0;
     margin: 0;
     width: 100%;
-    height: 450px;
+    height: 600px;
     object-fit: cover;
 }
+
 .homeReview {
     position: absolute;
     top: 250px;
     padding: 0 20px 20px 80px;
 }
-.homeReview > p {
-}
+
+
 .upper-case {
     text-transform: uppercase;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 24px;
-    font-weight: 600;
+    font-weight: 600px;
 }
+
 .reviews-container {
-    text-align: center;
-    width: 500px; /* Điều chỉnh kích thước container theo ý muốn */
+    width: 600px;
     overflow: hidden;
 }
 
@@ -290,6 +241,21 @@ body {
 .review.active {
     display: block;
 }
+.infor {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    height: 150px;
+}
+
+
+
+.review {
+    display: none;
+    padding: 10px;
+}
+
 .review-buttons{
     display: flex;
     position: absolute;
@@ -336,10 +302,11 @@ body {
     position: absolute;
     padding-top: 100px;
     text-align: center;
-    width: 500px; /* Điều chỉnh kích thước container theo ý muốn */
+    width: 500px;
     overflow: hidden;
     left: 500px;
 }
+
 .footer {
     background-color: #333;
     color: #fff;
@@ -358,4 +325,43 @@ body {
 .footer-section {
     flex: 1;
     margin: 10px;
+}
+.footer-section li{
+    list-style: none;
+}
+.footer-section a{
+    text-decoration: none;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col {
+    flex: 0 0 auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+.boxCard {
+    flex: 0 0 calc(33.333% - 30px);
+    max-width: calc(33.333% - 30px);
+}
+
+.boxCard .card {
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+#showMoreBtn {
+    margin-top: 20px;
 }
