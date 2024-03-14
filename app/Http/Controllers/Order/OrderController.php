@@ -47,13 +47,11 @@ class OrderController extends Controller
             }
 
             $orderDetail = new OrderDetail();
-            $orderDetail->order_id = $order->id;
+            $orderDetail->order_id = $order->order_id;
             $orderDetail->product_id = $product->id;
             $orderDetail->quantity = $productData['quantity'];
             $orderDetail->size = $productData['size'];
             $orderDetail->subtotal = $product->Price * $productData['quantity'];
-            // var_dump($product->Price * $productData['quantity']);
-            // return;
             $orderDetail->save();
 
             $order->total_amount += $orderDetail->subtotal;
@@ -63,4 +61,20 @@ class OrderController extends Controller
 
         return redirect('/')->with('success', 'Đã tạo đơn hàng thành công');
     }
+
+
+    public function show()
+    {
+        $pendingOrders = Order::where('status_order', 'pending')
+            ->with('customer', 'orderDetails.product')
+            ->get();
+        return view('user.orderList', compact('pendingOrders'));
+    }
 }
+
+    // foreach ($pendingOrders as $order) {
+    //     foreach ($order->orderDetails as $detail) {
+    //         $product = $detail->product;
+    //         echo "Tên sản phẩm: $product->Name_sneaker, Số lượng: $detail->quantity, Kích thước: $detail->size<br>";
+    //     }
+    // }

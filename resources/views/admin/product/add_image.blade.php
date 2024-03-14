@@ -143,11 +143,11 @@
                             <textarea name="description" id="description" class="form-control"></textarea>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="quantity">Số Lượng:<span class="required">*</span></label>
                             <input type="number" name="quantity" id="quantity" class="form-control" required>
                             <span id="quantityError" class="text-danger" style="display: none;">Số lượng không hợp lệ</span>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label for="brand">Thương Hiệu:<span class="required">*</span></label>
@@ -184,14 +184,18 @@
                             <input type="number" name="price" id="price" class="form-control" required>
                             <span id="priceError" class="text-danger" style="display: none;">Giá không hợp lệ</span>
                         </div>
-
-                        <div class="form-group">
+                        <div id="sizeForms">
                             <label for="size">Kích Cỡ:<span class="required">*</span></label>
                             <input type="text" name="size" id="size" class="form-control" required>
-                        </div>
 
+                            <label for="quantity">Số Lượng:<span class="required">*</span></label>
+                            <input type="number" name="quantity" id="quantity" class="form-control" required>
+                            <span id="quantityError" class="text-danger" style="display: none;">Số lượng không hợp lệ</span>
+                        </div>
+                        <button type="button" onclick="addSizeForm()">Thêm Size Khác</button>
                         <button type="submit" class="btn btn-primary">Thêm Sản Phẩm</button>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -250,5 +254,43 @@
                 console.error('Error:', error);
             });
     });
+
+    function addSizeForm() {
+        const sizeFormsContainer = document.getElementById('sizeForms');
+        const sizeFormCount = sizeFormsContainer.querySelectorAll('.form-group').length + 1;
+        const sizeFormHtml = `
+                <div class="form-group" id="sizeForm${sizeFormCount}">
+                    <label for="size${sizeFormCount}">Kích Cỡ:<span class="required">*</span></label>
+                    <input type="text" name="sizes[${sizeFormCount}][size]" class="form-control" required>
+                    <label for="quantity${sizeFormCount}">Số Lượng:<span class="required">*</span></label>
+                    <input type="number" name="sizes[${sizeFormCount}][quantity]" class="form-control" required>
+                    <span class="text-danger" style="display: none;">Số lượng không hợp lệ</span>
+                    <button type="button" onclick="removeSizeForm(${sizeFormCount})">Xoá</button>
+                </div>
+            `;
+        sizeFormsContainer.insertAdjacentHTML('beforeend', sizeFormHtml);
+    }
+
+    function removeSizeForm(sizeFormId) {
+        const sizeForm = document.getElementById(`sizeForm${sizeFormId}`);
+        if (sizeForm) {
+            sizeForm.parentNode.removeChild(sizeForm);
+        }
+    }
+
+    document.getElementById('image').onchange = function(evt) {
+        var tgt = evt.target || window.event.srcElement,
+            files = tgt.files;
+
+        // FileReader support
+        if (FileReader && files && files.length) {
+            var fr = new FileReader();
+            fr.onload = function() {
+                document.getElementById('imagePreview').src = fr.result;
+                document.getElementById('imagePreview').style.display = 'block';
+            }
+            fr.readAsDataURL(files[0]);
+        }
+    }
 </script>
 @endsection
