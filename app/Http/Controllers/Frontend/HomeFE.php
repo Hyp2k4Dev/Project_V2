@@ -22,6 +22,10 @@ class HomeFE extends Controller
     {
         return view('frontend.about');
     }
+    public function blog()
+    {
+        return view('frontend.blog');
+    }
 
     public function contact()
     {
