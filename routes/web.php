@@ -13,7 +13,7 @@ use App\Http\Controllers\Order\OrderController;
 Route::get('/', [HomeFE::class, 'index'])->name('frontend.home');
 Route::get('/product', [HomeFE::class, 'product'])->name('frontend.product');
 Route::get('/about', [HomeFE::class, 'product'])->name('frontend.product');
-Route::get('/blog', [HomeFE::class, 'product'])->name('frontend.product');
+Route::get('/blog', [HomeFE::class, 'blog'])->name('frontend.blog');
 
 //order
 Route::get('/order', [OrderController::class, 'index'])->name('frontend.order');
