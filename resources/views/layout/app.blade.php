@@ -17,7 +17,6 @@
 
 <body>
     <header>
-        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container"> <!-- Thêm lớp justify-content-end để căn phải -->
                 <a href="{{ route('admin.dashboard') }}">

@@ -20,6 +20,7 @@
             font-family: Raleway, sans-serif;
         }
 
+
         .card-header {
             background-color: #007bff;
             color: white;
@@ -109,6 +110,7 @@
     </style>
 </head>
 <div class="container">
+    <img src="{{ asset('images/net.jpeg') }}" alt="">
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="card">
@@ -123,7 +125,7 @@
                         <i class="fa fa-times-circle fail-icon"></i> Thêm sản phẩm thất bại
                     </div>
 
-                    <form id="productForm" action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
+                    <form id="productForm" action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="image">Ảnh Sản Phẩm:</label>

@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class AdminDashboardController extends Backend
+class AdminDashboardController extends Controller
 {
     public function index()
     {

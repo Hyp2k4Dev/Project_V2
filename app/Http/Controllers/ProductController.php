@@ -103,9 +103,10 @@ class ProductController extends Controller
 
         // Create size entry for the product
         $size = new Size();
-        $size->product_id = $product->id; // Assuming product_id is the foreign key
+        $size->product_id = $product->id;
+        $size->product_code = $product->Product_Code;
         $size->size_name = $request->size;
-        $size->quantity = $request->quantity; // Or whatever quantity you want to set
+        $size->quantity = $request->quantity;
         $size->save();
 
         return back()->with('success', 'Product uploaded successfully.');

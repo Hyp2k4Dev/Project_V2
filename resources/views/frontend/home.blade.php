@@ -23,6 +23,13 @@
                 <a href="/blog">Blog</a>
             </div>
         </div>
+        <div class="login-button">
+            <a href="{{ route('login') }}" class="btn btn-primary">Sign in or Sign up</a>
+        </div>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="nav-link btn btn-link">Logout</button>
+        </form>
         <a href="#" class="header-right">
             Contact
         </a>
@@ -68,106 +75,106 @@
         </a>
         @endforeach
     </div>
-        <div class="reviewSection">
-            <img src="{{ asset('images/section-background.png') }}" alt="Image description">
-            <div class="homeReview">
-                <h1>Customer Reviews</h1>
-                <img src="{{ asset('images/heading-border.png') }}" alt="Border image"> <br>
-                <img src="https://mixivivu.com/quote.svg" alt="#" style="padding:40px 10px 0 0;">
-                    <div class="reviews-container">
-                        <div class="review active">
-                            <p class="subHeading">Great Experience with New Shoes!</p>
-                            <p>I am extremely satisfied with my experience of buying shoes from this store. The new shoes not only make me happy because of their great appearance but also provide an incredibly comfortable feeling.</p>
-                            <p class="author">- Mr. Trung</p>
-                        </div>
-                        <div class="review">
-                            <p class="subHeading">Quality and Design:</p>
-                            <p>These shoes truly stand out with their premium materials and exquisite design. I highly appreciate their durability and the delicacy in every stitch. This clearly demonstrates the product's quality.</p>
-                            <p class="author">- Ms. Duc Anh</p>
-                        </div>
-                        <div class="review">
-                            <p class="subHeading">Comfort Throughout the Day:</p>
-                            <p>Exploring the new city with these shoes is a great experience. They are not only lightweight but also snug, providing comfort with every step. Whether walking or standing for long periods, I don't feel any significant pressure.</p>
-                            <p class="author">- Mr. Phu</p>
-                        </div>
-                        <div class="review">
-                            <p class="subHeading">Attentive Service:</p>
-                            <p>The staff at this store is very enthusiastic and professional. They helped me choose shoes that fit my needs and personal preferences. This dedication truly adds value to my shopping experience.</p>
-                            <p class="author">- Ms. Lan</p>
-                        </div>
-                        <div class="review">
-                            <p class="subHeading">Overall Customer Review:</p>
-                            <p>I couldn't be happier with my decision to buy shoes from this store. The shoes are not just a product but also a high-quality and classy experience. I will definitely come back for future purchases and encourage everyone to experience it!</p>
-                            <p class="author">- Customer</p>
-                        </div>
-                        <div class="review-buttons">
-                            <button onclick="selectReview(0)">Review 1</button>
-                            <button onclick="selectReview(1)">Review 2</button>
-                            <button onclick="selectReview(2)">Review 3</button>
-                            <button onclick="selectReview(3)">Review 4</button>
-                            <button onclick="selectReview(4)">Review 5</button>
-                        </div>
-                    </div>
+    <div class="reviewSection">
+        <img src="{{ asset('images/section-background.png') }}" alt="Image description">
+        <div class="homeReview">
+            <h1>Customer Reviews</h1>
+            <img src="{{ asset('images/heading-border.png') }}" alt="Border image"> <br>
+            <img src="https://mixivivu.com/quote.svg" alt="#" style="padding:40px 10px 0 0;">
+            <div class="reviews-container">
+                <div class="review active">
+                    <p class="subHeading">Great Experience with New Shoes!</p>
+                    <p>I am extremely satisfied with my experience of buying shoes from this store. The new shoes not only make me happy because of their great appearance but also provide an incredibly comfortable feeling.</p>
+                    <p class="author">- Mr. Trung</p>
                 </div>
-        </div>
-        <div class="partnerSection">
-            <img src="{{ asset('images/section-background.png') }}" alt="Image description">
-            <div class="homePartner">
-                <h1>Partnering with Famous Brands</h1>
-                <img src="{{ asset('images/heading-border.png') }}" alt="Border image"> <br>
-                <div class="logoPartner">
-                    <img src="{{ asset('images\logoadidas.jpg') }}" alt="#"> <br>
-                    <img src="{{ asset('images\logonike.jpg') }}" alt="#"> <br>
-                    <img src="{{ asset('images\logojordan.jpg') }}" alt="#"> <br>
-                    <img src="{{ asset('images\logovans.jpg') }}" alt="#"> <br>
-                    <img src="{{ asset('images\logobalenciaga.jpg') }}" alt="#"> <br>
-                    <img src="{{ asset('images\logoconverse.jpg') }}" alt="#"> <br>
+                <div class="review">
+                    <p class="subHeading">Quality and Design:</p>
+                    <p>These shoes truly stand out with their premium materials and exquisite design. I highly appreciate their durability and the delicacy in every stitch. This clearly demonstrates the product's quality.</p>
+                    <p class="author">- Ms. Duc Anh</p>
                 </div>
-                <p>Explore the world of shoes with top brands like Nike, Adidas, Balenciaga, Converse, and Vans - where diversity and high style meet every preference and trend.</p>
-            </div>
-        </div>
-            <div class="newBlog">
-                <h1>Update the latest news:</h1><br>
-                <p>Explore upcoming shoe releases and promotions.</p><br>
-                <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
-                <div class="row" id="cardContainer">
-                    <div class="col-md-4 mb-3 boxCard">
-                        <div class="card">
-                            <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title 1</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3 boxCard">
-                        <div class="card">
-                            <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title 2</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3 boxCard">
-                        <div class="card">
-                            <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title 3</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                                </div>
-                    </div>
+                <div class="review">
+                    <p class="subHeading">Comfort Throughout the Day:</p>
+                    <p>Exploring the new city with these shoes is a great experience. They are not only lightweight but also snug, providing comfort with every step. Whether walking or standing for long periods, I don't feel any significant pressure.</p>
+                    <p class="author">- Mr. Phu</p>
                 </div>
-                <div class="text-center mt-4" style="padding-right: 100px">
-                    <a href="/blog">
-                        <button class="btn btn-primary">More</button>
-                    </a>
+                <div class="review">
+                    <p class="subHeading">Attentive Service:</p>
+                    <p>The staff at this store is very enthusiastic and professional. They helped me choose shoes that fit my needs and personal preferences. This dedication truly adds value to my shopping experience.</p>
+                    <p class="author">- Ms. Lan</p>
+                </div>
+                <div class="review">
+                    <p class="subHeading">Overall Customer Review:</p>
+                    <p>I couldn't be happier with my decision to buy shoes from this store. The shoes are not just a product but also a high-quality and classy experience. I will definitely come back for future purchases and encourage everyone to experience it!</p>
+                    <p class="author">- Customer</p>
+                </div>
+                <div class="review-buttons">
+                    <button onclick="selectReview(0)">Review 1</button>
+                    <button onclick="selectReview(1)">Review 2</button>
+                    <button onclick="selectReview(2)">Review 3</button>
+                    <button onclick="selectReview(3)">Review 4</button>
+                    <button onclick="selectReview(4)">Review 5</button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="partnerSection">
+        <img src="{{ asset('images/section-background.png') }}" alt="Image description">
+        <div class="homePartner">
+            <h1>Partnering with Famous Brands</h1>
+            <img src="{{ asset('images/heading-border.png') }}" alt="Border image"> <br>
+            <div class="logoPartner">
+                <img src="{{ asset('images\logoadidas.jpg') }}" alt="#"> <br>
+                <img src="{{ asset('images\logonike.jpg') }}" alt="#"> <br>
+                <img src="{{ asset('images\logojordan.jpg') }}" alt="#"> <br>
+                <img src="{{ asset('images\logovans.jpg') }}" alt="#"> <br>
+                <img src="{{ asset('images\logobalenciaga.jpg') }}" alt="#"> <br>
+                <img src="{{ asset('images\logoconverse.jpg') }}" alt="#"> <br>
+            </div>
+            <p>Explore the world of shoes with top brands like Nike, Adidas, Balenciaga, Converse, and Vans - where diversity and high style meet every preference and trend.</p>
+        </div>
+    </div>
+    <div class="newBlog">
+        <h1>Update the latest news:</h1><br>
+        <p>Explore upcoming shoe releases and promotions.</p><br>
+        <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
+        <div class="row" id="cardContainer">
+            <div class="col-md-4 mb-3 boxCard">
+                <div class="card">
+                    <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title 1</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3 boxCard">
+                <div class="card">
+                    <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title 2</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3 boxCard">
+                <div class="card">
+                    <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title 3</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4" style="padding-right: 100px">
+            <a href="/blog">
+                <button class="btn btn-primary">More</button>
+            </a>
+        </div>
+    </div>
     <div class="footer">
         <div class="footer-container">
             <div class="footer-section">
@@ -192,7 +199,8 @@
                     <li><a href="#">Terms of Use</a></li>
                 </ul>
             </div>
-        </div>                
+        </div>
     </div>
 </body>
+
 </html>
