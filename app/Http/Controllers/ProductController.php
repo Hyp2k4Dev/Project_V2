@@ -31,6 +31,7 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $validatedData = $request->validate([
             'Name_sneaker' => 'required|string',
             'Quantity' => 'required|integer',
@@ -71,7 +72,8 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // Validate request
+        $productCode = 'HTH-' . $request->input('product_code');
+        $request->merge(['product_code' => $productCode]);
         $request->validate([
             // Your validation rules here
         ]);

@@ -187,6 +187,7 @@
                         <div id="sizeForms">
                             <label for="size">Kích Cỡ:<span class="required">*</span></label>
                             <input type="text" name="size" id="size" class="form-control" required>
+                            <span id="sizeError" class="text-danger" style="display: none;">Size không hợp lệ</span>
 
                             <label for="quantity">Số Lượng:<span class="required">*</span></label>
                             <input type="number" name="quantity" id="quantity" class="form-control" required>
@@ -222,15 +223,32 @@
         var form = this;
         var price = document.getElementById('price').value;
         var quantity = document.getElementById('quantity').value;
-        if (price < 0 && quantity < 0) {
-            document.getElementById('quantityError').style.display = 'block';
-            document.getElementById('priceError').style.display = 'block';
+        var size = document.getElementById('size').value;
+        var priceError = document.getElementById('priceError');
+        var quantityError = document.getElementById('quantityError');
+        var sizeError = document.getElementById('sizeError');
+
+        priceError.style.display = 'none';
+        quantityError.style.display = 'none';
+        sizeError.style.display = 'none';
+
+        // Check conditions
+        if (price < 0 || quantity < 0 || size < 0 || size > 50) {
+            if (price < 0) {
+                priceError.style.display = 'block';
+            }
+            if (quantity < 0) {
+                quantityError.style.display = 'block';
+            }
+            if (size < 0) {
+                sizeError.style.display = 'block';
+            }
+            if (size > 50) {
+                sizeError.style.display = 'block';
+            }
             return;
-        } else {
-            document.getElementById('priceError').style.display = 'none';
-            document.getElementById('quantityError').style.display = 'none';
         }
-        // Sử dụng AJAX hoặc fetch API để gửi biểu mẫu
+
         fetch(form.action, {
                 method: form.method,
                 body: new FormData(form)
@@ -238,7 +256,7 @@
             .then(response => {
                 if (response.ok) {
                     document.getElementById('successMessage').style.display = 'block';
-                    // Hiển thị thông báo thành công
+                    // Show success message
                     var confirmation = confirm('Bạn có muốn thêm sản phẩm khác không?');
                     if (!confirmation) {
                         window.location.href = "{{ route('admin.dashboard') }}";
@@ -275,21 +293,6 @@
         const sizeForm = document.getElementById(`sizeForm${sizeFormId}`);
         if (sizeForm) {
             sizeForm.parentNode.removeChild(sizeForm);
-        }
-    }
-
-    document.getElementById('image').onchange = function(evt) {
-        var tgt = evt.target || window.event.srcElement,
-            files = tgt.files;
-
-        // FileReader support
-        if (FileReader && files && files.length) {
-            var fr = new FileReader();
-            fr.onload = function() {
-                document.getElementById('imagePreview').src = fr.result;
-                document.getElementById('imagePreview').style.display = 'block';
-            }
-            fr.readAsDataURL(files[0]);
         }
     }
 </script>
