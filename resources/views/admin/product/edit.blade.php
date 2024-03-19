@@ -1,6 +1,18 @@
 @extends('layout.app')
 
 @section('content')
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
 <style>
     @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
@@ -54,23 +66,25 @@
         border: solid 1px #BA68C8;
     }
 
-.row{
-    border: 1px solid grey;
-    border-radius: 5px;
-}
-.btn-submit{
-    color: white;
-    width: 150px;
-    justify-content: center;
-    padding: 5px;
-    background-color: purple;
-    border: #682773;
-    border-radius: 5px;
-}
-.btn-submit:hover{
-    background-color: darkviolet;
-    
-}
+    .row {
+        border: 1px solid grey;
+        border-radius: 5px;
+    }
+
+    .btn-submit {
+        color: white;
+        width: 150px;
+        justify-content: center;
+        padding: 5px;
+        background-color: purple;
+        border: #682773;
+        border-radius: 5px;
+    }
+
+    .btn-submit:hover {
+        background-color: darkviolet;
+
+    }
 </style>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">

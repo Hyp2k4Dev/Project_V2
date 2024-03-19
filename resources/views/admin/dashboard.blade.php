@@ -208,6 +208,7 @@
         border: 1px solid grey;
         border-radius: 5px;
     }
+
     .addProduct:hover {
         background-color: darkgreen;
         color: white;

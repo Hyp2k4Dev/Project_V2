@@ -7,6 +7,9 @@
     <title>HTH SNEAKER STORE</title>
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/fe/homepage.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -23,13 +26,13 @@
                 <a href="/blog">Blog</a>
             </div>
         </div>
-        <div class="login-button">
+        <!-- <div class="login-button">
             <a href="{{ route('login') }}" class="btn btn-primary">Sign in or Sign up</a>
-        </div>
-        <form action="{{ route('logout') }}" method="POST">
+        </div> -->
+        <!-- <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit" class="nav-link btn btn-link">Logout</button>
-        </form>
+        </form> -->
         <a href="#" class="header-right">
             Contact
         </a>
@@ -134,21 +137,12 @@
         </div>
     </div>
     <div class="newBlog">
-<<<<<<< HEAD
         <h1>Update the latest news:</h1><br>
         <p>Explore upcoming shoe releases and promotions.</p><br>
         <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
         <div class="row" id="cardContainer">
             <div class="col-md-4 mb-3 boxCard">
-=======
-        <div class="hhahaha">
-            <h1>Update the latest news:</h1><br>
-            <p>Explore upcoming shoe releases and promotions.</p><br>
-            <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
-        </div>
-        <div class="row boxNew" id="cardContainer">
-            <div class="col-md-4 mb-3  boxCard">
->>>>>>> 12f7831b53cd9909cfced20240de905315ce5187
+
                 <div class="card">
                     <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
                     <div class="card-body">
@@ -179,15 +173,10 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
         <div class="text-center mt-4" style="padding-right: 100px">
             <a href="/blog">
                 <button class="btn btn-primary">More</button>
-=======
-        <div class="text-center mt-4">
-            <a href="/blog">
-                <button class="btn btn-primary-more">More</button>
->>>>>>> 12f7831b53cd9909cfced20240de905315ce5187
+
             </a>
         </div>
     </div>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,8 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             if (Auth::user()->role === 'admin') {
                 return redirect()->route('admin.dashboard');
+            } elseif (Auth::user()->role === 'seller') {
+                return redirect()->route('seller.dashboard');
             } else {
                 return redirect()->intended('/');
             }

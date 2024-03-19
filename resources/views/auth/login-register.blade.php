@@ -17,14 +17,14 @@
         }
 
         body {
-            background-image: url('images/net.jpeg');
+            background-image: url('images/output-onlinepngtools.png');
             background-size: cover;
             background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Archivo', sans-serif;
             height: 100vh;
             margin: -20px 0 50px;
         }
@@ -270,7 +270,6 @@
 </head>
 
 <body>
-    <h2 style="color: #eee;">HTH Store</h2>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
             <form method="POST" action="{{ route('register') }}">

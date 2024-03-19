@@ -98,7 +98,6 @@ class UserController extends Controller
 
     public function main()
     {
-        // Thực hiện các logic cần thiết và trả về view tương ứng
         return view('user.main');
     }
 }

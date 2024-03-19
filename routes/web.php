@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\HomeFE;
 use App\Http\Controllers\Order\OrderController;
+use App\Http\Controllers\SellerController;
 
 // Frontend routes
 Route::get('/', [HomeFE::class, 'index'])->name('frontend.home');
@@ -26,6 +27,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
+//Seller routes
+Route::middleware(['role:seller'])->prefix('admin')->group(function () {
+    Route::get('/seller-dashboard', [SellerController::class, 'index'])->name('seller.dashboard');
+});
 // Admin routes
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
