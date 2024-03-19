@@ -13,7 +13,6 @@ class CreateSizesTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->string('size_name');
             $table->integer('quantity');
-            $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
