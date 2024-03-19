@@ -8,10 +8,10 @@
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/fe/homepage.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="{{ asset('js/homepage.js') }}"></script>
 </head>
 
 <body>
-    <h1>asdhgajkshdkajshd</h1>
     <div class="header">
         <div class="header-left">
             <a href="{{ route('frontend.home') }}"><img src="{{ asset('images/logo-shop.png') }}" alt="Mô tả của hình ảnh"></a>

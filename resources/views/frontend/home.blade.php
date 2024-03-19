@@ -24,13 +24,6 @@
                 <a href="/blog">Blog</a>
             </div>
         </div>
-        <div class="login-button">
-            <a href="{{ route('login') }}" class="btn btn-primary">Sign in or Sign up</a>
-        </div>
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="nav-link btn btn-link">Logout</button>
-        </form>
         <a href="#" class="header-right">
             Contact
         </a>
@@ -135,21 +128,11 @@
         </div>
     </div>
     <div class="newBlog">
-<<<<<<< HEAD
         <h1>Update the latest news:</h1><br>
         <p>Explore upcoming shoe releases and promotions.</p><br>
         <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
-        <div class="row" id="cardContainer">
+        <div class="row align-items-center" id="cardContainer">
             <div class="col-md-4 mb-3 boxCard">
-=======
-        <div class="hhahaha">
-            <h1>Update the latest news:</h1><br>
-            <p>Explore upcoming shoe releases and promotions.</p><br>
-            <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
-        </div>
-        <div class="row boxNew" id="cardContainer">
-            <div class="col-md-4 mb-3  boxCard">
->>>>>>> 12f7831b53cd9909cfced20240de905315ce5187
                 <div class="card">
                     <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
                     <div class="card-body">
@@ -180,15 +163,9 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
         <div class="text-center mt-4" style="padding-right: 100px">
             <a href="/blog">
-                <button class="btn btn-primary">More</button>
-=======
-        <div class="text-center mt-4">
-            <a href="/blog">
-                <button class="btn btn-primary-more">More</button>
->>>>>>> 12f7831b53cd9909cfced20240de905315ce5187
+                <button class="btn btn-primary" style="cursor: pointer">More</button>
             </a>
         </div>
     </div>
@@ -196,9 +173,9 @@
         <div class="footer-container">
             <div class="footer-section">
                 <h3>Store Information</h3>
-                <p>123 Street, District, City</p>
-                <p>Email: info@shoeshop.com</p>
-                <p>Phone: (123) 456-7890</p>
+                <p>4th floor, VTC Online Building, 18 Tam Trinh Street, Hai Ba Trung, Ha Noi</p>
+                <p>Email: sneakerstore@gmail.com</p>
+                <p>Phone: (84) 393234822</p>
             </div>
             <div class="footer-section">
                 <h3>Product Categories</h3>
@@ -218,6 +195,10 @@
             </div>
         </div>
     </div>
+    <a href="#" class="back-to-top-btn"><i class="bi bi-arrow-up-short"></i></a>
+    <button class="btn-circle chat-btn">
+        <i class="bi bi-messenger" style="color: white;"></i>
+    </button>
 </body>
 
 </html>
