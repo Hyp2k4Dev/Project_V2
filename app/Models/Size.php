@@ -2,22 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Size extends Model
 {
-    use HasFactory;
+    protected $table = 'sizes';
 
     protected $fillable = [
         'product_id',
         'product_code',
         'size_name',
-        'quantity'
+        'quantity',
     ];
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_code', 'Product_Code');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

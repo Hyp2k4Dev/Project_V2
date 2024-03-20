@@ -11,7 +11,6 @@ class Product extends Model
 
     public $fillable = [
         'Name_sneaker',
-        'Quantity',
         'Brand',
         'Color',
         'Origin',
@@ -19,7 +18,6 @@ class Product extends Model
         'Status_Sneaker',
         'Product_Code',
         'Price',
-        'Size',
         'Image'
     ];
 

@@ -14,7 +14,6 @@ class CreateSizesTable extends Migration
             $table->string('product_code');
             $table->string('size_name');
             $table->integer('quantity');
-            $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_code')->references('Product_Code')->on('products')->onDelete('cascade');

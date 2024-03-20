@@ -10,8 +10,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="{{ asset('js/homepage.js') }}"></script>
 </head>
@@ -26,13 +24,6 @@
                 <a href="/blog">Blog</a>
             </div>
         </div>
-        <!-- <div class="login-button">
-            <a href="{{ route('login') }}" class="btn btn-primary">Sign in or Sign up</a>
-        </div> -->
-        <!-- <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="nav-link btn btn-link">Logout</button>
-        </form> -->
         <a href="#" class="header-right">
             Contact
         </a>
@@ -140,9 +131,12 @@
         <h1>Update the latest news:</h1><br>
         <p>Explore upcoming shoe releases and promotions.</p><br>
         <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
-        <div class="row" id="cardContainer">
+        <div class="row align-items-center" id="cardContainer">
             <div class="col-md-4 mb-3 boxCard">
+<<<<<<< HEAD
 
+=======
+>>>>>>> ad8b91ae08642ee9dee7c0614a282ad93d6b08d1
                 <div class="card">
                     <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
                     <div class="card-body">
@@ -175,8 +169,7 @@
         </div>
         <div class="text-center mt-4" style="padding-right: 100px">
             <a href="/blog">
-                <button class="btn btn-primary">More</button>
-
+                <button class="btn btn-primary" style="cursor: pointer">More</button>
             </a>
         </div>
     </div>
@@ -184,9 +177,9 @@
         <div class="footer-container">
             <div class="footer-section">
                 <h3>Store Information</h3>
-                <p>123 Street, District, City</p>
-                <p>Email: info@shoeshop.com</p>
-                <p>Phone: (123) 456-7890</p>
+                <p>4th floor, VTC Online Building, 18 Tam Trinh Street, Hai Ba Trung, Ha Noi</p>
+                <p>Email: sneakerstore@gmail.com</p>
+                <p>Phone: (84) 393234822</p>
             </div>
             <div class="footer-section">
                 <h3>Product Categories</h3>
@@ -206,6 +199,10 @@
             </div>
         </div>
     </div>
+    <a href="#" class="back-to-top-btn"><i class="bi bi-arrow-up-short"></i></a>
+    <button class="btn-circle chat-btn">
+        <i class="bi bi-messenger" style="color: white;"></i>
+    </button>
 </body>
 
 </html>

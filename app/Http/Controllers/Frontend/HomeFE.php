@@ -9,7 +9,7 @@ class HomeFE extends Controller
 {
     public function index()
     {
-        $products = Product::where('Quantity', '>', 0)->take(6)->get();
+        $products = Product::take(6)->get();
         return view('frontend.home', compact('products'));
     }
     public function product()

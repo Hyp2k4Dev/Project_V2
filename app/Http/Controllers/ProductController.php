@@ -12,14 +12,13 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
-        dd($products);
+        $products = Product::with('sizes')->get();
         return view('admin.dashboard', compact('products'));
     }
 
     public function addImage()
     {
-        return view('admin.product.add_image');
+        return view('admin.product.addProduct');
     }
 
     public function edit($id)
@@ -72,49 +71,82 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $productCode = 'HTH-' . $request->input('product_code');
-        $request->merge(['product_code' => $productCode]);
+
         $request->validate([
-            // Your validation rules here
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string',
+            'brand' => 'required|string',
+            'color' => 'required|string',
+            'origin' => 'required|string',
+            'material' => 'required|string',
+            'status' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'sizes.*.size' => 'required|string',
+            'sizes.*.quantity' => 'required|numeric|min:0',
         ]);
 
-        // Store product image
+
         $destinationPath = 'public/product_images';
         $randomize = rand(111111, 999999);
         $extension = $request->file('image')->getClientOriginalExtension();
         $fileName = $randomize . '.' . $extension;
         $imagePath = $request->file('image')->storeAs($destinationPath, $fileName);
+        do {
+            $productCode = 'HTH-' . mt_rand(1000, 999999);
+        } while (Product::where('Product_Code', $productCode)->exists());
 
-        // Create new product
         $product = new Product();
         $product->Name_sneaker = $request->name;
         $product->Description = $request->description;
-        $product->Quantity = $request->quantity;
         $product->Brand = $request->brand;
         $product->Color = $request->color;
         $product->Origin = $request->origin;
         $product->Material = $request->material;
         $product->Status_Sneaker = $request->status;
-        $product->Product_Code = $request->product_code;
+        $product->Product_Code = $productCode;
         $product->Price = $request->price;
-        $product->Size = $request->size;
         $product->Image = Storage::url("$destinationPath/$fileName");
         $product->save();
 
-        // Create size entry for the product
-        $size = new Size();
-        $size->product_id = $product->id;
-        $size->product_code = $product->Product_Code;
-        $size->size_name = $request->size;
-        $size->quantity = $request->quantity;
-        $size->save();
+        $product_id = $product->id;
+        $sizes = $request->input('sizes', []);
+        if (!is_array($sizes)) {
+            $sizes = [$sizes];
+        }
+        $sizeQuantities = [];
 
-        return back()->with('success', 'Product uploaded successfully.');
+        foreach ($sizes as $sizeData) {
+            $size = $sizeData['size'];
+            $quantity = $sizeData['quantity'];
+
+            if (!isset($sizeQuantities[$size])) {
+                $sizeQuantities[$size] = 0;
+            }
+
+            $sizeQuantities[$size] += $quantity;
+        }
+        foreach ($sizeQuantities as $size => $quantity) {
+            $sizeModel = new Size([
+                'size_name' => $size,
+                'quantity' => $quantity,
+                'product_id' => $product_id,
+            ]);
+
+            $sizeModel->save();
+        }
+
+        return redirect("/admin/product/add-product")->with('success', 'Product uploaded successfully.');
     }
 
     public function viewImage()
     {
         $imageData = Postimage::all();
         return view('Image.view_image', compact('imageData'));
+    }
+
+    public function show($id)
+    {
+        $product = Product::findOrFail($id);
+        return response()->json($product);
     }
 }

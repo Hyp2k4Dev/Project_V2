@@ -2,219 +2,10 @@
 
 @section('content')
 
-<style>
-    /* Đoạn CSS mới */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
-
-    body {
-        font-family: "Poppins", sans-serif;
-        color: #444444;
-    }
-
-    a,
-    a:hover {
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .section-products {
-        padding: 80px 0 54px;
-    }
-
-    .section-products .header {
-        margin-bottom: 50px;
-    }
-
-    .section-products .header h3 {
-        font-size: 1rem;
-        color: #fe302f;
-        font-weight: 500;
-    }
-
-    .section-products .header h2 {
-        font-size: 2.2rem;
-        font-weight: 400;
-        color: #444444;
-    }
-
-    .section-products .single-product {
-        margin-bottom: 26px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        overflow: hidden;
-        text-align: center;
-        /* Căn giữa các phần tử */
-    }
-
-    .section-products .single-product .part-1 {
-        position: relative;
-        height: 290px;
-        max-height: 290px;
-        margin-bottom: 20px;
-        overflow: hidden;
-    }
-
-    .product-image {
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .product-image:hover {
-        transform: scale(1.1);
-    }
-
-    .section-products .single-product .part-1::before {
-        position: absolute;
-        content: "";
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        transition: all 0.3s;
-    }
-
-    .section-products .single-product:hover .part-1::before {
-        transform: scale(1.2, 1.2) rotate(5deg);
-    }
-
-    .section-products #product-1 .part-1::before {
-        background: url("https://i.ibb.co/L8Nrb7p/1.jpg") no-repeat center;
-        background-size: cover;
-        transition: all 0.3s;
-    }
-
-    .section-products .single-product .part-1 .discount,
-    .section-products .single-product .part-1 .new {
-        position: absolute;
-        top: 15px;
-        left: 50%;
-        transform: translateX(-50%);
-        /* Di chuyển vào giữa */
-        color: #ffffff;
-        background-color: #fe302f;
-        padding: 2px 8px;
-        text-transform: uppercase;
-        font-size: 0.85rem;
-    }
-
-    .section-products .single-product .part-1 .new {
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #444444;
-    }
-
-    .section-products .single-product .part-1 ul {
-        position: absolute;
-        bottom: -41px;
-        left: 50%;
-        transform: translateX(-50%);
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        opacity: 0;
-        transition: bottom 0.5s, opacity 0.5s;
-    }
-
-    .section-products .single-product:hover .part-1 ul {
-        bottom: 30px;
-        opacity: 1;
-    }
-
-    .section-products .single-product .part-1 ul li {
-        display: inline-block;
-        margin-right: 4px;
-    }
-
-    .section-products .single-product .part-1 ul li a {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-        background-color: #ffffff;
-        color: #444444;
-        text-align: center;
-        box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
-        transition: color 0.2s;
-    }
-
-    .section-products .single-product .part-1 ul li a:hover {
-        color: #fe302f;
-    }
-
-    .section-products .single-product .part-2 {
-        text-align: center;
-        /* Căn giữa các phần tử */
-    }
-
-    .section-products .single-product .part-2 .product-title {
-        font-size: 1rem;
-    }
-
-    .section-products .single-product .part-2 h4 {
-        display: inline-block;
-        font-size: 1rem;
-    }
-
-    .section-products .single-product .part-2 .product-old-price {
-        position: relative;
-        padding: 0 7px;
-        margin-right: 2px;
-        opacity: 0.6;
-    }
-
-    .section-products .single-product .part-2 .product-old-price::after {
-        position: absolute;
-        content: "";
-        top: 50%;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background-color: #444444;
-        transform: translateY(-50%);
-    }
-
-    .edit-btn {
-        width: 100px;
-        color: white;
-        border-radius: 5px;
-        border: none;
-        background-color: #339900;
-    }
-
-    .delete-btn {
-        width: 100px;
-        color: white;
-        border-radius: 5px;
-        border: none;
-        background-color: red;
-    }
-
-    .edit-btn:hover {
-        background-color: green;
-    }
-
-    .delete-btn:hover {
-        background-color: darkred;
-    }
-
-    h5 {
-        font-size: 24px;
-    }
-
-    .addProduct {
-        color: white;
-        background-color: #339900;
-        padding: 5px;
-        border: 1px solid grey;
-        border-radius: 5px;
-    }
-
-    .addProduct:hover {
-        background-color: darkgreen;
-        color: white;
-    }
-</style>
-
+<link rel="stylesheet" href="{{ asset('css/be/dashboard.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <section class="section-products">
     <div class="container">
         <div class="row justify-content-center text-center">
@@ -222,16 +13,14 @@
                 <div class="header">
                     <h3>Featured Product</h3>
                     <h2>Products List</h2>
-                    <a class="addProduct" href="{{ route('admin.product.add_image') }}">Thêm sản phẩm</a>
+                    <a class="addProduct" href="{{ route('admin.product.add-product') }}">Thêm sản phẩm</a>
                 </div>
             </div>
         </div>
         <div class="row">
-            <!-- Single Product -->
             @foreach($products as $product)
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <div id="product-{{ $product->id }}" class="single-product">
-                    <!-- Phần HTML mới của bạn -->
                     <div class="part-1">
                         <img src="{{ asset($product->Image) }}" class="product-image" alt="Product Image" style="width: 100%; height: 100%;">
                         <ul>
@@ -249,25 +38,93 @@
                     </div>
                     <div class="part-2">
                         <h5 class="product-title">{{ $product->Name_sneaker }}</h5>
-                        <h4 class="product-price">{{ $product->Price }}<span style="color: red;">đ</span></h4>
-                        <p class="product-quantity">Quantity: {{ $product->Quantity}}</p>
-                        <p class="product-size">Size: {{ $product->Size}}</p>
-                        <p class="product-code">Product Code: {{$product->Product_Code}}</p>
+                        <h4 class="product-price">{{ number_format($product->Price, 0, ',', '.') }}<span style="color: red;"> đ</span></h4> <br>
+                        <button class="btn btn-info btn-view" onclick="showProductDetail(<?php echo $product->id; ?>)">View</button>
                     </div>
                 </div>
             </div>
+            <div class="infor " id="product-detail-overlay-{{ $product->id }}">
+                <div class="nav-infor container">
+                    <h2>Product Details</h2>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><strong>Name:</strong></td>
+                                <td>{{ $product->Name_sneaker }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Description:</strong></td>
+                                <td style="white-space: pre-line;">{{ $product->Description }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brand:</strong></td>
+                                <td>{{ $product->Brand }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Sizes </strong> <i class="bi bi-chevron-double-down"></i></td>
+                            </tr>
+                            @foreach($product->sizes as $size)
+                            <tr>
+                                <td>{{ $size->size_name }}</td>
+                                <td><strong>Quantity:</strong> {{ $size->quantity }}</td>
+                            </tr>
+                            @endforeach
+                            <tr>
+                                <td><strong>Product Code:</strong></td>
+                                <td>{{ $product->Product_Code }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Price:</strong></td>
+                                <td>{{ number_format($product->Price, 0, ',', '.') }} đ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Image:</strong></td>
+                                <td><img src="{{ asset($product->Image) }}" alt="Product Image" style="max-width: 200px;"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Status:</strong></td>
+                                <td>{{ $product->Status_Sneaker }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Color:</strong></td>
+                                <td>{{ $product->Color }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Origin:</strong></td>
+                                <td>{{ $product->Origin }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Material:</strong></td>
+                                <td>{{ $product->Material }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-danger btn-view close-btn" data-product-id="{{ $product->id }}">Close</button>
+                </div>
+            </div>
             @endforeach
+
         </div>
     </div>
 </section>
-
 @endsection
 
-@push('scripts')
+
 <script>
-    document.getElementById('searchButton').addEventListener('click', function() {
-        let searchInput = document.getElementById('searchInput').value;
-        window.location.href = '/admin/dashboard?search=' + searchInput;
+    function showProductDetail(productId) {
+        var inforElement = document.getElementById("product-detail-overlay-" + productId);
+        inforElement.style.visibility = "visible";
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const closeBtns = document.querySelectorAll('.close-btn');
+
+        closeBtns.forEach(function(closeBtn) {
+            closeBtn.addEventListener('click', function(event) {
+                const productId = event.target.dataset.productId;
+                const productDetailOverlay = document.getElementById('product-detail-overlay-' + productId);
+                productDetailOverlay.style.visibility = 'hidden';
+            });
+        });
     });
 </script>
-@endpush
