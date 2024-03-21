@@ -133,10 +133,6 @@
         <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
         <div class="row align-items-center" id="cardContainer">
             <div class="col-md-4 mb-3 boxCard">
-<<<<<<< HEAD
-
-=======
->>>>>>> ad8b91ae08642ee9dee7c0614a282ad93d6b08d1
                 <div class="card">
                     <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
                     <div class="card-body">
