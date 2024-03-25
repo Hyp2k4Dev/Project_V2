@@ -75,12 +75,12 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('showMoreBtn').style.display = 'none';
         }
     }
-    document.getElementById('showMoreBtn').addEventListener('click', addMoreCards);
+    // document.getElementById('showMoreBtn').addEventListener('click', addMoreCards);
 });
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var backToTopButton = document.querySelector('.back-to-top-btn');
 
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         if (window.scrollY > 300) {
             backToTopButton.style.display = 'block';
         } else {
@@ -88,15 +88,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    backToTopButton.addEventListener('click', function(e) {
+    backToTopButton.addEventListener('click', function (e) {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var chatButton = document.querySelector('.chat-btn');
 
-    chatButton.addEventListener('click', function() {
+    chatButton.addEventListener('click', function () {
         // Open chat window or initiate chat action here
         // For example, open a new chat page in a new window
         window.open('https://example.com/chat', '_blank', 'width=400,height=600');

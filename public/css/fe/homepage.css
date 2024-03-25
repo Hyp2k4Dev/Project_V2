@@ -14,6 +14,7 @@ html {
 body {
     height: 1000px;
 }
+
 .back-to-top-btn {
     position: fixed;
     bottom: 20px;
@@ -28,6 +29,7 @@ body {
     line-height: 50px;
     transition: all 0.3s ease;
 }
+
 .back-to-top-btn {
     position: fixed;
     bottom: 20px;
@@ -44,6 +46,7 @@ body {
 .back-to-top-btn i {
     font-size: 24px;
 }
+
 .chat-btn {
     position: fixed;
     border: none;
@@ -55,6 +58,7 @@ body {
     right: 20px;
     z-index: 1000;
 }
+
 .header {
     position: sticky;
     top: 0;
@@ -407,7 +411,8 @@ body {
 .newBlog {
     padding: 50px 0 50px 0;
 }
-.card{
+
+.card {
     width: 400px;
     margin: 50px;
 }
@@ -483,4 +488,17 @@ body {
 
 #showMoreBtn {
     margin-top: 10px;
+}
+
+.about-blog {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 40px;
+    max-width: 1580px;
+    margin: 3rem auto;
+
+}
+
+.btn-more {
+    padding: 20px 35px;
 }
