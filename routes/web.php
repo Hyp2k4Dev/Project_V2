@@ -34,19 +34,13 @@ Route::middleware(['role:seller'])->prefix('seller')->group(function () {
 });
 // Admin routes
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [ProductController::class, 'index'])->name('admin.dashboard');
-    Route::get('/userList', [UserController::class, 'userList'])->name('admin.userList');
-    // Route::get('/admin/users/{user}/edit', [UserController::class, 'editUser'])->name('admin.editUser');
-    Route::get('/admin/users/{user}/edit', [UserController::class, 'showEditForm'])->name('admin.editUserForm');
-    Route::put('/admin/users/{user}/edit', [UserController::class, 'editUser'])->name('admin.editUser');
-
-
 
     Route::get('/product/add-product', [ProductController::class, 'addImage'])->name('admin.product.add-product');
     Route::post('/product/store', [ProductController::class, 'store'])->name('admin.product.store');
 
-    Route::get('admin/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.product.edit');
-    Route::put('admin/product/{id}', [ProductController::class, 'update'])->name('admin.product.update');
+    Route::get('/dashboard', [ProductController::class, 'index'])->name('admin.dashboard');
+    Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.product.edit');
+    Route::put('/product/{id}', [ProductController::class, 'update'])->name('admin.product.update');
     Route::post('/check-product-code', 'ProductController@checkProductCode')->name('admin.product.check_code');
     // Route::get('/analytic', [AdminDashboardController::class, 'index'])->name('admin.analytic');
 

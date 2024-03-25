@@ -128,15 +128,13 @@
         </div>
     </div>
     <div class="newBlog">
-        <h1>Update the latest news:</h1><br>
-        <p>Explore upcoming shoe releases and promotions.</p><br>
-        <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
-        <div class="row align-items-center" id="cardContainer">
+        <div style="margin-left: 80px;">
+            <h1>Update the latest news:</h1><br>
+            <p>Explore upcoming shoe releases and promotions.</p><br>
+            <img src="{{ asset('images/heading-border.png') }}" alt="#"> <br>
+        </div>
+        <div class="about-blog" id="cardContainer">
             <div class="col-md-4 mb-3 boxCard">
-<<<<<<< HEAD
-
-=======
->>>>>>> ad8b91ae08642ee9dee7c0614a282ad93d6b08d1
                 <div class="card">
                     <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
                     <div class="card-body">
@@ -167,9 +165,9 @@
                 </div>
             </div>
         </div>
-        <div class="text-center mt-4" style="padding-right: 100px">
+        <div class="text-center" style="padding: 0; height:100% ;">
             <a href="/blog">
-                <button class="btn btn-primary" style="cursor: pointer">More</button>
+                <button class="btn btn-more btn-primary" style="cursor: pointer">More</button>
             </a>
         </div>
     </div>

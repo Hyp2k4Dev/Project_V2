@@ -14,6 +14,12 @@ document.getElementById('image').onchange = function (evt) {
 
 document.getElementById('productForm').addEventListener('submit', function (event) {
     var hasError = false;
+    var formSubmitted = false;
+
+    if (formSubmitted) {
+        event.preventDefault();
+        return;
+    }
 
     var price = document.getElementById('price').value;
     var priceError = document.getElementById('priceError');
@@ -21,53 +27,37 @@ document.getElementById('productForm').addEventListener('submit', function (even
 
     priceError.style.display = 'none';
 
-    if (price < 0) {
+    if (price <= 0) {
+        console.log(price)
         priceError.style.display = 'block';
         hasError = true;
+        event.preventDefault();
     }
 
     for (var i = 0; i < sizeForms.length; i++) {
-        var quantityError = document.getElementById('errorLber[' + i + ']');
+        var quantityError = document.getElementById('errorLber');
         var quantity = sizeForms[i].value;
         if (!isNaturalNumber(quantity)) {
             quantityError.style.display = 'block';
             hasError = true;
         }
     }
-    function isNaturalNumber(n) {
-        return n % 1 === 0 && n > 0;
-    }
 
     if (!hasError) {
+        formSubmitted = true;
         return;
     } else {
         event.preventDefault();
+        return;
     }
-    // var form = event.target;
-
-    // fetch(form.action, {
-    //     method: form.method,
-    //     body: new FormData(form)
-    // })
-    // .then(response => {
-    //     if (response.ok) {
-    //         document.getElementById('successMessage').style.display = 'block';
-    //         // var confirmation = confirm('Bạn có muốn thêm sản phẩm khác không?');
-    //         // if (!confirmation) {
-    //         //     window.location.href = "{{ route('admin.dashboard') }}";
-    //         // } else {
-    //         //     form.reset();
-    //         //     document.getElementById('imagePreview').style.display = 'none';
-    //         // }
-    //     } else {
-    //         console.log('Lỗi server:', response.statusText);
-    //         document.getElementById('failMessage').style.display = 'block';
-    //     }
-    // })
-    // .catch(error => {
-    //     console.error('Lỗi khi gửi dữ liệu form:', error);
-    // });
 });
+
+
+function isNaturalNumber(n) {
+    return n % 1 === 0 && n > 0;
+}
+
+
 
 function addSizeForm() {
     let value = 1;
@@ -75,12 +65,12 @@ function addSizeForm() {
     const sizeFormCount = sizeFormsContainer.querySelectorAll('.form-group').length + 1;
     const sizeFormHtml = `
                 <div class="form-group" id="sizeForm${sizeFormCount}">
-                    <label for="size${sizeFormCount}">Kích Cỡ:<span class="required">*</span></label>
+                    <label for="size${sizeFormCount}">Size:<span class="required">*</span></label>
                     <input type="text" name="sizes[${sizeFormCount}][size]" class="form-control" required>
-                    <label for="quantity${sizeFormCount}">Số Lượng:<span class="required">*</span></label>
+                    <label for="quantity${sizeFormCount}">Quantity:<span class="required">*</span></label>
                     <input type="number" name="sizes[${sizeFormCount}][quantity]" class="form-control" required>
-                    <span class="text-danger" id="errorLber[${value}]" style="display: none;">Số lượng không hợp lệ</span>
-                    <button type="button" class="btn btn-danger" onclick="removeSizeForm(${sizeFormCount})">Xoá</button>
+                    <span class="text-danger" id="errorLber[${value}]" style="display: none;">Invalid quantity</span>
+                    <button type="button" class="btn btn-danger" onclick="removeSizeForm(${sizeFormCount})">Cancel</button>
                 </div>
             `;
     sizeFormsContainer.insertAdjacentHTML('beforeend', sizeFormHtml);
@@ -93,3 +83,28 @@ function removeSizeForm(sizeFormId) {
         sizeForm.parentNode.removeChild(sizeForm);
     }
 }
+
+// var form = event.target;
+
+// fetch(form.action, {
+//     method: form.method,
+//     body: new FormData(form)
+// })
+// .then(response => {
+//     if (response.ok) {
+//         document.getElementById('successMessage').style.display = 'block';
+//         // var confirmation = confirm('Bạn có muốn thêm sản phẩm khác không?');
+//         // if (!confirmation) {
+//         //     window.location.href = "{{ route('admin.dashboard') }}";
+//         // } else {
+//         //     form.reset();
+//         //     document.getElementById('imagePreview').style.display = 'none';
+//         // }
+//     } else {
+//         console.log('Lỗi server:', response.statusText);
+//         document.getElementById('failMessage').style.display = 'block';
+//     }
+// })
+// .catch(error => {
+//     console.error('Lỗi khi gửi dữ liệu form:', error);
+// });
