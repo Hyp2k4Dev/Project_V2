@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -96,8 +95,14 @@ class UserController extends Controller
         ]);
 
         // Cập nhật dữ liệu người dùng
-        $user->update($request->all());
-
+        $updated = $user->update($request->all());
+        if ($updated) {
+            // Nếu thành công, đặt thông điệp thành công vào session
+            session()->flash('success', 'Thông tin người dùng đã được cập nhật thành công.');
+        } else {
+            // Nếu không thành công, đặt thông điệp lỗi vào session
+            session()->flash('error', 'Đã xảy ra lỗi khi cập nhật thông tin người dùng.');
+        }
         // Chuyển hướng về trang chi tiết người dùng sau khi cập nhật thành công
         return redirect()->route('admin.editUser', $user->id)->with('success', 'Thông tin người dùng đã được cập nhật thành công.');
     }
