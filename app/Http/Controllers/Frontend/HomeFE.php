@@ -4,17 +4,18 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Size;
 
 class HomeFE extends Controller
 {
     public function index()
     {
-        $products = Product::take(6)->get();
+        $products = Size::take(6)->get();
         return view('frontend.home', compact('products'));
     }
     public function product()
     {
-        $products = Product::where('Quantity', '>', 0)->get();
+        $products = Size::where('Quantity', '>', 0)->get();
         return view('frontend.product', compact('products'));
     }
 

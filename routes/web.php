@@ -29,12 +29,18 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 //Seller routes
-Route::middleware(['role:seller'])->prefix('admin')->group(function () {
+Route::middleware(['role:seller'])->prefix('seller')->group(function () {
     Route::get('/seller-dashboard', [SellerController::class, 'index'])->name('seller.dashboard');
 });
 // Admin routes
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [ProductController::class, 'index'])->name('admin.dashboard');
+    Route::get('/userList', [UserController::class, 'userList'])->name('admin.userList');
+    // Route::get('/admin/users/{user}/edit', [UserController::class, 'editUser'])->name('admin.editUser');
+    Route::get('/admin/users/{user}/edit', [UserController::class, 'showEditForm'])->name('admin.editUserForm');
+    Route::put('/admin/users/{user}/edit', [UserController::class, 'editUser'])->name('admin.editUser');
+
+
 
     Route::get('/product/add-product', [ProductController::class, 'addImage'])->name('admin.product.add-product');
     Route::post('/product/store', [ProductController::class, 'store'])->name('admin.product.store');

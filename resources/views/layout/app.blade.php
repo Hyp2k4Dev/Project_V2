@@ -31,6 +31,9 @@
                             <a class="nav-link active" href="{{ route('admin.dashboard') }}">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.userList') }}">Account Management</a>
+                        </li>
+                        <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="nav-link btn btn-link">Logout</button>

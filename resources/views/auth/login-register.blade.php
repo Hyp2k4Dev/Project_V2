@@ -315,10 +315,60 @@
     </footer>
 </body>
 <script>
+    // Lấy các phần tử DOM cần thiết
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
     const container = document.getElementById('container');
+    const signUpForm = document.querySelector('.sign-up-container form');
+    const signInForm = document.querySelector('.sign-in-container form');
 
+    // Hàm kiểm tra khoảng trắng hoặc ký tự đặc biệt
+    function containsSpecialCharacters(str) {
+        const regex = /[^\w\s]/;
+        return regex.test(str);
+    }
+
+    // Sự kiện khi nhấn nút Sign Up
+    signUpForm.addEventListener('submit', function(event) {
+        const nameInput = this.querySelector('#name');
+        const passwordInput = this.querySelector('#password');
+        const confirmPasswordInput = this.querySelector('#password_confirmation');
+
+        // Kiểm tra khoảng trắng hoặc ký tự đặc biệt trong tên
+        if (containsSpecialCharacters(nameInput.value) || nameInput.value.includes(' ')) {
+            alert("Tên không được chứa khoảng trắng hoặc ký tự đặc biệt.");
+            event.preventDefault(); // Ngăn chặn việc gửi form
+            return false;
+        }
+
+        // Kiểm tra khoảng trắng hoặc ký tự đặc biệt trong mật khẩu
+        if (containsSpecialCharacters(passwordInput.value) || passwordInput.value.includes(' ')) {
+            alert("Mật khẩu không được chứa khoảng trắng hoặc ký tự đặc biệt.");
+            event.preventDefault(); // Ngăn chặn việc gửi form
+            return false;
+        }
+
+        // Kiểm tra xác nhận mật khẩu
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            alert("Mật khẩu xác nhận không khớp.");
+            event.preventDefault(); // Ngăn chặn việc gửi form
+            return false;
+        }
+    });
+
+    // Sự kiện khi nhấn nút Sign In
+    signInForm.addEventListener('submit', function(event) {
+        const nameInput = this.querySelector('[type="name"]');
+
+        // Kiểm tra khoảng trắng hoặc ký tự đặc biệt trong tên
+        if (containsSpecialCharacters(nameInput.value) || nameInput.value.includes(' ')) {
+            alert("Tên không được chứa khoảng trắng hoặc ký tự đặc biệt.");
+            event.preventDefault(); // Ngăn chặn việc gửi form
+            return false;
+        }
+    });
+
+    // Sự kiện khi nhấn nút Sign Up hoặc Sign In
     signUpButton.addEventListener('click', () => {
         container.classList.add("right-panel-active");
     });
@@ -327,5 +377,6 @@
         container.classList.remove("right-panel-active");
     });
 </script>
+
 
 </html>
