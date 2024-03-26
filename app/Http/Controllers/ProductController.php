@@ -27,33 +27,81 @@ class ProductController extends Controller
         return view('admin.product.edit', compact('product'));
     }
 
+
     public function update(Request $request, $id)
     {
-
-        $validatedData = $request->validate([
-            'Name_sneaker' => 'required|string',
-            'Quantity' => 'required|integer',
-            'Brand' => 'required|string',
-            'Color' => 'required|string',
-            'Origin' => 'required|string',
-            'Material' => 'required|string',
-            'Status_Sneaker' => 'required|string',
-            'Price' => 'required|numeric',
-            'Size' => 'required|string',
-        ]);
-
-
-        if ($request->filled('Product_Code')) {
-            $validatedData['Product_Code'] = $request->input('Product_Code');
-        }
+        // $request->validate([
+        //     'Name_sneaker' => 'required|string',
+        //     'Brand' => 'required|string',
+        //     'Color' => 'required|string',
+        //     'Origin' => 'required|string',
+        //     'Material' => 'required|string',
+        //     'Status_Sneaker' => 'required|string',
+        //     'Product_Code' => 'required|string',
+        //     'Price' => 'required|numeric|min:0',
+        //     'Image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'sizes.*.size' => 'required|string',
+        //     'sizes.*.quantity' => 'required|numeric|min:0',
+        // ]);
 
         $product = Product::findOrFail($id);
-        $product->update($validatedData);
+        $product->Name_sneaker = $request->input('Name_sneaker');
+        $product->Description = $request->input('Description');
+        $product->Brand = $request->input('Brand');
+        $product->Color = $request->input('Color');
+        $product->Origin = $request->input('Origin');
+        $product->Material = $request->input('Material');
+        $product->Status_Sneaker = $request->input('Status_Sneaker');
+        $product->Price = $request->input('Price');
 
-        return redirect()->route('admin.dashboard')->with('success', 'Product updated successfully');
+        if ($request->hasFile('Image')) {
+            if ($product->Image) {
+                Storage::disk('public')->delete($product->Image);
+            }
+            $imagePath = $request->file('Image')->store('images/products', 'public');
+            $product->Image = $imagePath;
+        }
+
+        $product->save();
+
+        $sizes = $request->input('sizes', []);
+
+        $currentSizes = $product->sizes->pluck('size_name')->toArray();
+
+        foreach ($sizes as $sizeData) {
+            $sizeName = $sizeData['size'];
+            $quantity = $sizeData['quantity'];
+
+            $size = Size::where('product_id', $product->id)
+                ->where('size_name', $sizeName)
+                ->first();
+
+            if (!$size) {
+                $size = new Size([
+                    'size_name' => $sizeName,
+                    'quantity' => $quantity,
+                    'product_id' => $product->id,
+                ]);
+            } else {
+                $size->quantity = $quantity;
+            }
+
+            $size->save();
+
+            if (($key = array_search($sizeName, $currentSizes)) !== false) {
+                unset($currentSizes[$key]);
+            }
+        }
+
+        foreach ($currentSizes as $sizeName) {
+            $sizeToDelete = Size::where('product_id', $product->id)
+                ->where('size_name', $sizeName)
+                ->delete();
+        }
+
+
+        return redirect("/admin/dashboard")->with('success', 'Successfully updated the product.');
     }
-
-
 
     public function destroy($id)
     {

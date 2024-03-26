@@ -16,9 +16,9 @@
 </head>
 
 <body>
-    <header>
+    <header style="position: fixed; width: 100%; z-index: 1000;">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container"> <!-- Thêm lớp justify-content-end để căn phải -->
+            <div class="container">
                 <a href="{{ route('admin.dashboard') }}">
                     <img src="{{ asset('images/logo-shop.png') }}" alt="Logo" width="70px" height="70px">
                 </a>
@@ -50,10 +50,9 @@
         @yield('content')
     </main>
 
-    <footer class="bg-dark text-light text-center py-3">
-        <!-- Footer content -->
+    <!-- <footer class="bg-dark text-light text-center py-3">
         &copy; 2024 HTH Store. All rights reserved.
-    </footer>
+    </footer> -->
 
     <!-- Bootstrap JS -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-2vtScCm1/UgVr7CYYfADhUeqo9uGVQF/SlGGKdZimNT0A8Qi/ERxSv/NepW9KEwH" crossorigin="anonymous"></script> -->

@@ -21,7 +21,7 @@
         <i class="fa fa-check-circle success-icon"></i> {{ session('success') }}
     </div>
     @endif
-    <div class="container">
+    <div class="container" style="padding-top: 100px;">
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card">

@@ -34,13 +34,11 @@ Route::middleware(['role:seller'])->prefix('seller')->group(function () {
 });
 // Admin routes
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
-
     Route::get('/product/add-product', [ProductController::class, 'addImage'])->name('admin.product.add-product');
     Route::post('/product/store', [ProductController::class, 'store'])->name('admin.product.store');
     Route::get('/userList', [UserController::class, 'userList'])->name('admin.userList');
     Route::get('/admin/users/{user}/edit', [UserController::class, 'showEditForm'])->name('admin.editUserForm');
     Route::put('/admin/users/{user}/edit', [UserController::class, 'editUser'])->name('admin.editUser');
-
 
     Route::get('/dashboard', [ProductController::class, 'index'])->name('admin.dashboard');
     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.product.edit');
