@@ -18,11 +18,27 @@
                         <div class="col-sm-6">
                             <p><strong>Phone Number (+84):</strong> {{ $user->phone_number }}</p>
                             <p><strong>Role:</strong> {{ $user->role }}</p>
+                            <p><strong>Status:</strong>
+                                @if($user->is_active == 1)
+                                Activated
+                                @else
+                                Not Activated
+                                @endif
+                            </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <a href="{{ route('admin.editUserForm', ['user' => $user->id]) }}" class="btn btn-primary">{{ __('Edit Information') }}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <form action="{{ route('admin.deleteUser', ['user' => $user->id]) }}" method="POST" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xoá người dùng không?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">{{ __('Delete User') }}</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -31,4 +47,11 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmDelete(deleteUrl) {
+        if (confirm('Bạn có chắc chắn muốn xoá user không?')) {
+            window.location.href = deleteUrl;
+        }
+    }
+</script>
 @endsection

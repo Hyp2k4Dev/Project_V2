@@ -31,14 +31,18 @@ Route::post('/register', [RegisterController::class, 'register']);
 //Seller routes
 Route::middleware(['role:seller'])->prefix('seller')->group(function () {
     Route::get('/seller-dashboard', [SellerController::class, 'index'])->name('seller.dashboard');
+    Route::get("/order-list", [OrderController::class, 'show'])->name('user.orderList');
 });
 // Admin routes
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
+    Route::get("/ordlist", [OrderController::class, 'showOrdAdmin'])->name('admin.ordList');
+
     Route::get('/product/add-product', [ProductController::class, 'addImage'])->name('admin.product.add-product');
     Route::post('/product/store', [ProductController::class, 'store'])->name('admin.product.store');
     Route::get('/userList', [UserController::class, 'userList'])->name('admin.userList');
     Route::get('/admin/users/{user}/edit', [UserController::class, 'showEditForm'])->name('admin.editUserForm');
     Route::put('/admin/users/{user}/edit', [UserController::class, 'editUser'])->name('admin.editUser');
+    Route::delete('/admin/delete-user/{user}', [UserController::class, 'deleteUser'])->name('admin.deleteUser');
 
     Route::get('/dashboard', [ProductController::class, 'index'])->name('admin.dashboard');
     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.product.edit');
@@ -49,8 +53,8 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     // Thêm route cho tính năng xoá sản phẩm
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('admin.product.destroy');
 
-    //order
-    Route::get("/order-list", [OrderController::class, 'show'])->name('adminorder-list');
+
+    Route::get('/admin/delete-user/{user}', [UserController::class, 'deleteUser'])->name('admin.deleteUser');
 });
 
 // User routes

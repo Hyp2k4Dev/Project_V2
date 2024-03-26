@@ -44,7 +44,7 @@ class UserController extends Controller
             'address' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:20',
             'date_of_birth' => 'nullable|date',
-            'role' => ['required', Rule::in(['user', 'admin'])],
+            'role' => ['required', Rule::in(['seller', 'admin'])],
         ]);
     }
 
@@ -91,7 +91,7 @@ class UserController extends Controller
             ],
             'address' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:11',
-            'role' => ['required', Rule::in(['user', 'admin'])],
+            'role' => ['required', Rule::in(['seller', 'admin'])],
         ]);
 
         // Cập nhật dữ liệu người dùng
@@ -119,10 +119,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(User $user)
+    public function deleteUser(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'Người dùng đã được xóa thành công.');
+
+        return redirect()->back()->with('success', 'User deleted successfully.');
     }
 
     public function main()

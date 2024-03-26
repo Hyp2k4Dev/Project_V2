@@ -71,6 +71,14 @@ class OrderController extends Controller
 
         return view('user.orderList', compact('pendingOrders'));
     }
+    public function showOrdAdmin()
+    {
+        $pendingOrders = Order::where('status_order', 'pending')
+            ->with('customer', 'orderDetails.product')
+            ->get();
+
+        return view('admin.ordList', compact('pendingOrders'));
+    }
 }
     // foreach ($pendingOrders as $order) {
     //     foreach ($order->orderDetails as $detail) {

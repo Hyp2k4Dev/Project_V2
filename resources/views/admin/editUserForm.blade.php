@@ -5,12 +5,14 @@
 <div class="alert alert-success">
     {{ session('success') }}
 </div>
+@endif
+
 @if(session('error'))
 <div class="alert alert-danger">
     {{ session('error') }}
 </div>
 @endif
-@endif
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -22,6 +24,7 @@
                         @csrf
                         @method('PUT')
 
+                        <!-- Username -->
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
                             <div class="col-md-6">
@@ -29,6 +32,7 @@
                             </div>
                         </div>
 
+                        <!-- Email -->
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
                             <div class="col-md-6">
@@ -36,6 +40,7 @@
                             </div>
                         </div>
 
+                        <!-- Address -->
                         <div class="form-group row">
                             <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
                             <div class="col-md-6">
@@ -43,6 +48,7 @@
                             </div>
                         </div>
 
+                        <!-- Phone Number -->
                         <div class="form-group row">
                             <label for="phone_number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number (+84)') }}</label>
                             <div class="col-md-6">
@@ -50,16 +56,29 @@
                             </div>
                         </div>
 
+                        <!-- Role -->
                         <div class="form-group row">
                             <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
                             <div class="col-md-6">
                                 <select name="role" id="role" class="form-control" required>
-                                    <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>User</option>
+                                    <option value="seller" {{ $user->role === 'seller' ? 'selected' : '' }}>Seller</option>
                                     <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
                                 </select>
                             </div>
                         </div>
 
+                        <!-- is_active -->
+                        <div class="form-group row">
+                            <label for="is_active" class="col-md-4 col-form-label text-md-right">{{ __('Active Status') }}</label>
+                            <div class="col-md-6">
+                                <select name="is_active" id="is_active" class="form-control" required>
+                                    <option value="1" {{ $user->is_active == 1 ? 'selected' : '' }}>Activated</option>
+                                    <option value="0" {{ $user->is_active == 0 ? 'selected' : '' }}>Not Activated</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">{{ __('Update Information') }}</button>

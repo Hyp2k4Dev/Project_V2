@@ -1,4 +1,4 @@
-@extends('seller-layout.app')
+@extends('layout.app')
 
 @section('content')
 <!DOCTYPE html>

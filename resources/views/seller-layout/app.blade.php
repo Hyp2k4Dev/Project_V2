@@ -11,7 +11,7 @@
     <!-- Your custom CSS -->
     <link rel="stylesheet" href="/css/be/app.css">
     <style>
-        
+
     </style>
 </head>
 
@@ -27,11 +27,20 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav"> <!-- Không cần thêm lớp ml-auto -->
+
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.orderList') }}">Order List Management</a>
+                        </li>
+                        <li class="nav-item">
+                            @auth
+                            <span class="nav-link">{{ auth()->user()->name }}</span>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="nav-link btn btn-link">Logout</button>
+                                <button type="submit" class="btn btn-link">Logout</button>
                             </form>
+                            @else
+                            <a href="{{ route('login') }}" class="nav-link">Login</a>
+                            @endauth
                         </li>
                     </ul>
                 </div>
