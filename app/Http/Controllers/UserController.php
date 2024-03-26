@@ -90,7 +90,7 @@ class UserController extends Controller
                 Rule::unique('users')->ignore($user->id),
             ],
             'address' => 'nullable|string|max:255',
-            'phone_number' => 'nullable|string|max:11',
+            'phone_number' => 'required|string|max:11',
             'role' => ['required', Rule::in(['seller', 'admin'])],
         ]);
 

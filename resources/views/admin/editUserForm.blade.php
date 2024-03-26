@@ -106,6 +106,10 @@
             alert("Email phải chứa ký tự @.");
             return false;
         }
+        if (!phoneNumber) {
+            alert("Số điện thoại không được để trống.");
+            return false;
+        }
 
         if (/[^\d\s]/.test(phoneNumber)) {
             alert("Số điện thoại không được chứa ký tự đặc biệt.");
