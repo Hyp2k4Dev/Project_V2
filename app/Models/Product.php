@@ -18,6 +18,7 @@ class Product extends Model
         'Status_Sneaker',
         'Product_Code',
         'Price',
+        'Description',
         'Image'
     ];
 
