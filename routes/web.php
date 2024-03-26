@@ -42,7 +42,7 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::get('/userList', [UserController::class, 'userList'])->name('admin.userList');
     Route::get('/admin/users/{user}/edit', [UserController::class, 'showEditForm'])->name('admin.editUserForm');
     Route::put('/admin/users/{user}/edit', [UserController::class, 'editUser'])->name('admin.editUser');
-
+    Route::delete('/admin/delete-user/{user}', [UserController::class, 'deleteUser'])->name('admin.deleteUser');
 
     Route::get('/dashboard', [ProductController::class, 'index'])->name('admin.dashboard');
     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.product.edit');
