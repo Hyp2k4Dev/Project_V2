@@ -10,12 +10,12 @@ class HomeFE extends Controller
 {
     public function index()
     {
-        $products = Size::take(6)->get();
+        $products = Product::take(6)->get();
         return view('frontend.home', compact('products'));
     }
     public function product()
     {
-        $products = Size::where('Quantity', '>', 0)->get();
+        $products = Product::with('sizes')->get();
         return view('frontend.product', compact('products'));
     }
 
