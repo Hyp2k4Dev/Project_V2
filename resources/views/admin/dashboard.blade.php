@@ -12,7 +12,7 @@
             <div class="col-md-8 col-lg-6">
                 <div class="header">
                     <h2>Products List</h2>
-                    <a class="addProduct" href="{{ route('admin.product.add-product') }}">Thêm sản phẩm</a>
+                    <a class="addProduct" href="{{ route('admin.product.add-product') }}">Add New Product</a>
                 </div>
             </div>
         </div>

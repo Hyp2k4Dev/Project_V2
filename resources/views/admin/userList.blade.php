@@ -21,8 +21,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <a href="{{ route('admin.editUserForm', ['user' => $user->id]) }}" class="btn btn-primary">{{ __('Edit Information') }}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a href="{{ route('admin.deleteUser', ['user' => $user->id]) }}" class="btn btn-danger">{{ __('Delete User') }}</a>
                         </div>
                     </div>
                 </div>
