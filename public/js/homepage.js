@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
+//customer nhan tin ho tro voi staff
 document.addEventListener('DOMContentLoaded', function() {
     var chatButton = document.querySelector('.chat-btn');
 
