@@ -36,6 +36,7 @@ Route::middleware(['role:seller'])->prefix('seller')->group(function () {
 // Admin routes
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::get("/ordlist", [OrderController::class, 'showOrdAdmin'])->name('admin.ordList');
+    Route::get("/showAct", [UserController::class, 'filterUserStatus'])->name('admin.userList');
 
     Route::get('/product/add-product', [ProductController::class, 'addImage'])->name('admin.product.add-product');
     Route::post('/product/store', [ProductController::class, 'store'])->name('admin.product.store');
@@ -48,7 +49,6 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.product.edit');
     Route::put('/product/{id}', [ProductController::class, 'update'])->name('admin.product.update');
     Route::post('/check-product-code', 'ProductController@checkProductCode')->name('admin.product.check_code');
-    // Route::get('/analytic', [AdminDashboardController::class, 'index'])->name('admin.analytic');
 
     // Thêm route cho tính năng xoá sản phẩm
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('admin.product.destroy');

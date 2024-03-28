@@ -11,7 +11,10 @@
     <!-- Your custom CSS -->
     <link rel="stylesheet" href="/css/be/app.css">
     <style>
-
+        /* Thêm CSS để căn phải */
+        .navbar {
+            justify-content: flex-end;
+        }
     </style>
 </head>
 
@@ -25,7 +28,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav"> <!-- Không cần thêm lớp ml-auto -->
 
                         <li class="nav-item">
@@ -33,11 +36,12 @@
                         </li>
                         <li class="nav-item">
                             @auth
-                            <span class="nav-link">{{ auth()->user()->name }}</span>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-link">Logout</button>
-                            </form>
+                            <span class="nav-link">{{ auth()->user()->name }} ({{auth()->user()->role}})
+                                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-link text-white">Logout</button>
+                                </form>
+                            </span>
                             @else
                             <a href="{{ route('login') }}" class="nav-link">Login</a>
                             @endauth

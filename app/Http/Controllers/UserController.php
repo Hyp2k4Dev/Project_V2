@@ -29,6 +29,8 @@ class UserController extends Controller
         return view('users.create');
     }
 
+
+
     /**
      * Lưu người dùng mới vào cơ sở dữ liệu.
      *
@@ -44,7 +46,7 @@ class UserController extends Controller
             'address' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:20',
             'date_of_birth' => 'nullable|date',
-            'role' => ['required', Rule::in(['seller', 'admin'])],
+            'role' => ['required', Rule::in(['user', 'seller', 'admin'])],
         ]);
     }
 
@@ -65,12 +67,22 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\View\View
      */
-    public function userList(User $user)
+    public function userList(Request $request)
     {
-        $users = User::all();
+        $status = $request->input('status', 'all');
 
-        return view('admin.userList', compact('users'));
+        if ($status == 'activated') {
+            $users = User::where('is_active', 1)->get();
+        } elseif ($status == 'not_activated') {
+            $users = User::where('is_active', 0)->get();
+        } else {
+            $users = User::all();
+        }
+
+        return view('admin.userList', compact('users', 'status'));
     }
+    
+
 
     /**
      * Cập nhật thông tin của người dùng trong cơ sở dữ liệu.
@@ -91,7 +103,7 @@ class UserController extends Controller
             ],
             'address' => 'nullable|string|max:255',
             'phone_number' => 'required|string|max:11',
-            'role' => ['required', Rule::in(['seller', 'admin'])],
+            'role' => ['required', Rule::in(['user', 'seller', 'admin'])],
         ]);
 
         // Cập nhật dữ liệu người dùng
