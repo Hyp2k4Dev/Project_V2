@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('showMoreBtn').style.display = 'none';
         }
     }
-    // document.getElementById('showMoreBtn').addEventListener('click', addMoreCards);
+    document.getElementById('showMoreBtn').addEventListener('click', addMoreCards);
 });
 document.addEventListener('DOMContentLoaded', function () {
     var backToTopButton = document.querySelector('.back-to-top-btn');
@@ -93,7 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
-document.addEventListener('DOMContentLoaded', function () {
+//customer nhan tin ho tro voi staff
+document.addEventListener('DOMContentLoaded', function() {
     var chatButton = document.querySelector('.chat-btn');
 
     chatButton.addEventListener('click', function () {

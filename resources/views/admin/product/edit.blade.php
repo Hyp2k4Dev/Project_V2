@@ -37,7 +37,7 @@ $currentIndex = count($product->sizes);
 
                         <div class="form-group">
                             <label for="image" class="btn btn-info p-2" style="cursor: pointer;">IMAGE PRODUCT:</label>
-                            <input type="file" name="image" id="image" style=" opacity: 0;width: 0.1px;height: 0.1px;position: absolute;overflow: hidden;z-index: -1;" accept="image/*" class="form-control-file">
+                            <input type="file" name="Image" id="image" style="opacity: 0; width: 0.1px; height: 0.1px; position: absolute; overflow: hidden; z-index: -1;" accept="image/*" class="form-control-file">
                             @if($product->Image)
                             <img src="{{ asset($product->Image) }}" id="img-root" alt="Image Product" style="max-width: 200px; margin-top: 10px;">
                             @endif
