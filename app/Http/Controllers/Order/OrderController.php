@@ -79,6 +79,10 @@ class OrderController extends Controller
 
         return view('admin.ordList', compact('pendingOrders'));
     }
+
+    public function addToCart(){
+        return view('frontend.addToCart');
+    }
 }
     // foreach ($pendingOrders as $order) {
     //     foreach ($order->orderDetails as $detail) {

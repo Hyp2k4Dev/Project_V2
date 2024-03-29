@@ -502,3 +502,14 @@ body {
 .btn-more {
     padding: 20px 35px;
 }
+
+.add-cart {
+    color: black;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    background-color: #77dada;
+    border-radius: 15px;
+}

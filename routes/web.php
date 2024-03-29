@@ -56,6 +56,7 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
 
     Route::get('/admin/delete-user/{user}', [UserController::class, 'deleteUser'])->name('admin.deleteUser');
 });
+Route::post('/add-to-cart', [OrderController::class, 'addToCart'])->name('frontend.addToCart');
 
 // User routes
 Route::middleware(['role:user'])->prefix('user')->group(function () {

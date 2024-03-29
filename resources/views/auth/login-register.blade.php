@@ -315,60 +315,74 @@
     </footer>
 </body>
 <script>
-    // Lấy các phần tử DOM cần thiết
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
     const container = document.getElementById('container');
     const signUpForm = document.querySelector('.sign-up-container form');
     const signInForm = document.querySelector('.sign-in-container form');
 
-    // Hàm kiểm tra khoảng trắng hoặc ký tự đặc biệt
     function containsSpecialCharacters(str) {
         const regex = /[^\w\s]/;
         return regex.test(str);
     }
 
-    // Sự kiện khi nhấn nút Sign Up
     signUpForm.addEventListener('submit', function(event) {
         const nameInput = this.querySelector('#name');
         const passwordInput = this.querySelector('#password');
         const confirmPasswordInput = this.querySelector('#password_confirmation');
 
-        // Kiểm tra khoảng trắng hoặc ký tự đặc biệt trong tên
         if (containsSpecialCharacters(nameInput.value) || nameInput.value.includes(' ')) {
             alert("Tên không được chứa khoảng trắng hoặc ký tự đặc biệt.");
-            event.preventDefault(); // Ngăn chặn việc gửi form
+            event.preventDefault();
             return false;
         }
 
-        // Kiểm tra khoảng trắng hoặc ký tự đặc biệt trong mật khẩu
         if (containsSpecialCharacters(passwordInput.value) || passwordInput.value.includes(' ')) {
             alert("Mật khẩu không được chứa khoảng trắng hoặc ký tự đặc biệt.");
-            event.preventDefault(); // Ngăn chặn việc gửi form
+            event.preventDefault();
             return false;
         }
 
-        // Kiểm tra xác nhận mật khẩu
         if (passwordInput.value !== confirmPasswordInput.value) {
             alert("Mật khẩu xác nhận không khớp.");
-            event.preventDefault(); // Ngăn chặn việc gửi form
+            event.preventDefault();
             return false;
         }
     });
 
-    // Sự kiện khi nhấn nút Sign In
-    signInForm.addEventListener('submit', function(event) {
+    signInForm.addEventListener('submit', async function(event) {
         const nameInput = this.querySelector('[type="name"]');
+        const username = nameInput.value;
 
-        // Kiểm tra khoảng trắng hoặc ký tự đặc biệt trong tên
-        if (containsSpecialCharacters(nameInput.value) || nameInput.value.includes(' ')) {
+        if (containsSpecialCharacters(username) || username.includes(' ')) {
             alert("Tên không được chứa khoảng trắng hoặc ký tự đặc biệt.");
-            event.preventDefault(); // Ngăn chặn việc gửi form
+            event.preventDefault();
             return false;
+        }
+
+        try {
+            const response = await fetch('/checkUserActiveStatus', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username
+                })
+            });
+
+            const data = await response.json();
+            if (data.is_active === '0') {
+                alert("Tài khoản của bạn không được hoạt động. Vui lòng liên hệ với admin.");
+                event.preventDefault();
+                return false;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            // Handle error if any
         }
     });
 
-    // Sự kiện khi nhấn nút Sign Up hoặc Sign In
     signUpButton.addEventListener('click', () => {
         container.classList.add("right-panel-active");
     });
