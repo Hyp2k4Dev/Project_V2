@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="{{ asset('js/homepage.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/fe/templatemo.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fe/bootstrap.min.css') }}">
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

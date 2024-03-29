@@ -78,7 +78,9 @@ a{
     padding: 10px 55px;
     z-index: 1000;
 }
-
+.header a{
+    text-decoration: none;
+}
 .header-left {
     display: flex;
     align-items: center;
@@ -196,6 +198,12 @@ a{
     gap: 40px 25px;
     max-width: 1280px;
     margin: 8rem auto 0 auto;
+}
+.product-hot-new a{
+    text-decoration: none;
+}
+.product-hot-new p{
+    color: #000;
 }
 
 .item-product {
