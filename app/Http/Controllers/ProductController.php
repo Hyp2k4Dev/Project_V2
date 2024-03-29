@@ -53,13 +53,28 @@ class ProductController extends Controller
         $product->Material = $request->input('Material');
         $product->Status_Sneaker = $request->input('Status_Sneaker');
         $product->Price = $request->input('Price');
+        $destinationPath = 'product_images';
 
         if ($request->hasFile('Image')) {
             if ($product->Image) {
-                Storage::disk('public')->delete($product->Image);
+                $oldImagePath = str_replace('/storage/', '', $product->Image);
+                Storage::disk('public')->delete($oldImagePath);
             }
-            $imagePath = $request->file('Image')->store('images/products', 'public');
-            $product->Image = $imagePath;
+
+            $image = $request->file('Image');
+            $imageName = $image->getClientOriginalName();
+            $extension = $image->getClientOriginalExtension();
+
+            $randomize = rand(111111, 999999);
+            $imageName = $randomize . '.' . $extension;
+
+            while (Storage::disk('public')->exists($destinationPath . '/' . $imageName)) {
+                $randomize = rand(111111, 999999);
+                $imageName = $randomize . '.' . $extension;
+            }
+
+            $imagePath = $image->storeAs($destinationPath, $imageName, 'public');
+            $product->Image = '/storage/' . $imagePath;
         }
 
         $product->save();
@@ -98,8 +113,6 @@ class ProductController extends Controller
                 ->where('size_name', $sizeName)
                 ->delete();
         }
-
-
         return redirect("/admin/dashboard")->with('success', 'Successfully updated the product.');
     }
 
@@ -137,7 +150,8 @@ class ProductController extends Controller
         $randomize = rand(111111, 999999);
         $extension = $request->file('image')->getClientOriginalExtension();
         $fileName = $randomize . '.' . $extension;
-        $imagePath = $request->file('image')->storeAs($destinationPath, $fileName);
+
+        // $imagePath = $request->file('image')->storeAs($destinationPath, $fileName);
         do {
             $productCode = 'HTH-' . mt_rand(1000, 999999);
         } while (Product::where('Product_Code', $productCode)->exists());

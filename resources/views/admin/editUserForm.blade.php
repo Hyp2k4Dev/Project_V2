@@ -20,6 +20,8 @@
                 <div class="card-header">{{ __('Edit User Information') }}</div>
 
                 <div class="card-body">
+                    <a href="{{ route('admin.userList') }}" class="btn btn-secondary mb-3">Back to User List</a>
+
                     <form method="POST" action="{{ route('admin.editUser', ['user' => $user->id]) }}" onsubmit="return validateForm()">
                         @csrf
                         @method('PUT')

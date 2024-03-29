@@ -37,7 +37,7 @@ class RegisterController extends Controller
         User::create([
             'name' => $request->name,
             'password' => Hash::make($request->password),
-            'role' => 'seller', // Set default role to 'seller'
+            'role' => 'user', // Set default role to 'seller'
         ]);
 
         // Redirect to login page with success message
