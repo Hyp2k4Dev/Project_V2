@@ -24,9 +24,9 @@
         <div class="header-left">
             <a href="{{ route('frontend.home') }}"><img src="{{ asset('images/logo-shop.png') }}" alt="Mô tả của hình ảnh"></a>
             <div class="option-header">
-                <a href="/product">Product</a>
+                <a href="/product">Products</a>
                 <a href="#">About</a>
-                <a href="/blog">Blog</a>
+                <a href="/blog">Blogs</a>
             </div>
         </div>
         <form id="addToCartForm" action="{{ route('frontend.addToCart') }}" method="POST" style="display: none;">
