@@ -57,4 +57,6 @@ class AdminDashboardController extends Controller
 
         return redirect()->route('admin.dashboard')->with('success', 'Sản phẩm đã được thêm thành công.');
     }
+
+    
 }

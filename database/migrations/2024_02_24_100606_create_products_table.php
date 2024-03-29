@@ -21,14 +21,11 @@ class CreateProductsTable extends Migration
             $table->string('Status_Sneaker', 35);
             $table->string('Product_Code', 20)->unique();
             $table->integer('Price');
+            $table->sting('Description');
             $table->string('Image')->nullable();
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down()
     {
         Schema::dropIfExists('products');

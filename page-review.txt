@@ -1,0 +1,31 @@
+trang chinh
+- trang sản phẩm (
+    gọi sản phẩm từ database ra - sắp xếp lớn đến bé hoặc ngược lại theo giá tiền,....
+)
+- chi tiết sảm phẩm (
+	sau khi ấn vào sản phẩm nào đó id sẽ được chuyền đi theo route để gọi sản phẩm đó ra
+	trong trang sẽ tập trung vào hiển thị sản phẩm
+)
+- trang giỏ hàng
+(
+	tính năng thêm sản phẩm vào giỏ hàng có ở trong các chi tiết hoặc trong các thẻ div của sản phẩm
+ 	sản phẩm trong giỏ hàng sẽ lưu như cookie để có thể gọi ra bên order
+	chủ yếu sẽ hiện tên sản phẩm size số lượng tổng giá của sản phẩm đó....
+	ở dưới sẽ có tổng số tiền của tất cả sản phẩm rồi dẫn đến trang order
+ )
+- trang thực hiện order
+(
+	trang này vẫn hiện ra sản phẩm khách mua như trang giỏ hàng nhưng thiết kế tối giản đi
+	thêm phầm nhập thông tin khách hàng để order
+	tham khảo route /order để biết nhập thông tin khách hàng
+)
+- trang kiểm tra đơn hàng
+(
+	trang này sẽ có phần input để khách hàng có thể kiểm tra đơn ví dụ id
+	sau khi nhập id xong đơn hàng sẽ hiện lên và trạng thái là gì ..
+	và có phần để in hóa đơn
+)
+trang phụ ( hoàn thành sau )
+- about
+- blog
+- trang tìm kiếm sản phẩm (nếu còn time hoặc xong rồi)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Size;
 
 class HomeFE extends Controller
 {
@@ -13,6 +14,7 @@ class HomeFE extends Controller
     }
     public function product()
     {
+        $products = Product::with('sizes')->get();
         $products = Product::get();
         $products = Product::latest()->paginate(9);
         // return view('product', compact('products'));

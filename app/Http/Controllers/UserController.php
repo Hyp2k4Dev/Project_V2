@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('users.index', compact('users'));
+        return view('admin.editUser', compact('users'));
     }
 
     /**
@@ -44,10 +44,8 @@ class UserController extends Controller
             'address' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:20',
             'date_of_birth' => 'nullable|date',
-            'role' => ['required', Rule::in(['user', 'admin'])],
+            'role' => ['required', Rule::in(['seller', 'admin'])],
         ]);
-
-        // Tiếp tục lưu dữ liệu và chuyển hướng...
     }
 
     /**
@@ -67,9 +65,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\View\View
      */
-    public function edit(User $user)
+    public function userList(User $user)
     {
-        return view('users.edit', compact('user'));
+        $users = User::all();
+
+        return view('admin.userList', compact('users'));
     }
 
     /**
@@ -79,10 +79,39 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, User $user)
+    public function editUser(Request $request, User $user)
     {
-        // Validation, cập nhật dữ liệu và chuyển hướng...
+        // Validation
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($user->id),
+            ],
+            'address' => 'nullable|string|max:255',
+            'phone_number' => 'required|string|max:11',
+            'role' => ['required', Rule::in(['seller', 'admin'])],
+        ]);
+
+        // Cập nhật dữ liệu người dùng
+        $updated = $user->update($request->all());
+        if ($updated) {
+            // Nếu thành công, đặt thông điệp thành công vào session
+            session()->flash('success', 'Thông tin người dùng đã được cập nhật thành công.');
+        } else {
+            // Nếu không thành công, đặt thông điệp lỗi vào session
+            session()->flash('error', 'Đã xảy ra lỗi khi cập nhật thông tin người dùng.');
+        }
+        // Chuyển hướng về trang chi tiết người dùng sau khi cập nhật thành công
+        return redirect()->route('admin.editUser', $user->id)->with('success', 'Thông tin người dùng đã được cập nhật thành công.');
     }
+
+    public function showEditForm(User $user)
+    {
+        return view('admin.editUserForm', compact('user'));
+    }
+
 
     /**
      * Xóa một người dùng khỏi cơ sở dữ liệu.
@@ -90,10 +119,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(User $user)
+    public function deleteUser(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'Người dùng đã được xóa thành công.');
+
+        return redirect()->back()->with('success', 'User deleted successfully.');
     }
 
     public function main()

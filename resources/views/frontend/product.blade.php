@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTH SNEAKER STORE</title>
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('css/fe/homepage.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,45 +51,98 @@
             </form>
         </div>
     </div>
+    <div id="noResultsMessage" style="display: none;">
+    <p>Không có sản phẩm như yêu cầu</p>
+    </div>
+    <script>
+    // Get all checkboxes
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    
+    // Add event listener to each checkbox
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Check if any checkbox is checked
+            var anyChecked = false;
+            for(var i = 0; i < checkboxes.length; i++) {
+                if(checkboxes[i].checked) {
+                    anyChecked = true;
+                    break;
+                }
+            }
 
-
-
-    <!-- Start Content -->
+            // Show or hide the message based on whether any checkbox is checked
+            var noResultsMessage = document.getElementById('noResultsMessage');
+            noResultsMessage.style.display = anyChecked ? 'none' : 'block';
+        });
+    });
+</script>
     <div class="container py-5">
         <div class="row">
-
             <div class="col-lg-3">
                 <h1 class="h2 pb-4">Categories</h1>
-                <ul class="list-unstyled templatemo-accordion">
+                <ul class="list-unstyled customerSelect">
                     <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Gender
-                            <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" data-toggle="collapse" href="#priceCollapse">
+                            Price
                         </a>
-                        <ul class="collapse show list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Men</a></li>
-                            <li><a class="text-decoration-none" href="#">Women</a></li>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" name="listGroupPrice" value="" id="firstPrice">
+                                <label class="form-check-label" for="firstPrice">Under 500.000VND</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" name="listGroupPrice" value="" id="secondPrice">
+                                <label class="form-check-label" for="secondPrice">500.000VND to 1.000.000VND</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" name="listGroupPrice" value="" id="thirdPrice">
+                                <label class="form-check-label" for="thirdPrice">1.000.000VND to 2.000.000VND</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" name="listGroupPrice" value="" id="fourPrice">
+                                <label class="form-check-label" for="fourPrice">Over 2.000.000VND</label>
+                            </li>
                         </ul>
                     </li>
                     <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Sale
-                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" data-toggle="collapse" href="#brandCollapse">
+                            Brand
                         </a>
-                        <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Sport</a></li>
-                            <li><a class="text-decoration-none" href="#">Luxury</a></li>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" name="listGroupBrand" value="" id="firstBrand">
+                                <label class="form-check-label" for="firstBrand">Nike</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" name="listGroupBrand" value="" id="secondBrand">
+                                <label class="form-check-label" for="secondBrand">Adidas</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" name="listGroupBrand" value="" id="thirdBrand">
+                                <label class="form-check-label" for="thirdBrand">Puma</label>
+                            </li>
                         </ul>
                     </li>
                     <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Product
-                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" data-toggle="collapse" href="#sizeCollapse">
+                            Size
                         </a>
-                        <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Bag</a></li>
-                            <li><a class="text-decoration-none" href="#">Sweather</a></li>
-                            <li><a class="text-decoration-none" href="#">Sunglass</a></li>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" name="listGroupSize" value="" id="firstSize">
+                                <label class="form-check-label" for="firstSize">36</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" name="listGroupSize" value="" id="secondSize">
+                                <label class="form-check-label" for="secondSize">37</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" name="listGroupSize" value="" id="thirdSize">
+                                <label class="form-check-label" for="thirdSize">38</label>
+                            </li>
+                            <button class="btn btn-link text-decoration-none" type="button" data-toggle="collapse" data-target="#sizeCollapse" aria-expanded="false" aria-controls="sizeCollapse">
+                                Show more
+                            </button>
                         </ul>
                     </li>
                 </ul>
@@ -124,104 +176,99 @@
                 <div class="container">
                     <div class="row">
                         @forelse($products as $index => $product)
-                            @if($index % 3 == 0 && $index > 0) {{-- Bắt đầu một hàng mới nếu không phải là sản phẩm đầu tiên và là bội số của 3 --}}
-                    </div>
-                    <div class="row">
-                        @endif
-                        <div class="col-md-4">
-                                <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0 m-0 p-0">
-                                <img class="card-img rounded-0 img-fluid m-0 p-0" src="{{ asset($product->Image) }}" >
-                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white" href="{{ route('frontend.productdetails', $product->id) }}"><i class="far fa-heart"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="{{ route('frontend.productdetails', $product->id) }}"><i class="far fa-eye"></i></a></li>
-                                    </ul>
+                            @if($index % 3 == 0 && $index > 0)
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="{{ route('frontend.productdetails', $product->id) }}" class="h3 text-decoration-none">{{ $product->Name_sneaker }}</a>
-                                <p class="text-center mb-0">${{ $product->Price }}</p>
-                            </div>
-                        </div>
-                        </div>
-                            @if(($index + 1) % 3 == 0 || $loop->last) {{-- Kết thúc một hàng hoặc đã là sản phẩm cuối cùng --}}
-                        </div>
-                            @if(!$loop->last) {{-- Nếu không phải là sản phẩm cuối cùng, mở một hàng mới --}}
                                 <div class="row">
-                                @endif
-                                        @endif
-                                    @empty
-                                        <div class="col-md-12">
-                                            <div class="alert alert-info" role="alert">
-                                                Chưa có sản phẩm nào.
-                                            </div>
+                            @endif
+                            <div class="col-md-4">
+                                <div class="card mb-4 product-wap rounded-0">
+                                    <div class="card-body rounded-0 position-relative">
+                                        <img class="card-img rounded-0 img-fluid m-0 p-0" src="{{ asset($product->Image) }}" >
+                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                            <ul class="item-hover list-unstyled d-flex justify-content-center align-items-center m-0 p-0">
+                                                <li class="mr-2"><a class="btn btn-success text-white" href="{{ route('frontend.productdetails', $product->id) }}"><i class="far fa-heart"></i></a></li>
+                                                <li><a class="btn btn-success text-white" href="{{ route('frontend.productdetails', $product->id) }}"><i class="far fa-eye"></i></a></li>
+                                            </ul>
                                         </div>
-                                    @endforelse
+                                    </div>
+                                    <div class="card-body">
+                                        <a href="{{ route('frontend.productdetails', $product->id) }}" class="h3 text-decoration-none">{{ $product->Name_sneaker }}</a>
+                                        <p class="text-center mb-0">{{ number_format($product->Price, 0, ',', '.') }} VNĐ</p>
+                                    </div>
                                 </div>
                             </div>
-                            {{ $products->links() }}
-                            
-
-
-                            <div class="row">
-                                <ul class="pagination pagination-lg justify-content-end">
-                                    {{-- Hiển thị liên kết chuyển trang cho trang đầu --}}
-                                    @if ($products->onFirstPage())
-                                        <li class="page-item disabled">
-                                            <span class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" tabindex="-1">1</span>
-                                        </li>
-                                    @else
-                                        <li class="page-item">
-                                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="{{ $products->previousPageUrl() }}">1</a>
-                                        </li>
-                                    @endif
-
-                                    {{-- Hiển thị các trang --}}
-                                    @php
-                                        // Xác định số trang cần hiển thị trước và sau trang hiện tại
-                                        $currentPage = $products->currentPage();
-                                        $startPage = max($currentPage - 2, 2);
-                                        $endPage = min($currentPage + 2, $products->lastPage());
-
-                                        // Hiển thị các trang
-                                        for ($page = $startPage; $page <= $endPage; $page++) {
-                                            $url = $products->url($page);
-                                            $activeClass = $page == $currentPage ? 'active' : '';
-                                            echo "<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark $activeClass' href='$url'>$page</a></li>";
-                                        }
-                                    @endphp
-
-                                    {{-- Hiển thị liên kết chuyển trang cho trang cuối --}}
-                                    @if ($products->currentPage() < $products->lastPage())
-                                        <li class="page-item">
-                                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="{{ $products->nextPageUrl() }}">{{ $products->lastPage() }}</a>
-                                        </li>
-                                    @endif
-                                </ul>
+                            @if(($index + 1) % 3 == 0 || $loop->last)
+                                </div>
+                                @if(!$loop->last)
+                                    <div class="row">
+                                @endif
+                            @endif
+                        @empty
+                            <div class="col-md-12">
+                                <div class="alert alert-info" role="alert">
+                                    Chưa có sản phẩm nào.
+                                </div>
                             </div>
-                        </div>
+                        @endforelse
+                    </div>
+                        {{-- Hiển thị phân trang --}}
+                    <div class="row">
+                        <ul class="pagination pagination-lg justify-content-end">
+                            @if ($products->onFirstPage())
+                                <li class="page-item disabled">
+                                    <span class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" tabindex="-1">1</span>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="{{ $products->previousPageUrl() }}">1</a>
+                                </li>
+                            @endif
+
+                            @php
+                                $currentPage = $products->currentPage();
+                                $startPage = max($currentPage - 2, 2);
+                                $endPage = min($currentPage + 2, $products->lastPage());
+
+                                if ($endPage - $startPage + 1 < 5) {
+                                    if ($startPage == 2) {
+                                        $endPage = min($startPage + 4, $products->lastPage());
+                                    } else {
+                                        $startPage = max($endPage - 4, 2);
+                                    }
+                                }
+
+                                for ($page = $startPage; $page <= $endPage; $page++) {
+                                    $url = $products->url($page);
+                                    $activeClass = $page == $currentPage ? 'active' : '';
+                                    echo "<li class='page-item'><a class='page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark $activeClass' href='$url'>$page</a></li>";
+                                }
+                            @endphp
+
+                            @if ($products->hasMorePages())
+                                <li class="page-item">
+                                    <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="{{ $products->nextPageUrl() }}">Next</a>
+                                </li>
+                            @endif
+                        </ul>
                     </div>
                 </div>
-    <!-- Start Footer -->
     <footer class="bg-dark" id="tempaltemo_footer">
         <div class="container">
             <div class="row">
-
                 <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Zay Shop</h2>
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Sneaker Store</h2>
                     <ul class="list-unstyled text-light footer-link-list">
                         <li>
                             <i class="fas fa-map-marker-alt fa-fw"></i>
-                            123 Consectetur at ligula 10660
+                            4th floor, VTC Online Building, 18 Tam Trinh Street, Hai Ba Trung, Ha Noi
                         </li>
                         <li>
                             <i class="fa fa-phone fa-fw"></i>
-                            <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                            <a class="text-decoration-none" href="tel:010-020-0340">(84) 393234822</a>
                         </li>
                         <li>
                             <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                            <a class="text-decoration-none" href="mailto:info@company.com">sneakerstore@gmail.com</a>
                         </li>
                     </ul>
                 </div>
@@ -273,7 +320,7 @@
                     </ul>
                 </div>
                 <div class="col-auto">
-                    <label class="sr-only" for="subscribeEmail">Email address</label>
+                    <label class="sr-only" for="subscribeEmail">sneakerstore@gmail.com</label>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
                         <div class="input-group-text btn-success text-light">Subscribe</div>
@@ -287,8 +334,8 @@
                 <div class="row pt-2">
                     <div class="col-12">
                         <p class="text-left text-light">
-                            Copyright &copy; 2021 Company Name 
-                            | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
+                            Copyright &copy; 2024 Sneaker Store 
+                            | Designed by <a rel="sponsored" href="#" target="_blank">HTH TEAM</a>
                         </p>
                     </div>
                 </div>
