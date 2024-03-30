@@ -205,13 +205,15 @@ class ProductController extends Controller
         return view('Image.view_image', compact('imageData'));
     }
 
-    public function show($id)
-    {
-        $product = Product::findOrFail($id);
-        return response()->json($product);
-    }
     public function getProducts()
     {
         return Product::all();
+    }
+
+    public function showProductDetails($id)
+    {
+        $productDetails = Product::with('sizes')->findOrFail($id);
+        
+        return view('frontend.productdetails', compact('productDetails'));
     }
 }

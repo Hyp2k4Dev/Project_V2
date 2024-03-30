@@ -199,13 +199,14 @@
                                         <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                             <ul class="item-hover list-unstyled d-flex justify-content-center align-items-center m-0 p-0">
                                                 <li class="mr-2"><a class="btn btn-success text-white" onclick="addToCart(event);"><i class="far fa-heart"></i></a></li>
-                                                <li><a class="btn btn-success text-white" href="{{ route('frontend.productdetails', $product->id) }}"><i class="far fa-eye"></i></a></li>
+                                                <li><a class="btn btn-success text-white" href="{{ route('frontend.productdetails', ['id' => $product->id]) }}"><i class="far fa-eye"></i></a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="card-body">
                                         <a href="{{ route('frontend.productdetails', $product->id) }}" class="h3 text-decoration-none">{{ $product->Name_sneaker }}</a>
-                                        
+
                                         <p class="text-center mb-0">{{ number_format($product->Price, 0, ',', '.') }} VNĐ</p>
                                     </div>
                                 </div>

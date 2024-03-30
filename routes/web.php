@@ -61,7 +61,6 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
 
 Route::post('/add-to-cart', [OrderController::class, 'addToCart'])->name('frontend.addToCart');
 Route::post('/check-out', [OrderController::class, 'checkOut'])->name('frontend.checkOut');
-Route::get('/search-order', [OrderController::class, 'searchOrder'])->name('frontend.searchOrder');
 // User routes
 Route::middleware(['role:user'])->prefix('user')->group(function () {
     Route::get('/main', [UserController::class, 'main'])->name('main');
@@ -71,6 +70,7 @@ Route::middleware(['role:user'])->prefix('user')->group(function () {
 Route::post('/users', [UserController::class, 'main'])->name('users.main');
 Route::get('/product/upload', [ProductController::class, 'index'])->name('product.upload');
 Route::post('/product/upload', [ProductController::class, 'store'])->name('product.store');
+Route::get('/product/{id}', [ProductController::class, 'showProductDetails']);
 
 
 
