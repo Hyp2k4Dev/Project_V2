@@ -31,16 +31,30 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
+        // Attempt to authenticate the user
         if (Auth::attempt($credentials)) {
-            if (Auth::user()->role === 'admin') {
+            // Get the authenticated user
+            $user = Auth::user();
+
+            // Check if the user is not activated
+            if ($user->status === '0') {
+                Auth::logout(); // Log out the user
+                return redirect()->route('login')->withErrors([
+                    'name' => 'Tài khoản của bạn chưa được kích hoạt.',
+                ]);
+            }
+
+            // Redirect the user based on their role
+            if ($user->role === 'admin') {
                 return redirect()->route('admin.dashboard');
-            } elseif (Auth::user()->role === 'seller') {
+            } elseif ($user->role === 'seller') {
                 return redirect()->route('seller.dashboard');
             } else {
                 return redirect()->intended('/');
             }
         }
 
+        // Authentication failed, redirect back with error message
         return redirect()->route('login')->withErrors([
             'name' => 'Tên người dùng hoặc mật khẩu không đúng.',
         ]);

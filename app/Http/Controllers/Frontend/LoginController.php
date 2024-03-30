@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,5 +55,16 @@ class LoginController extends Controller
         Auth::logout();
 
         return redirect('/');
+    }
+    public function checkUserActiveStatus(Request $request)
+    {
+        $username = $request->input('username');
+        $user = User::where('name', $username)->first();
+
+        if ($user && $user->is_active === 0) {
+            return response()->json(['is_active' => 0]);
+        }
+
+        return response()->json(['is_active' => 1]);
     }
 }

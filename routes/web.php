@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\HomeFE;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\SellerController;
+use App\Models\OrderDetail;
 use App\Models\Product;
 
 // Frontend routes
@@ -16,6 +17,7 @@ Route::get('/', [HomeFE::class, 'index'])->name('frontend.home');
 Route::get('/product', [HomeFE::class, 'product'])->name('frontend.product');
 Route::get('/about', [HomeFE::class, 'product'])->name('frontend.product');
 Route::get('/blog', [HomeFE::class, 'blog'])->name('frontend.blog');
+Route::get('/productdetails', [HomeFE::class, 'productdetails'])->name('frontend.productdetails');
 
 //order
 Route::get('/order', [OrderController::class, 'index'])->name('frontend.order');
@@ -57,6 +59,8 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::get('/admin/delete-user/{user}', [UserController::class, 'deleteUser'])->name('admin.deleteUser');
 });
 
+Route::post('/add-to-cart', [OrderController::class, 'addToCart'])->name('frontend.addToCart');
+Route::post('/check-out', [OrderController::class, 'checkOut'])->name('frontend.checkOut');
 // User routes
 Route::middleware(['role:user'])->prefix('user')->group(function () {
     Route::get('/main', [UserController::class, 'main'])->name('main');
@@ -66,3 +70,10 @@ Route::middleware(['role:user'])->prefix('user')->group(function () {
 Route::post('/users', [UserController::class, 'main'])->name('users.main');
 Route::get('/product/upload', [ProductController::class, 'index'])->name('product.upload');
 Route::post('/product/upload', [ProductController::class, 'store'])->name('product.store');
+
+
+
+Route::get('/order-details', function () {
+    $orderDetails = OrderDetail::all();
+    return view('order-details', ['orderDetails' => $orderDetails]);
+});
