@@ -71,25 +71,20 @@ class UserController extends Controller
     public function userList(Request $request)
     {
         $user = Auth::user();
-        $status = $request->input('status', 'activated');
-        $role = $request->input('role', 'Admin');
+        $role = $request->input('role');
 
         $usersQuery = User::query();
 
-        if ($status == 'activated') {
+        if ($role && $role != 'all-role') {
+            $usersQuery->where('role', $role)->where('is_active', 1);
+        } elseif ($role == 'all-role') {
             $usersQuery->where('is_active', 1);
-        } elseif ($status == 'not_activated') {
-            $usersQuery->where('is_active', 0);
-        }
-
-        if ($role != 'all-role') {
-            $usersQuery->where('role', $role);
         }
 
         $users = $usersQuery->get();
-
-        return view('admin.userList', compact('users', 'status', 'user', 'role'));
+        return view('admin.userList', compact('users', 'user', 'role'));
     }
+
 
 
 
@@ -157,9 +152,9 @@ class UserController extends Controller
      */
     public function deleteUser(User $user)
     {
-        $user->delete();
+        $user->update(['is_active' => 0]);
 
-        return redirect()->back()->with('success', 'User deleted successfully.');
+        return redirect()->back()->with('success', 'User deactivated successfully.');
     }
 
     public function main()

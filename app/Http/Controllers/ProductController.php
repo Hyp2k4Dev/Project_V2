@@ -14,13 +14,19 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();;
+        $user = Auth::user();
         return view('admin.dashboard', compact('user'));
     }
 
     public function addImage()
     {
         return view('admin.product.addProduct');
+    }
+    public function productList()
+    {
+        $user = Auth::user();
+        $product = Product::with('sizes');
+        return view('admin.productList', compact('product', 'user'));
     }
 
     public function edit($id)

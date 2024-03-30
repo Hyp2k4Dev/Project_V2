@@ -43,6 +43,7 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::get("/showAct", [UserController::class, 'filterUserStatus'])->name('admin.userList');
 
     Route::get('/product/add-product', [ProductController::class, 'addImage'])->name('admin.product.add-product');
+    Route::get('/product', [ProductController::class, 'addImage'])->name('admin.product.add-product');
     Route::post('/product/store', [ProductController::class, 'store'])->name('admin.product.store');
     Route::get('/userList', [UserController::class, 'userList'])->name('admin.userList');
     Route::get('/admin/users/{user}/edit', [UserController::class, 'showEditForm'])->name('admin.editUserForm');
