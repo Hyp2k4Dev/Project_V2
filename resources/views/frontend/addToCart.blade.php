@@ -116,7 +116,7 @@
                                     @foreach ($orderDetails as $orderDetail)
                                     @php
                                     // Tính tổng số tiền của từng sản phẩm và cộng vào tổng số tiền
-                                    $totalPrice += $orderDetail->subtotal + $orderDetail->price;
+                                    $totalPrice += $orderDetail->subtotal * $orderDetail->quantity; // Nhân giá tiền của sản phẩm với số lượng của sản phẩm
                                     @endphp
                                     @endforeach
                                 <p>
@@ -126,6 +126,7 @@
                             </div>
                         </div>
                     </div>
+
                     <form action="{{ route('frontend.checkOut') }}" method="POST">
                         @csrf
                         <button type="submit">
