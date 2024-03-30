@@ -18,6 +18,8 @@ Route::get('/product', [HomeFE::class, 'product'])->name('frontend.product');
 Route::get('/about', [HomeFE::class, 'product'])->name('frontend.product');
 Route::get('/blog', [HomeFE::class, 'blog'])->name('frontend.blog');
 Route::get('/productdetails', [HomeFE::class, 'productdetails'])->name('frontend.productdetails');
+Route::get('/product/{id}', 'ProductController@show')->name('frontend.productdetails');
+
 
 //order
 Route::get('/order', [OrderController::class, 'index'])->name('frontend.order');
@@ -70,6 +72,7 @@ Route::middleware(['role:user'])->prefix('user')->group(function () {
 Route::post('/users', [UserController::class, 'main'])->name('users.main');
 Route::get('/product/upload', [ProductController::class, 'index'])->name('product.upload');
 Route::post('/product/upload', [ProductController::class, 'store'])->name('product.store');
+Route::get('/product/{id}', 'ProductController@showProductDetails')->name('frontend.productdetails');
 
 
 
