@@ -198,8 +198,10 @@
                                         <img class="card-img rounded-0 img-fluid m-0 p-0" src="{{ asset($product->Image) }}">
                                         <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                             <ul class="item-hover list-unstyled d-flex justify-content-center align-items-center m-0 p-0">
-                                                <li class="mr-2"><a class="btn btn-success text-white" onclick="addToCart(event);"><i class="far fa-heart"></i></a></li>
-                                                <li><a class="btn btn-success text-white" href="{{ route('frontend.productdetails', ['id' => $product->id]) }}"><i class="far fa-eye"></i></a>
+                                                <div class="col-sm-6">
+                                                    <li class="mr-2"><a class="btn btn-success text-white" onclick="addToCart(event);"><i class="far fa-heart"></i></a></li>
+                                                </div>
+                                                <li><a class="btn btn-success text-white" href="{{ route('frontend.product', ['id' => $product->id]) }}"><i class="far fa-eye"></i></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -361,6 +363,17 @@
                     <script src="{{ asset('js/custom.js') }}"></script>
                 </div>
                 <script>
+                    window.onload = function() {
+                        // Khi trang được tải lại, kiểm tra xem đã có giá trị số lượng trong Local Storage chưa
+                        let cartCounter = document.getElementById('cartCounter');
+                        let count = parseInt(localStorage.getItem('cartItemCount'));
+
+                        if (!isNaN(count)) {
+                            // Nếu đã có giá trị trong Local Storage, cập nhật số lượng hiển thị trên trang
+                            cartCounter.innerText = count;
+                        }
+                    };
+
                     function addToCart(event) {
                         event.preventDefault(); // Ngăn chặn hành động mặc định của nút
 
@@ -370,9 +383,12 @@
                         count++;
                         cartCounter.innerText = count;
 
-                        document.getElementById('addToCartForm').submit();
+                        // Lưu giá trị mới vào Local Storage
+                        localStorage.setItem('cartItemCount', count.toString());
+
                     }
                 </script>
+
 </body>
 
 </html>

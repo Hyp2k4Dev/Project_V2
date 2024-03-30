@@ -70,7 +70,7 @@ Route::middleware(['role:user'])->prefix('user')->group(function () {
 Route::post('/users', [UserController::class, 'main'])->name('users.main');
 Route::get('/product/upload', [ProductController::class, 'index'])->name('product.upload');
 Route::post('/product/upload', [ProductController::class, 'store'])->name('product.store');
-Route::get('/product/{id}', [ProductController::class, 'showProductDetails']);
+Route::get('/product/{id}', 'ProductController@showProductDetails')->name('frontend.productdetails');
 
 
 

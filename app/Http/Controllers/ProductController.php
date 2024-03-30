@@ -212,8 +212,7 @@ class ProductController extends Controller
 
     public function showProductDetails($id)
     {
-        $productDetails = Product::with('sizes')->findOrFail($id);
-        
-        return view('frontend.productdetails', compact('productDetails'));
+        $product = Product::with('sizes')->findOrFail($id);
+        return view('frontend.productdetails', compact('product'));
     }
 }
