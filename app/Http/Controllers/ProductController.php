@@ -7,13 +7,15 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Size;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('sizes')->get();
-        return view('admin.dashboard', compact('products'));
+        $user = Auth::user();;
+        return view('admin.dashboard', compact('user'));
     }
 
     public function addImage()
