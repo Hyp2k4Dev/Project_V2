@@ -53,7 +53,7 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="/admin/userList">
                             <i class="pe-7s-user"></i>
                             <p>User Profile</p>
@@ -64,13 +64,11 @@
                             <i class="pe-7s-note2"></i>
                             <p>Order List</p>
                         </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('typography') }}">
-                            <i class="pe-7s-shopbag"></i>
-                            <p>Product</p>
-                        </a>
-                    </li>
+                    </li class="active">
+                    <a href="/admin/product">
+                        <i class="pe-7s-shopbag"></i>
+                        <p>Products</p>
+                    </a>
                     <li class="active-pro">
                         <a href="{{ url('upgrade') }}">
                             <i class="pe-7s-rocket"></i>

@@ -72,9 +72,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('typography') }}">
+                        <a href="/admin/product">
                             <i class="pe-7s-shopbag"></i>
-                            <p>Product</p>
+                            <p>Products</p>
                         </a>
                     </li>
                     <li class="active-pro">
