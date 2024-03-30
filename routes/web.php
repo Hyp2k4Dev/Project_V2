@@ -18,6 +18,8 @@ Route::get('/product', [HomeFE::class, 'product'])->name('frontend.product');
 Route::get('/about', [HomeFE::class, 'product'])->name('frontend.product');
 Route::get('/blog', [HomeFE::class, 'blog'])->name('frontend.blog');
 Route::get('/productdetails', [HomeFE::class, 'productdetails'])->name('frontend.productdetails');
+Route::get('/product/{id}', 'ProductController@show')->name('frontend.productdetails');
+
 
 //order
 Route::get('/order', [OrderController::class, 'index'])->name('frontend.order');

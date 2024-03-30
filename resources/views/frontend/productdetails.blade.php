@@ -61,143 +61,20 @@
             </form>
         </div>
     </div>
-    @if(isset($product))
-    <form id="productForm" action="{{ route('frontend.productdetails') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-
-        <div class="form-group">
-            <label for="image" class="btn btn-info p-2" style="cursor: pointer;">IMAGE PRODUCT:</label>
-            <input type="file" name="Image" id="image" style="opacity: 0; width: 0.1px; height: 0.1px; position: absolute; overflow: hidden; z-index: -1;" accept="image/*" class="form-control-file">
-            @if($product->Image)
-            <img src="{{ asset($product->Image) }}" id="img-root" alt="Image Product" style="max-width: 200px; margin-top: 10px;">
-            @endif
-            <img id="imagePreview" src="#" alt="Preview" style="display: none; width: 200px; height: 100%;">
-        </div>
-
-        <script>
-            document.getElementById('image').addEventListener('change', function(event) {
-                var file = event.target.files[0];
-
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('File size exceeds 2MB limit.');
-                    event.target.value = '';
-                    document.getElementById('imagePreview').src = '';
-                } else {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.getElementById('imagePreview').src = e.target.result;
-                        document.getElementById('imagePreview').style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        </script>
-
-        <div class="form-group">
-            <label for="name">Name Product:</label>
-            <input type="text" name="Name_sneaker" id="name" class="form-control" value="{{ $product->Name_sneaker }}" required>
-
-        </div>
-
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea name="Description" id="description" class="form-control auto-resize">{{ $product->Description }}</textarea>
-        </div>
-
-        <script>
-            function autoResizeTextarea(textarea) {
-                textarea.style.height = 'auto';
-                textarea.style.height = textarea.scrollHeight + 'px';
-            }
-
-            var textareas = document.querySelectorAll('.auto-resize');
-            textareas.forEach(function(textarea) {
-                autoResizeTextarea(textarea);
-                textarea.addEventListener('input', function() {
-                    autoResizeTextarea(this);
-                });
-            });
-        </script>
-
-
-        <div class="form-group">
-            <label for="brand">Brand:</label>
-            <input type="text" name="Brand" id="brand" class="form-control" value="{{ $product->Brand }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="color">Color:</label>
-            <input type="text" name="Color" id="color" class="form-control" value="{{ $product->Color }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="origin">Origin:</label>
-            <input type="text" name="Origin" id="origin" class="form-control" value="{{ $product->Origin }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="material">Material:</label>
-            <input type="text" name="Material" id="material" class="form-control" value="{{ $product->Material }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="status">Status:</label>
-            <input type="text" name="Status_Sneaker" id="status" class="form-control" value="{{ $product->Status_Sneaker }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="price">Price (VND):</label>
-            <input type="text" name="Price" id="price" class="form-control" value="{{ $product->Price }}" required>
-            <span id="priceError" class="text-danger" style="display: none;">Price is not valid</span>
-        </div>
-
-        <script>
-            const priceInput = document.getElementById('price');
-
-            priceInput.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                value = formatNumber(value);
-                e.target.value = value;
-            });
-
-            priceInput.addEventListener('change', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                e.target.value = formatNumberForDatabase(value);
-            });
-
-            function formatNumber(number) {
-                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-            }
-
-            function formatNumberForDatabase(number) {
-                return parseInt(number, 10);
-            }
-        </script>
-
-        <div id="sizeFormsContainer">
-            @foreach($product->sizes as $index => $size)
-            <div class="size-form">
-                <div class="form-group">
-                    <label for="size">Size:</label>
-                    <input type="text" name="sizes[{{ $index }}][size]" class="form-control" value="{{ $size->size_name }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" name="sizes[{{ $index }}][quantity]" class="form-control quantity-input" value="{{ $size->quantity }}" required>
-                    <span class="text-danger quantity-error" style="display: none;">Quantity must be a positive integer</span>
-                </div>
-                <button type="button" class="btn btn-danger remove-size-form">DELETE</button>
-            </div>
-            @endforeach
-        </div>
-        <button type="button" class="buttonAddSize btn-secondary btn" onclick="addSizeFormUpdate()">Add Size</button>
-
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
-    @else
-    <p>Không tìm thấy thông tin sản phẩm.</p>
-    @endif
+    @if(isset($productDetails))
+    <h1>Product Details - {{ $productDetails->Name_sneaker }}</h1>
+    <p>Description: {{ $productDetails->Description }}</p>
+    <h2>Sizes</h2>
+    <ul>
+        @forelse($productDetails->sizes as $size)
+            <li>{{ $size->size_name }} - {{ $size->quantity }}</li>
+        @empty
+            <li>No sizes available</li>
+        @endforelse
+    </ul>
+@else
+    <p>Product not found!</p>
+@endif
 </body>
 
 </html>
