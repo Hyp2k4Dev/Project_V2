@@ -63,24 +63,18 @@
     </div>
     @if(isset($productDetails))
     <h1>Product Details - {{ $productDetails->Name_sneaker }}</h1>
-
     <p>Description: {{ $productDetails->Description }}</p>
-    <p>Brand: {{ $productDetails->Brand }}</p>
-    <p>Color: {{ $productDetails->Color }}</p>
-    <p>Origin: {{ $productDetails->Origin }}</p>
-    <p>Material: {{ $productDetails->Material }}</p>
-    <p>Status: {{ $productDetails->Status_Sneaker }}</p>
-    <p>Price: {{ $productDetails->Price }}</p>
-
     <h2>Sizes</h2>
     <ul>
-        @foreach($productDetails->sizes as $size)
-        <li>{{ $size->size_name }} - {{ $size->quantity }}</li>
-        @endforeach
+        @forelse($productDetails->sizes as $size)
+            <li>{{ $size->size_name }} - {{ $size->quantity }}</li>
+        @empty
+            <li>No sizes available</li>
+        @endforelse
     </ul>
-    @else
-    // Hiển thị thông báo hoặc xử lý khác nếu biến $productDetails không tồn tại
-    @endif
+@else
+    <p>Product not found!</p>
+@endif
 </body>
 
 </html>

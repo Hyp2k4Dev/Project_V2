@@ -24,6 +24,10 @@ class HomeFE extends Controller
     {
         return view('frontend.productdetails');
     }
+    public function show($id) {
+        $productDetails = Product::with('sizes')->find($id);
+        return view('frontend.productdetails', compact('product'));
+    }
 
     public function about()
     {
