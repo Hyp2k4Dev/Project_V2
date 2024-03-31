@@ -1,0 +1,265 @@
+    /* Đoạn CSS mới */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+    * {
+        text-decoration: none !important;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        color: #444444;
+        font-size: 21px !important;
+    }
+
+    a,
+    a:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .section-products {
+        padding: 40px 0 54px;
+    }
+
+    .section-products .header {
+        margin-bottom: 50px;
+    }
+
+    .section-products .header h3 {
+        font-size: 1rem;
+        color: #fe302f;
+        font-weight: 500;
+    }
+
+    .section-products .header h2 {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: #444444;
+    }
+
+    .section-products .single-product {
+        margin-bottom: 26px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .section-products .single-product .part-1 {
+        position: relative;
+        height: 290px;
+        max-height: 290px;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+
+    .product-image {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .product-image:hover {
+        transform: scale(1.1);
+    }
+
+    .section-products .single-product .part-1::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        transition: all 0.3s;
+    }
+
+    .section-products .single-product:hover .part-1::before {
+        transform: scale(1.2, 1.2) rotate(5deg);
+    }
+
+    .section-products #product-1 .part-1::before {
+        background: url("https://i.ibb.co/L8Nrb7p/1.jpg") no-repeat center;
+        background-size: cover;
+        transition: all 0.3s;
+    }
+
+    .section-products .single-product .part-1 .discount,
+    .section-products .single-product .part-1 .new {
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        /* Di chuyển vào giữa */
+        color: #ffffff;
+        background-color: #fe302f;
+        padding: 2px 8px;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+    }
+
+    .section-products .single-product .part-1 .new {
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #444444;
+    }
+
+    .section-products .single-product .part-1 ul {
+        position: absolute;
+        bottom: -41px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        opacity: 0;
+        transition: bottom 0.5s, opacity 0.5s;
+    }
+
+    .section-products .single-product:hover .part-1 ul {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    .section-products .single-product .part-1 ul li {
+        display: inline-block;
+        margin-right: 4px;
+    }
+
+    .section-products .single-product .part-1 ul li a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        background-color: #ffffff;
+        color: #444444;
+        text-align: center;
+        box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
+        transition: color 0.2s;
+    }
+
+    .section-products .single-product .part-1 ul li a:hover {
+        color: #fe302f;
+    }
+
+    .section-products .single-product .part-2 {
+        text-align: center;
+        padding: 15px;
+        /* Căn giữa các phần tử */
+    }
+
+    .section-products .single-product .part-2 .product-title {
+        font-size: 20px;
+    }
+
+    .section-products .single-product .part-2 h4 {
+        display: inline-block;
+        font-size: 1rem;
+    }
+
+    .section-products .single-product .part-2 .product-old-price {
+        position: relative;
+        padding: 0 7px;
+        margin-right: 2px;
+        opacity: 0.6;
+    }
+
+    .section-products .single-product .part-2 .product-old-price::after {
+        position: absolute;
+        content: "";
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #444444;
+        transform: translateY(-50%);
+    }
+
+    .edit-btn {
+        width: 100px;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        background-color: #339900;
+    }
+
+    .delete-btn {
+        width: 100px;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        background-color: red;
+    }
+
+    .edit-btn:hover {
+        background-color: green;
+    }
+
+    .delete-btn:hover {
+        background-color: darkred;
+    }
+
+    h5 {
+        font-size: 24px;
+    }
+
+    .addProduct {
+        color: white;
+        background-color: #339900;
+        padding: 5px;
+        border: 1px solid grey;
+        border-radius: 5px;
+    }
+
+    .addProduct:hover {
+        background-color: darkgreen;
+        color: white;
+    }
+
+    .infor {
+        visibility: hidden;
+        position: fixed;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* width: 100px; */
+        max-height: 668px;
+        /* background-color: rgba(16, 24, 40, 0.06); */
+        z-index: 999;
+
+    }
+
+    .nav-infor {
+        padding: 20px;
+        height: 100%;
+        background-color: white;
+        border-radius: 25px;
+        border-radius: 5px;
+        overflow: auto;
+        max-height: 668px;
+        border-radius: 25px;
+        box-shadow: 0px 2px 1px 0px rgba(16, 24, 40, 0.06),
+            0px 1px 10px 0px rgba(16, 24, 40, 0.1);
+    }
+
+    .close-btn {
+        color: white;
+        background-color: black;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-decoration: none;
+        width: 100%;
+    }
+
+    .nav-infor::-webkit-scrollbar-track {
+        border: 1px solid black;
+        background-color: #F5F5F5;
+    }
+
+    .nav-infor::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .nav-infor::-webkit-scrollbar-thumb {
+        background-color: #000000;
+    }

@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Archivo, sans-serif;
+    text-decoration: none;
+    outline: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    height: 1000px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 20;
+    border-bottom: 1px solid #eaecf0;
+    width: 100%;
+    margin-bottom: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 55px;
+    z-index: 1000;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-left img {
+    width: 80px;
+    border-radius: 30%;
+    margin-right: 35px;
+}
+
+.option-header {
+    display: flex;
+    gap: 30px;
+}
+
+.option-header a,
+.header-right {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    color: black;
+}
+
+
+.customerSelect a {
+    color: #000;
+}
+
+.card-img {
+    /* max-width: 100%; */
+    height: 200px;
+    object-fit: cover;
+    /* Đảm bảo ảnh không bị biến dạng khi thu nhỏ */
+    border: none;
+}
+
+.card-img-overlay {
+    position: absolute;
+    width: 180px;
+}
+
+/* ul.item-hover li {
+    display: none;
+}
+ul.item-hover:hover li{
+    display: block;
+} */
+
+.card {
+    width: 300px;
+    height: 350px;
+    margin: 20px;
+}
+
+.product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-overlay ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.product-overlay ul li {
+    margin-right: 10px;
+}
+
+
+.btn-contact {
+
+    padding: 20px;
+    color: #000;
+    background-color: #77dada;
+    width: 100px;
+    justify-content: flex-end;
+    border-radius: 20px;
+}
+
+.add-cart {
+    color: black;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.cart-counter {
+    position: relative;
+    bottom: 10px;
+    font-size: 10px;
+    color: red;
+    border-radius: 50%;
+}
+
+.header-right {
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 185px;
+    border-radius: 15px;
+}
