@@ -84,7 +84,7 @@ a{
     display: none;
 }
 ul.item-hover:hover li{
-    display: inline-block;
+    display: block;
 } */
 
 .card{
