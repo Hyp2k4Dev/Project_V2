@@ -79,12 +79,13 @@ class OrderController extends Controller
         return view('admin.ordList', compact('pendingOrders'));
     }
 
-    public function addToCart()
+    public function addToCart() // Thêm tham số $id vào hàm
     {
-        $orderDetails = OrderDetail::all(); // Ví dụ
+        $orderDetails = OrderDetail::all(); // Example
         $totalPrice = 0;
 
-        // Gọi hàm từ controller khác để lấy dữ liệu sản phẩm
+        $product = Product::all();
+
         $otherController = new ProductController();
         $products = $otherController->getProducts();
 
@@ -92,8 +93,19 @@ class OrderController extends Controller
             $totalPrice += $detail->subtotal;
         }
 
-        return view('frontend.addToCart', compact('orderDetails', 'totalPrice', 'products'));
+        // Return the view with the data
+        return view('frontend.addToCart', compact('orderDetails', 'totalPrice', 'products', 'product'));
     }
+
+    public function getProductById($id)
+    {
+        $product = Product::findOrFail($id);
+
+        // Trả về view hiển thị thông tin của sản phẩm
+        return view('frontend.addToCart', compact('product'));
+    }
+
+
 
     public function checkOut()
     {

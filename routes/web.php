@@ -80,3 +80,4 @@ Route::get('/order-details', function () {
     $orderDetails = OrderDetail::all();
     return view('order-details', ['orderDetails' => $orderDetails]);
 });
+Route::get('/add-to-cart/{id}', 'OrderController@addToCart')->name('addToCart');

@@ -63,14 +63,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($orderDetails as $orderDetail)
+                                @foreach ($product as $product)
                                 <tr>
                                     <td class="p-4">
                                         <div class="media align-items-center" style="display: flex;">
-                                            @php
-                                            $product = $products->firstWhere('id', $orderDetail->product_id);
-                                            @endphp
-
                                             @if ($product)
                                             <img src="{{ asset($product->Image) }}" width="200px" alt="imagePreview">
                                             <div class="media-body" style="padding-left: 20px;">
@@ -78,7 +74,15 @@
                                                 <small>
                                                     <p class="text-muted">Color: {{ $product->Color }}</p>
                                                     <p>Brand: {{ $product->Brand }}</p>
-                                                    <p>Size: {{ $orderDetail->size }}</p>
+                                                    <h2>Sizes</h2>
+                                                    <ul>
+                                                        @forelse($product->sizes as $size)
+                                                        <li>{{ $size->size_name }}</li>
+                                                        <div class="m-bot15"> <strong>Price : </strong> <span class="pro-price"> {{number_format($product->Price, 0,',','.')}}(VNĐ)</span></div>
+                                                        @empty
+                                                        <li>No sizes available</li>
+                                                        @endforelse
+                                                    </ul>
                                                 </small>
                                             </div>
                                             @else
@@ -86,10 +90,9 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <td class="text-right font-weight-semibold align-middle p-4">{{ number_format($orderDetail->subtotal, 0, ',','.') }}VNĐ</td>
-                                    <td class="align-middle p-4"><input id="quantity" type="number" value="{{$orderDetail->quantity }}" class="form-control quantity-input" min="0"></td>
+                                    <td class="text-right font-weight-semibold align-middle p-4">{{ number_format($product->subtotal, 0, ',','.') }}VNĐ</td>
+                                    <td class="align-middle p-4"><input id="quantity" type="number" value="{{$product->quantity }}" class="form-control quantity-input" min="0"></td>
 
-                                    <td class="text-right font-weight-semibold align-middle p-4">{{ number_format($orderDetail->subtotal * $orderDetail->quantity, 0, ',','.') }}VNĐ</td>
                                     <td class="text-center align-middle px-0">
                                         <a href="#" class="shop-tooltip close float-none" title="" data-original-title="Remove" onclick="confirmDelete()">
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
