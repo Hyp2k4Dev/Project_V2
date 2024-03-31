@@ -30,7 +30,6 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="{{ asset('assets/css/pe-icon-7-stroke.css') }}" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -38,23 +37,18 @@
     <div class="wrapper">
         <div class="sidebar" data-color="purple" data-image="{{ asset('assets/img/sidebar-5.jpg') }}">
 
-            <!--
 
-        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-        Tip 2: you can also add an image using data-image tag
-
-    -->
 
             <div class="sidebar-wrapper">
                 <div class="logo">
-                    <a href="{{ route('admin.dashboard') }}" class="simple-text">
-                        HTH SHOP
+                    <a href="/admin/dashboard" class="simple-text">
+                        HTH ADMIN
                     </a>
                 </div>
 
                 <ul class="nav">
-                    <li class="active">
-                        <a href="{{ route('admin.dashboard') }}">
+                    <li>
+                        <a href="/admin/dashboard">
                             <i class="pe-7s-graph"></i>
                             <p>Dashboard</p>
                         </a>
@@ -70,15 +64,13 @@
                             <i class="pe-7s-note2"></i>
                             <p>Order List</p>
                         </a>
-                    </li>
-                    <li>
-                        <a href="/admin/product">
-                            <i class="pe-7s-shopbag"></i>
-                            <p>Products</p>
-                        </a>
-                    </li>
+                    </li class="active">
+                    <a href="/admin/product">
+                        <i class="pe-7s-shopbag"></i>
+                        <p>Products</p>
+                    </a>
                     <li class="active-pro">
-                        <a href="#">
+                        <a href="{{ url('upgrade') }}">
                             <i class="pe-7s-rocket"></i>
                             <p>Upgrade to PRO</p>
                         </a>
@@ -97,20 +89,21 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Dashboard</a>
+                        <p class="navbar-brand">User Profile</p>
                     </div>
                     <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-left">
+                        <!-- <ul class="nav navbar-nav navbar-left">
                             <li>
-                                <a href="/admin/dashboard" class="dropdown-toggle" data-toggle="dropdown">
-                                    <!-- <i class="fa fa-dashboard"></i> -->
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-dashboard"></i>
                                     <p class="hidden-lg hidden-md">Dashboard</p>
                                 </a>
                             </li>
-                            <!-- <li class="dropdown">
+                            <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-lg hidden-md"></b>
+                                    <b class="caret hidden-sm hidden-xs"></b>
+                                    <span class="notification hidden-sm hidden-xs">5</span>
                                     <p class="hidden-lg hidden-md">
                                         5 Notifications
                                         <b class="caret"></b>
@@ -123,14 +116,14 @@
                                     <li><a href="#">Notification 4</a></li>
                                     <li><a href="#">Another notification</a></li>
                                 </ul>
-                            </li> -->
-                            <!-- <li>
+                            </li>
+                            <li>
                                 <a href="">
                                     <i class="fa fa-search"></i>
                                     <p class="hidden-lg hidden-md">Search</p>
                                 </a>
-                            </li> -->
-                        </ul>
+                            </li>
+                        </ul> -->
 
                         <ul class="nav navbar-nav navbar-right">
                             <li>
@@ -161,135 +154,97 @@
                                     <p>Log out</p>
                                 </a>
                             </li>
-                            <li class="separator hidden-lg"></li>
+                            <li class="separator hidden-lg hidden-md"></li>
                         </ul>
                     </div>
                 </div>
             </nav>
 
-
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <div class="card">
-
-                                <div class="header">
-                                    <h4 class="title">Email Statistics</h4>
-                                    <p class="category">Last Campaign Performance</p>
-                                </div>
-                                <div class="content">
-                                    <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-
-                                    <div class="footer">
-                                        <div class="legend">
-                                            <i class="fa fa-circle text-info"></i> Open
-                                            <i class="fa fa-circle text-danger"></i> Bounce
-                                            <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                        </div>
-                                        <hr>
-                                        <div class="stats">
-                                            <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+                                <div class="header" style="width: 100%; display: flex; justify-content: space-between;">
+                                    <h4 class="title">List User</h4>
+                                    <div class="row mb-4" style="margin-right: 10px; display: flex;">
+                                        <div style="width: 100%;">
+                                            <form id="roleForm" action="{{ route('admin.userList') }}" method="GET">
+                                                <div class="filter-form">
+                                                    <label for="filterRole">Filter Role:</label>
+                                                    <select class="form-control" id="filterRole" name="role">
+                                                        <option value="all-role" {{ $role == 'all-role' ? 'selected' : '' }}>All Role</option>
+                                                        <option value="Admin" {{ $role == 'Admin' ? 'selected' : '' }}>Admin</option>
+                                                        <option value="Seller" {{ $role == 'Seller' ? 'selected' : '' }}>Seller</option>
+                                                        <option value="User" {{ $role == 'User' ? 'selected' : '' }}>User</option>
+                                                    </select>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="header">
-                                    <h4 class="title">Users Behavior</h4>
-                                    <p class="category">24 Hours performance</p>
-                                </div>
-                                <div class="content">
-                                    <div id="chartHours" class="ct-chart"></div>
-                                    <div class="footer">
-                                        <div class="legend">
-                                            <i class="fa fa-circle text-info"></i> Open
-                                            <i class="fa fa-circle text-danger"></i> Click
-                                            <i class="fa fa-circle text-warning"></i> Click Second Time
-                                        </div>
-                                        <hr>
-                                        <div class="stats">
-                                            <i class="fa fa-history"></i> Updated 3 minutes ago
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                    <script>
+                                        document.getElementById('filterRole').addEventListener('change', function() {
+                                            document.getElementById('roleForm').submit();
+                                        });
+                                    </script>
 
 
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card ">
-                                <div class="header">
-                                    <h4 class="title">2014 Sales</h4>
-                                    <p class="category">All products including Taxes</p>
                                 </div>
-                                <div class="content">
-                                    <div id="chartActivity" class="ct-chart"></div>
-
-                                    <div class="footer">
-                                        <div class="legend">
-                                            <i class="fa fa-circle text-info"></i> Tesla Model S
-                                            <i class="fa fa-circle text-danger"></i> BMW 5 Series
-                                        </div>
-                                        <hr>
-                                        <div class="stats">
-                                            <i class="fa fa-check"></i> Data information certified
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <!-- <div class="card ">
-                                <div class="header">
-                                    <h4 class="title">Tasks</h4>
-                                    <p class="category">Backend development</p>
-                                </div>
-                                <div class="content">
-                                    <div class="table-full-width">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="checkbox">
-                                                            <input id="checkbox1" type="checkbox">
-                                                            <label for="checkbox1"></label>
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Address</th>
+                                            <th>Phone Number</th>
+                                            <th>Role</th>
+                                            <th>Status</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($users as $user)
+                                            <tr>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->address }}</td>
+                                                <td>{{ $user->phone_number }}</td>
+                                                <td>{{ $user->role }}</td>
+                                                <td>{{ $user->is_active ? 'Activated' : 'Not Activated' }}</td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <a href="{{ route('admin.editUserForm', ['user' => $user->id]) }}" class="btn btn-primary search">{{ __('Edit User') }}</a>
                                                         </div>
-                                                    </td>
-                                                    <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                                    <td class="td-actions text-right">
-                                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    <div class="footer">
-                                        <hr>
-                                        <div class="stats">
-                                            <i class="fa fa-history"></i> Updated 3 minutes ago
-                                        </div>
-                                    </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <form action="{{ route('admin.deleteUser', ['user' => $user->id]) }}" method="POST" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xoá người dùng không?');">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger">{{ __('Block') }}</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                            @if($users->isEmpty())
+                                            <tr>
+                                                <td colspan="8">No users found.</td>
+                                            </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div> -->
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
 
             <footer class="footer">
                 <div class="container-fluid">
@@ -325,6 +280,7 @@
                 </div>
             </footer>
 
+
         </div>
     </div>
 
@@ -349,12 +305,9 @@
 
 <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <script src="{{ asset('assets/js/demo.js') }}"></script>
-
-
 @php
 $successMessage = session('success');
 @endphp
-
 <script type="text/javascript">
     $(document).ready(function() {
         demo.initChartist();
@@ -368,18 +321,8 @@ $successMessage = session('success');
                 type: 'success',
                 timer: 4000
             });
-        } else {
-            $.notify({
-                icon: 'pe-7s-gift',
-                message: "Welcome to <b>THT Admin</b> ."
-            }, {
-                type: 'info',
-                timer: 4000
-            });
         }
     });
 </script>
-
-
 
 </html>

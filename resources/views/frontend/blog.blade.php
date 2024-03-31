@@ -83,6 +83,52 @@
             <button id="showMoreBtn" class="btn btn-primary">Xem thêm</button>
         </div>
     </div>
+    <script>
+        window.onload = function() {
+            // Khi trang được tải lại, kiểm tra xem đã có giá trị số lượng trong Cookies chưa
+            let cartCounter = document.getElementById('cartCounter');
+            let count = parseInt(getCookie('cartItemCount'));
+
+            if (!isNaN(count)) {
+                // Nếu đã có giá trị trong Cookies, cập nhật số lượng hiển thị trên trang
+                cartCounter.innerText = count;
+            }
+        };
+
+        function addToCart(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của nút
+
+            let cartCounter = document.getElementById('cartCounter');
+            let count = parseInt(cartCounter.innerText);
+
+            count++;
+            cartCounter.innerText = count;
+
+            // Lưu giá trị mới vào Cookies với thời gian sống lâu dài
+            setCookie('cartItemCount', count, 365);
+
+        }
+
+        // Hàm để lấy giá trị từ Cookies
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        // Hàm để thiết lập giá trị của Cookies
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                let date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+    </script>
+
 </body>
 
 </html>

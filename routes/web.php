@@ -43,6 +43,7 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::get("/showAct", [UserController::class, 'filterUserStatus'])->name('admin.userList');
 
     Route::get('/product/add-product', [ProductController::class, 'addImage'])->name('admin.product.add-product');
+    Route::get('/product', [ProductController::class, 'productList'])->name('admin.product');
     Route::post('/product/store', [ProductController::class, 'store'])->name('admin.product.store');
     Route::get('/userList', [UserController::class, 'userList'])->name('admin.userList');
     Route::get('/admin/users/{user}/edit', [UserController::class, 'showEditForm'])->name('admin.editUserForm');
@@ -72,7 +73,7 @@ Route::middleware(['role:user'])->prefix('user')->group(function () {
 Route::post('/users', [UserController::class, 'main'])->name('users.main');
 Route::get('/product/upload', [ProductController::class, 'index'])->name('product.upload');
 Route::post('/product/upload', [ProductController::class, 'store'])->name('product.store');
-Route::get('/product/{id}', [ProductController::class, 'showProductDetails']);
+Route::get('/product/{id}', 'ProductController@showProductDetails')->name('frontend.productdetails');
 
 
 

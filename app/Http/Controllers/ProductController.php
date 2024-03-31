@@ -7,18 +7,26 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Size;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('sizes')->get();
-        return view('admin.dashboard', compact('products'));
+        $user = Auth::user();
+        return view('admin.dashboard', compact('user'));
     }
 
     public function addImage()
     {
         return view('admin.product.addProduct');
+    }
+    public function productList()
+    {
+        $user = Auth::user();
+        $product = Product::with('sizes');
+        return view('admin.productList', compact('product', 'user'));
     }
 
     public function edit($id)
@@ -216,8 +224,7 @@ class ProductController extends Controller
 
     public function showProductDetails($id)
     {
-        $productDetails = Product::with('sizes')->findOrFail($id);
-
-        return view('frontend.productdetails', compact('productDetails'));
+        $product = Product::with('sizes')->findOrFail($id);
+        return view('frontend.productdetails', compact('product'));
     }
 }
