@@ -181,6 +181,7 @@
                                         <div class="border-2 w-20 border-top-color my-3"></div>
                                         <div class="flex mt-3 mb-8">
                                             <p class="ml-3 font-medium font-poppins"> {{$product->Product_Code }}</p>
+
                                         </div>
                                     </div>
                                 </div>
