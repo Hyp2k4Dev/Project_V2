@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTH SNEAKER STORE</title>
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('css/fe/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fe/productdetails.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="{{ asset('js/homepage.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/fe/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -32,9 +33,6 @@
 
         <div class="header-right">
 
-            <a href="#" class="btn-contact">
-                Contact
-            </a>
             <form id="addToCartForm" action="{{ route('frontend.addToCart') }}" method="POST" style="display: none;">
                 @csrf
             </form>
@@ -43,6 +41,9 @@
                     <path fill="currentColor" d="M20.008 39.649H47.36c.913 0 1.71-.75 1.71-1.758s-.797-1.758-1.71-1.758H20.406c-1.336 0-2.156-.938-2.367-2.367l-.375-2.461h29.742c3.422 0 5.18-2.11 5.672-5.461l1.875-12.399a7.2 7.2 0 0 0 .094-.89c0-1.125-.844-1.899-2.133-1.899H14.641l-.446-2.976c-.234-1.805-.89-2.72-3.28-2.72H2.687c-.937 0-1.734.822-1.734 1.76c0 .96.797 1.781 1.735 1.781h7.921l3.75 25.734c.493 3.328 2.25 5.414 5.649 5.414m31.054-25.454L49.4 25.422c-.188 1.453-.961 2.344-2.344 2.344l-29.906.023l-1.993-13.594ZM21.86 51.04a3.766 3.766 0 0 0 3.797-3.797a3.781 3.781 0 0 0-3.797-3.797c-2.132 0-3.82 1.688-3.82 3.797c0 2.133 1.688 3.797 3.82 3.797m21.914 0c2.133 0 3.82-1.664 3.82-3.797c0-2.11-1.687-3.797-3.82-3.797c-2.109 0-3.82 1.688-3.82 3.797c0 2.133 1.711 3.797 3.82 3.797" />
                 </svg>
                 <span id="cartCounter" class="cart-counter">0</span>
+            </a>
+            <a href="#" class="btn-contact">
+                Contact
             </a>
         </div>
     </div>
@@ -61,20 +62,66 @@
             </form>
         </div>
     </div>
+
+
     @if(isset($productDetails))
-    <h1>Product Details - {{ $productDetails->Name_sneaker }}</h1>
-    <p>Description: {{ $productDetails->Description }}</p>
-    <h2>Sizes</h2>
-    <ul>
-        @forelse($productDetails->sizes as $size)
-            <li>{{ $size->size_name }} - {{ $size->quantity }}</li>
-        @empty
-            <li>No sizes available</li>
-        @endforelse
-    </ul>
-@else
+
+    <div class="container bootdey">
+        <div class="col-md-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <div class="pro-img-details">
+                            <img src="{{$productDetails->Image}}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="pro-d-title">
+                            {{ $productDetails->Name_sneaker }}
+                        </h4>
+                        <p>
+                            {{$productDetails->Description}}
+                        </p>
+                        <div class="product_meta">
+                            <span class="posted_in"> <strong>Brand: </strong> {{$productDetails->Brand}} </span>
+                            <span class="tagged_as"><strong>Origin: </strong> {{$productDetails->Origin}}</span>
+                        </div>
+                        <div class="m-bot15"> <strong>Price : </strong> <span class="pro-price"> {{number_format($productDetails->Price, 0,',','.')}}(VNĐ)</span></div>
+
+                        <button class="btn btn-round btn-danger" onclick="addToCart(event);" type="button"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    @else
     <p>Product not found!</p>
-@endif
+    @endif
 </body>
+<script>
+    function addToCart(event) {
+        event.preventDefault(); // Ngăn chặn hành động mặc định của nút
+
+        let cartCounter = document.getElementById('cartCounter');
+        let count = parseInt(cartCounter.innerText);
+
+        count++;
+        cartCounter.innerText = count;
+
+        document.getElementById('addToCartForm').submit();
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const viewDetailsButtons = document.querySelectorAll('.view-details');
+        viewDetailsButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                window.location.href = '/product/' + productId;
+            });
+        });
+    });
+</script>
 
 </html>

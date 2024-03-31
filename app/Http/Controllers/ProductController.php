@@ -217,6 +217,10 @@ class ProductController extends Controller
     {
         return Product::all();
     }
+    public function getProductSizes()
+    {
+        return Size::all();
+    }
 
     public function showProductDetails($id)
     {
