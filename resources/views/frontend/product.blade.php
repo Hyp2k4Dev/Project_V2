@@ -487,18 +487,16 @@
                     }
                 </script>
                 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const viewDetailsButtons = document.querySelectorAll('.view-details');
-    viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.getAttribute('data-product-id');
-            window.location.href = '/product/' + productId;
-        });
-    });
-});
-</script>
-
-
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const viewDetailsButtons = document.querySelectorAll('.view-details');
+                        viewDetailsButtons.forEach(button => {
+                            button.addEventListener('click', function() {
+                                const productId = this.getAttribute('data-product-id');
+                                window.location.href = '/product/' + productId;
+                            });
+                        });
+                    });
+                </script>
     </footer>
     <script src="{{ asset('js/jquery-1.11.0.min.js') }}"></script>
     <script src="{{ asset('js/jquery-migrate-1.2.1.min.js') }}"></script>
