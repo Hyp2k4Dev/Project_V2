@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.ico') }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Light Bootstrap Dashboard by Creative Tim</title>
+    <title>HTH ADMIN</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -36,7 +36,7 @@
             theme: {
                 extend: {
                     colors: {
-                        clifford: '#da373d',
+
                     }
                 }
             }
@@ -49,6 +49,7 @@
     <div class="wrapper">
         <div class="sidebar" data-color="purple" data-image="{{ asset('assets/img/sidebar-5.jpg') }}">
 
+            <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
 
 
             <div class="sidebar-wrapper">
@@ -104,42 +105,9 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <p class="navbar-brand">Product List</p>
+                        <p class="navbar-brand">Products List</p>
                     </div>
-                    <div class="collapse navbar-collapse">
-                        <!-- <ul class="nav navbar-nav navbar-left">
-                            <li>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-dashboard"></i>
-                                    <p class="hidden-lg hidden-md">Dashboard</p>
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-sm hidden-xs"></b>
-                                    <span class="notification hidden-sm hidden-xs">5</span>
-                                    <p class="hidden-lg hidden-md">
-                                        5 Notifications
-                                        <b class="caret"></b>
-                                    </p>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Notification 1</a></li>
-                                    <li><a href="#">Notification 2</a></li>
-                                    <li><a href="#">Notification 3</a></li>
-                                    <li><a href="#">Notification 4</a></li>
-                                    <li><a href="#">Another notification</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i class="fa fa-search"></i>
-                                    <p class="hidden-lg hidden-md">Search</p>
-                                </a>
-                            </li>
-                        </ul> -->
-
+                    <div class="collapse navbar-collapse" style="display: block;visibility: visible;opacity: 1; transform: none; ">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                 <a href="admin/userList">
@@ -179,27 +147,30 @@
                             </div>
                             <div class="flex justify-between items-start px-2 pt-2">
                                 <div class="p-2 flex-grow">
-                                    <h1 class="font-medium text-[20px] font-poppins">{{ $item->Name_sneaker }}</h1>
+                                    <h1 class="font-medium text-[20px]  font-poppins">{{ $item->Name_sneaker }}</h1>
                                 </div>
                                 <div class="p-2 text-right">
-                                    <div class="text-teal-500 font-semibold text-3xl font-poppins">{{ $item->Price }} VND</div>
+                                    <div class=" font-semibold text-3xl font-poppins text-purple-600"> {{
+                                        number_format($item->Price, 0, '.', '.') }} VND</div>
                                 </div>
                             </div>
                             <div class="flex justify-center items-center px-2 pb-2">
                                 <div class="w-1/2 p-2">
-                                    <a href="#" class="block w-full bg-teal-500 hover:bg-teal-600 text-white border-2 border-teal-500 hover:border-teal-600 px-3 py-2 rounded uppercase font-poppins font-medium">
+                                    <a href="{{ route('admin.product.info' , $item->id) }}" class="block w-full hover:text-white bg-purple-500 hover:bg-purple-600 text-white border-2 border-purple-500 hover:border-purple-600 px-3 py-2 rounded-lg uppercase font-poppins font-medium">
                                         Details
                                     </a>
                                 </div>
                                 <div class="w-1/2 p-2">
-                                    <a href="#" class="block w-full bg-white hover:bg-gray-100 text-teal-500 border-2 border-teal-500 px-3 py-2 rounded uppercase font-poppins font-medium">
-                                        Update
-                                    </a>
+                                    <form action="{{ route('admin.product.edit', $item->id) }}">
+                                        <button type="submit" class="block w-full bg-white hover:bg-gray-100 text-purple-500 border-2 hover:text-purple-600 border-purple-500 px-3 py-2 rounded-lg uppercase font-poppins font-medium">Update</button>
+                                    </form>
                                 </div>
-                                <div class="w-1/2 p-2">
-                                    <a href="#" class="block w-full bg-white hover:bg-gray-100 text-teal-500 border-2 border-teal-500 px-3 py-2 rounded uppercase font-poppins font-medium">
-                                        Delete
-                                    </a>
+                                <div class=" w-1/2 p-2">
+                                    <form action="{{ route('admin.product.destroy', $item->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete the product?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="block w-full bg-white hover:bg-gray-100 text-purple-500 border-2 hover:text-purple-600 border-purple-500 px-3 py-2 rounded-lg uppercase font-poppins font-medium">Delete</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -238,9 +209,11 @@
                         </ul>
                     </nav>
                     <p class="copyright pull-right">
-                        &copy; <script>
+                        &copy;
+                        <script>
                             document.write(new Date().getFullYear())
-                        </script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                        </script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better
+                        web
                     </p>
                 </div>
             </footer>
@@ -273,6 +246,7 @@
 @php
 $successMessage = session('success');
 @endphp
+
 <script type="text/javascript">
     $(document).ready(function() {
         demo.initChartist();
@@ -284,7 +258,7 @@ $successMessage = session('success');
                 message: successMessage
             }, {
                 type: 'success',
-                timer: 4000
+                timer: 2000
             });
         }
     });

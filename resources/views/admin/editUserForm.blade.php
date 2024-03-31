@@ -252,9 +252,7 @@
                             return false;
                         }
                         for (var i = 0; i < users.length; i++) {
-                            if (users[i].gmailUser !== gmailUser) {
-                                continue;
-                            } else if (users[i].email === email) {
+                            if (users[i].email === email && users[i].email !== gmailUser) {
                                 $.notify({
                                     message: "This email address is already in use."
                                 }, {
@@ -283,20 +281,20 @@
                                 timer: 2000
                             });
                             return false;
-                            for (var i = 0; i < users.length; i++) {
-                                if (users[i].phone_number === phoneNumber && users[i].phone_number !== phoneUser) {
-                                    $.notify({
-                                        message: "Phone number cannot be the same as any existing phone number."
-                                    }, {
-                                        type: 'danger',
-                                        timer: 2000
-                                    });
-                                    return false;
-                                }
-                            }
-
-                            return true;
                         }
+                        for (var i = 0; i < users.length; i++) {
+                            if (users[i].phone_number === phoneNumber && users[i].phone_number !== phoneUser) {
+                                $.notify({
+                                    message: "Phone number cannot be the same as any existing phone number."
+                                }, {
+                                    type: 'danger',
+                                    timer: 2000
+                                });
+                                return false;
+                            }
+                        }
+
+                        return true;
                     }
                 </script>
 

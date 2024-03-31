@@ -134,7 +134,7 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="admin/userList">
+                                <a href="/admin/userList">
                                     <p>{{ $user->name }} ( {{$user->role}} )</p>
                                 </a>
                             </li>

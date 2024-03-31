@@ -31,8 +31,15 @@ class ProductController extends Controller
 
     public function edit($id)
     {
+        $user = Auth::user();
         $product = Product::with('sizes')->findOrFail($id);
-        return view('admin.product.edit', compact('product'));
+        return view('admin.product.edit', compact('product', 'user'));
+    }
+    public function info($id)
+    {
+        $user = Auth::user();
+        $product = Product::with('sizes')->findOrFail($id);
+        return view('admin.product.infoProduct', compact('product', 'user'));
     }
 
 
@@ -121,13 +128,13 @@ class ProductController extends Controller
                 ->where('size_name', $sizeName)
                 ->delete();
         }
-        return redirect("/admin/dashboard")->with('success', 'Successfully updated the product.');
+        return redirect("/admin/product")->with('success', 'Successfully updated the product.');
     }
 
     public function destroy($id)
     {
         Product::findOrFail($id)->delete();
-        return redirect()->route('admin.dashboard')->with('success', 'Product deleted successfully');
+        return redirect("/admin/product")->with('success', 'Product deleted successfully');
     }
 
     public function search(Request $request)

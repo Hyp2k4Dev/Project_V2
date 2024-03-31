@@ -52,6 +52,7 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
 
     Route::get('/dashboard', [ProductController::class, 'index'])->name('admin.dashboard');
     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.product.edit');
+    Route::get('/product/{id}/info', [ProductController::class, 'info'])->name('admin.product.info');
     Route::put('/product/{id}', [ProductController::class, 'update'])->name('admin.product.update');
     Route::post('/check-product-code', 'ProductController@checkProductCode')->name('admin.product.check_code');
 
