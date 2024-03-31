@@ -25,7 +25,7 @@ class ProductController extends Controller
     public function productList()
     {
         $user = Auth::user();
-        $product = Product::with('sizes');
+        $product = Product::get();
         return view('admin.productList', compact('product', 'user'));
     }
 

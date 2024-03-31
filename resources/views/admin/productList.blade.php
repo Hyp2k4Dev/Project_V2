@@ -30,6 +30,18 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="{{ asset('assets/css/pe-icon-7-stroke.css') }}" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -64,11 +76,14 @@
                             <i class="pe-7s-note2"></i>
                             <p>Order List</p>
                         </a>
-                    </li class="active">
-                    <a href="/admin/product">
-                        <i class="pe-7s-shopbag"></i>
-                        <p>Products</p>
-                    </a>
+                    </li>
+                    <li class="active">
+                        <a href="/admin/product">
+                            <i class="pe-7s-shopbag"></i>
+                            <p>Products</p>
+                        </a>
+                    </li>
+
                     <li class="active-pro">
                         <a href="{{ url('upgrade') }}">
                             <i class="pe-7s-rocket"></i>
@@ -89,7 +104,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <p class="navbar-brand">User Profile</p>
+                        <p class="navbar-brand">Product List</p>
                     </div>
                     <div class="collapse navbar-collapse">
                         <!-- <ul class="nav navbar-nav navbar-left">
@@ -141,12 +156,6 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/admin/product/add-product">ADD PRODUCT</a></li>
-                                    <!-- <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li> -->
                                 </ul>
                             </li>
                             <li>
@@ -161,89 +170,45 @@
             </nav>
 
             <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="header" style="width: 100%; display: flex; justify-content: space-between;">
-                                    <h4 class="title">List User</h4>
-                                    <div class="row mb-4" style="margin-right: 10px; display: flex;">
-                                        <div style="width: 100%;">
-                                            <form id="roleForm" action="{{ route('admin.userList') }}" method="GET">
-                                                <div class="filter-form">
-                                                    <label for="filterRole">Filter Role:</label>
-                                                    <select class="form-control" id="filterRole" name="role">
-                                                        <option value="all-role" {{ $role == 'all-role' ? 'selected' : '' }}>All Role</option>
-                                                        <option value="Admin" {{ $role == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                                        <option value="Seller" {{ $role == 'Seller' ? 'selected' : '' }}>Seller</option>
-                                                        <option value="User" {{ $role == 'User' ? 'selected' : '' }}>User</option>
-                                                    </select>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <script>
-                                        document.getElementById('filterRole').addEventListener('change', function() {
-                                            document.getElementById('roleForm').submit();
-                                        });
-                                    </script>
-
-
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-2 lg:gap-4 xl:gap-4 xl:gap-4">
+                    @foreach($product as $item)
+                    <div class="w-full p-2">
+                        <div class="bg-white shadow-lg hover:shadow-xl rounded-lg">
+                            <div class="bg-gray-400 h-[250px] rounded-t-lg bg-no-repeat bg-center bg-cover">
+                                <img src="{{ $item->Image }}" alt="{{ $item->name }}" class="w-full h-full rounded-t-lg object-cover">
+                            </div>
+                            <div class="flex justify-between items-start px-2 pt-2">
+                                <div class="p-2 flex-grow">
+                                    <h1 class="font-medium text-[20px] font-poppins">{{ $item->Name_sneaker }}</h1>
                                 </div>
-                                <div class="content table-responsive table-full-width">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>Address</th>
-                                            <th>Phone Number</th>
-                                            <th>Role</th>
-                                            <th>Status</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($users as $user)
-                                            <tr>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->address }}</td>
-                                                <td>{{ $user->phone_number }}</td>
-                                                <td>{{ $user->role }}</td>
-                                                <td>{{ $user->is_active ? 'Activated' : 'Not Activated' }}</td>
-                                                <td>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <a href="{{ route('admin.editUserForm', ['user' => $user->id]) }}" class="btn btn-primary search">{{ __('Edit User') }}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <form action="{{ route('admin.deleteUser', ['user' => $user->id]) }}" method="POST" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xoá người dùng không?');">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger">{{ __('Block') }}</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                            @if($users->isEmpty())
-                                            <tr>
-                                                <td colspan="8">No users found.</td>
-                                            </tr>
-                                            @endif
-                                        </tbody>
-                                    </table>
+                                <div class="p-2 text-right">
+                                    <div class="text-teal-500 font-semibold text-3xl font-poppins">{{ $item->Price }} VND</div>
                                 </div>
-
+                            </div>
+                            <div class="flex justify-center items-center px-2 pb-2">
+                                <div class="w-1/2 p-2">
+                                    <a href="#" class="block w-full bg-teal-500 hover:bg-teal-600 text-white border-2 border-teal-500 hover:border-teal-600 px-3 py-2 rounded uppercase font-poppins font-medium">
+                                        Details
+                                    </a>
+                                </div>
+                                <div class="w-1/2 p-2">
+                                    <a href="#" class="block w-full bg-white hover:bg-gray-100 text-teal-500 border-2 border-teal-500 px-3 py-2 rounded uppercase font-poppins font-medium">
+                                        Update
+                                    </a>
+                                </div>
+                                <div class="w-1/2 p-2">
+                                    <a href="#" class="block w-full bg-white hover:bg-gray-100 text-teal-500 border-2 border-teal-500 px-3 py-2 rounded uppercase font-poppins font-medium">
+                                        Delete
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
+
+
+
             </div>
 
             <footer class="footer">
