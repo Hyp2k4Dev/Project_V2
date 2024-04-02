@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use App\Models\Size;
 
@@ -26,12 +24,9 @@ class HomeFE extends Controller
     {
         return view('frontend.productdetails');
     }
-    public function show($id)
-    {
-        $otherController = new ProductController();
-        $products = $otherController->getProductSizes();
+    public function show($id) {
         $productDetails = Product::with('sizes')->find($id);
-        return view('frontend.productdetails', compact('products'));
+        return view('frontend.productdetails', compact('product'));
     }
 
     public function about()

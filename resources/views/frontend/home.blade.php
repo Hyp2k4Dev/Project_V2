@@ -216,33 +216,6 @@
         <i class="bi bi-messenger" style="color: white;"></i>
     </button>
     <script>
-<<<<<<< HEAD
-        window.onload = function() {
-            // Khi trang được tải lại, kiểm tra xem đã có giá trị số lượng trong Local Storage chưa
-            let cartCounter = document.getElementById('cartCounter');
-            let count = parseInt(localStorage.getItem('cartItemCount'));
-
-            if (!isNaN(count)) {
-                // Nếu đã có giá trị trong Local Storage, cập nhật số lượng hiển thị trên trang
-                cartCounter.innerText = count;
-            }
-        };
-
-        function addToCart(event) {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-
-            let cartCounter = document.getElementById('cartCounter');
-            let count = parseInt(cartCounter.innerText);
-
-            count++;
-            cartCounter.innerText = count;
-
-            // Lưu giá trị mới vào Local Storage
-            localStorage.setItem('cartItemCount', count.toString());
-
-            document.getElementById('addToCartForm').submit();
-        }
-=======
         document.addEventListener('DOMContentLoaded', function() {
             const viewDetailsButtons = document.querySelectorAll('.view-details');
             viewDetailsButtons.forEach(button => {
@@ -271,7 +244,6 @@
             const addToCartButton = document.querySelector('.btn-success');
             addToCartButton.addEventListener('click', addToCart);
         });
->>>>>>> 5d3514e (update cart)
     </script>
 </body>
 
