@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -187,7 +187,7 @@
                             </div>
                         </div>
                     </div>
-                     <div class="container">
+                    <div class="container">
                         <div class="row">
                             @forelse($products as $index => $product)
                             @if($index % 3 == 0 && $index > 0)
@@ -207,6 +207,8 @@
                                     </div>
                                     <div class="card-body">
                                         <a href="{{ route('frontend.productdetails', $product->id) }}" class="h3 text-decoration-none">{{ $product->Name_sneaker }}</a>
+                                        <br>
+                                        <p> Color: {{$product->Color}}</p>
                                         <p class="text-center mb-0">{{ number_format($product->Price, 0, ',', '.') }} VNĐ</p>
                                     </div>
                                 </div>
@@ -353,19 +355,6 @@
                             </div>
                         </div>
                         <script>
-                            function addToCart(event) {
-                                event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-
-                                let cartCounter = document.getElementById('cartCounter');
-                                let count = parseInt(cartCounter.innerText);
-
-                                count++;
-                                cartCounter.innerText = count;
-
-                                document.getElementById('addToCartForm').submit();
-                            }
-                        </script>
-                        <script>
                             document.addEventListener('DOMContentLoaded', function() {
                                 const viewDetailsButtons = document.querySelectorAll('.view-details');
                                 viewDetailsButtons.forEach(button => {
@@ -374,6 +363,40 @@
                                         window.location.href = '/product/' + productId;
                                     });
                                 });
+
+                                // Khởi tạo mảng chứa các sản phẩm trong giỏ hàng từ localStorage
+                                let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+                                // Hiển thị số lượng sản phẩm trong giỏ hàng
+                                let cartCounter = document.getElementById('cartCounter');
+                                cartCounter.innerText = cartItems.length;
+
+                                function addToCart(event) {
+                                    event.preventDefault(); // Ngăn chặn hành động mặc định của nút
+
+                                    // Lấy thông tin sản phẩm từ DOM
+                                    const productName = document.querySelector('.pro-d-title').innerText;
+                                    const productPrice = document.querySelector('.pro-price').innerText;
+
+                                    // Tạo một đối tượng mới đại diện cho sản phẩm được thêm vào giỏ hàng
+                                    const newItem = {
+                                        name: productName,
+                                        price: productPrice
+                                    };
+
+                                    // Thêm sản phẩm vào mảng cartItems
+                                    cartItems.push(newItem);
+
+                                    // Cập nhật số lượng sản phẩm trong giỏ hàng
+                                    cartCounter.innerText = cartItems.length;
+
+                                    // Lưu mảng cartItems vào localStorage
+                                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                                }
+
+                                // Gắn sự kiện click cho nút thêm vào giỏ hàng
+                                const addToCartButton = document.querySelector('.btn-success');
+                                addToCartButton.addEventListener('click', addToCart);
                             });
                         </script>
                     </footer>

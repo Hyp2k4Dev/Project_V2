@@ -142,7 +142,7 @@ class ProductController extends Controller
             'status' => 'required|string',
             'price' => 'required|numeric|min:0',
             'sizes.*.size' => 'required|string',
-            'sizes.*.quantity' => 'required|numeric|min:0',
+            'sizes.*.quantity' => 'required|numeric|min:1',
         ]);
 
 

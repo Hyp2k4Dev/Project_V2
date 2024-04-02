@@ -83,17 +83,23 @@
                             {{$productDetails->Description}}
                         </p>
                         <div class="product_meta">
-                            <span class="posted_in"> <strong>Brand: </strong> {{$productDetails->Brand}} </span> <br>
-                            <span class="tagged_as"><strong>Origin: </strong> {{$productDetails->Origin}}</span>
+                            <span class="posted_in"> <strong>{{$productDetails->Brand}}</strong> </span> <br>
+                            <span class="tagged_as"><strong>{{$productDetails->Origin}}</strong> </span>
+                            <span class="color"><strong>{{$productDetails->Color}}</strong> </span>
                             <h2>Sizes</h2>
-                            <ul>
+                            <select id="sizeSelect">
                                 @forelse($productDetails->sizes as $size)
-                                <li>{{ $size->size_name }}</li>
-                                <div class="m-bot15"> <strong>Price : </strong> <span class="pro-price"> {{number_format($productDetails->Price, 0,',','.')}}(VNĐ)</span></div>
+                                <option value="{{ $size->size_name }}">{{ $size->size_name }}</option>
                                 @empty
-                                <li>No sizes available</li>
+                                <option disabled>No sizes available</option>
                                 @endforelse
-                            </ul>
+                            </select>
+                            <input class="form-control quantity-input" type="number" value="${item.quantity}" min="1">
+                            <div class="m-bot15">
+                                <strong>Price:</strong>
+                                <span class="pro-price">{{ number_format($productDetails->Price) }}(VNĐ)</span>
+                            </div>
+
                         </div>
                         <a class="btn btn-success text-white" onclick="addToCart(event);" href="{{ route('addToCart', ['id' => $productDetails->id]) }}">Add to Cart</a>
 
@@ -109,19 +115,6 @@
     @endif
 </body>
 <script>
-    function addToCart(event) {
-        event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-
-        let cartCounter = document.getElementById('cartCounter');
-        let count = parseInt(cartCounter.innerText);
-
-        count++;
-        cartCounter.innerText = count;
-
-        document.getElementById('addToCartForm').submit();
-    }
-</script>
-<script>
     document.addEventListener('DOMContentLoaded', function() {
         const viewDetailsButtons = document.querySelectorAll('.view-details');
         viewDetailsButtons.forEach(button => {
@@ -130,7 +123,59 @@
                 window.location.href = '/product/' + productId;
             });
         });
+
+        // Khởi tạo mảng chứa các sản phẩm trong giỏ hàng từ localStorage
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+        // Hiển thị số lượng sản phẩm trong giỏ hàng
+        let cartCounter = document.getElementById('cartCounter');
+        cartCounter.innerText = cartItems.length;
+
+        function addToCart(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của nút
+
+            // Lấy thông tin sản phẩm từ DOM
+            const productName = document.querySelector('.pro-d-title').innerText;
+            const productPriceText = document.querySelector('.pro-price').innerText;
+            const productPrice = parseFloat(productPriceText.replace(/[^\d.]/g, '')); // Chuyển đổi giá thành số
+            const selectedSize = document.getElementById('sizeSelect').value;
+            const productBrand = document.querySelector('.product_meta .posted_in').innerText;
+            const productOrigin = document.querySelector('.product_meta .tagged_as').innerText;
+            const productColor = document.querySelector('.color').innerText;
+            const productImage = document.querySelector('.pro-img-details img').getAttribute('src'); // Lấy đường dẫn hình ảnh sản phẩm
+            const productQuantity = parseInt(document.querySelector('.quantity-input').value); // Lấy giá trị quantity từ input
+
+            // Tạo một đối tượng mới đại diện cho sản phẩm được thêm vào giỏ hàng
+            const newItem = {
+                name: productName,
+                price: productPrice, // Lưu giá theo định dạng số của Việt Nam Đồng
+                size: selectedSize, // Thêm thông tin về kích thước vào đối tượng sản phẩm
+                brand: productBrand, // Thêm thông tin về thương hiệu vào đối tượng sản phẩm
+                origin: productOrigin, // Thêm thông tin về xuất xứ vào đối tượng sản phẩm
+                image: productImage, // Thêm thông tin về đường dẫn hình ảnh vào đối tượng sản phẩm
+                color: productColor,
+                quantity: productQuantity // Thêm thông tin về số lượng vào đối tượng sản phẩm
+            };
+
+            // Thêm sản phẩm vào mảng cartItems
+            cartItems.push(newItem);
+
+            // Cập nhật số lượng sản phẩm trong giỏ hàng
+            cartCounter.innerText = cartItems.length;
+
+            // Lưu mảng cartItems vào localStorage
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        }
+
+
+        // Gắn sự kiện click cho nút thêm vào giỏ hàng
+        const addToCartButton = document.querySelector('.btn-success');
+        addToCartButton.addEventListener('click', addToCart);
     });
 </script>
+
+
+
+
 
 </html>
