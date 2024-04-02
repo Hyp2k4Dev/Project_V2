@@ -103,37 +103,22 @@
                         </div>
                         <a class="btn btn-success text-white" onclick="addToCart(event);" href="{{ route('addToCart', ['id' => $productDetails->id]) }}">Add to Cart</a>
 
-                        </p>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-    </form>
-    @else
-    <p>Product not found!</p>
-    @endif
+                        <p>Product not found!</p>
+                        @endif
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const viewDetailsButtons = document.querySelectorAll('.view-details');
-        viewDetailsButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-product-id');
-                window.location.href = '/product/' + productId;
-            });
-        });
+
 
         // Khởi tạo mảng chứa các sản phẩm trong giỏ hàng từ localStorage
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
         // Hiển thị số lượng sản phẩm trong giỏ hàng
         let cartCounter = document.getElementById('cartCounter');
         cartCounter.innerText = cartItems.length;
 
         function addToCart(event) {
             event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-
             // Lấy thông tin sản phẩm từ DOM
             const productName = document.querySelector('.pro-d-title').innerText;
             const productPriceText = document.querySelector('.pro-price').innerText;
@@ -144,7 +129,6 @@
             const productColor = document.querySelector('.color').innerText;
             const productImage = document.querySelector('.pro-img-details img').getAttribute('src'); // Lấy đường dẫn hình ảnh sản phẩm
             const productQuantity = parseInt(document.querySelector('.quantity-input').value); // Lấy giá trị quantity từ input
-
             // Tạo một đối tượng mới đại diện cho sản phẩm được thêm vào giỏ hàng
             const newItem = {
                 name: productName,
@@ -156,18 +140,13 @@
                 color: productColor,
                 quantity: productQuantity // Thêm thông tin về số lượng vào đối tượng sản phẩm
             };
-
             // Thêm sản phẩm vào mảng cartItems
             cartItems.push(newItem);
-
             // Cập nhật số lượng sản phẩm trong giỏ hàng
             cartCounter.innerText = cartItems.length;
-
             // Lưu mảng cartItems vào localStorage
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
         }
-
-
         // Gắn sự kiện click cho nút thêm vào giỏ hàng
         const addToCartButton = document.querySelector('.btn-success');
         addToCartButton.addEventListener('click', addToCart);
