@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.ico') }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Light Bootstrap Dashboard by Creative Tim</title>
+    <title>HTH ADMIN</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -30,6 +30,18 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="{{ asset('assets/css/pe-icon-7-stroke.css') }}" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -37,6 +49,7 @@
     <div class="wrapper">
         <div class="sidebar" data-color="purple" data-image="{{ asset('assets/img/sidebar-5.jpg') }}">
 
+            <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
 
 
             <div class="sidebar-wrapper">
@@ -53,7 +66,7 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="/admin/userList">
                             <i class="pe-7s-user"></i>
                             <p>User Profile</p>
@@ -65,12 +78,13 @@
                             <p>Order List</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="/admin/product">
                             <i class="pe-7s-shopbag"></i>
                             <p>Products</p>
                         </a>
                     </li>
+
                     <li class="active-pro">
                         <a href="{{ url('upgrade') }}">
                             <i class="pe-7s-rocket"></i>
@@ -91,13 +105,12 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <p class="navbar-brand">User Profile</p>
+                        <p class="navbar-brand">Products List</p>
                     </div>
-                    <div class="collapse navbar-collapse">
-
+                    <div class="collapse navbar-collapse" style="display: block;visibility: visible;opacity: 1; transform: none; ">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="/admin/userList">
+                                <a href="admin/userList">
                                     <p>{{ $user->name }} ( {{$user->role}} )</p>
                                 </a>
                             </li>
@@ -111,12 +124,6 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/admin/product/add-product">ADD PRODUCT</a></li>
-                                    <!-- <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li> -->
                                 </ul>
                             </li>
                             <li>
@@ -131,89 +138,48 @@
             </nav>
 
             <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="header" style="width: 100%; display: flex; justify-content: space-between;">
-                                    <h4 class="title">List User</h4>
-                                    <div class="row mb-4" style="margin-right: 10px; display: flex;">
-                                        <div style="width: 100%;">
-                                            <form id="roleForm" action="{{ route('admin.userList') }}" method="GET">
-                                                <div class="filter-form">
-                                                    <label for="filterRole">Filter Role:</label>
-                                                    <select class="form-control" id="filterRole" name="role">
-                                                        <option value="all-role" {{ $role == 'all-role' ? 'selected' : '' }}>All Role</option>
-                                                        <option value="Admin" {{ $role == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                                        <option value="Seller" {{ $role == 'Seller' ? 'selected' : '' }}>Seller</option>
-                                                        <option value="User" {{ $role == 'User' ? 'selected' : '' }}>User</option>
-                                                    </select>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <script>
-                                        document.getElementById('filterRole').addEventListener('change', function() {
-                                            document.getElementById('roleForm').submit();
-                                        });
-                                    </script>
-
-
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-2 lg:gap-4 xl:gap-4 xl:gap-4">
+                    @foreach($product as $item)
+                    <div class="w-full p-2">
+                        <div class="bg-white shadow-lg hover:shadow-xl rounded-lg">
+                            <div class="bg-gray-400 h-[250px] rounded-t-lg bg-no-repeat bg-center bg-cover">
+                                <img src="{{ $item->Image }}" alt="{{ $item->name }}" class="w-full h-full rounded-t-lg object-cover">
+                            </div>
+                            <div class="flex justify-between items-start px-2 pt-2">
+                                <div class="p-2 flex-grow">
+                                    <h1 class="font-medium text-[20px]  font-poppins">{{ $item->Name_sneaker }}</h1>
                                 </div>
-                                <div class="content table-responsive table-full-width">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>Address</th>
-                                            <th>Phone Number</th>
-                                            <th>Role</th>
-                                            <th>Status</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($users as $user)
-                                            <tr>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->address }}</td>
-                                                <td>{{ $user->phone_number }}</td>
-                                                <td>{{ $user->role }}</td>
-                                                <td>{{ $user->is_active ? 'Activated' : 'Not Activated' }}</td>
-                                                <td>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <a href="{{ route('admin.editUserForm', ['user' => $user->id]) }}" class="btn btn-primary search">{{ __('Edit User') }}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <form action="{{ route('admin.deleteUser', ['user' => $user->id]) }}" method="POST" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xoá người dùng không?');">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger">{{ __('Block') }}</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                            @if($users->isEmpty())
-                                            <tr>
-                                                <td colspan="8">No users found.</td>
-                                            </tr>
-                                            @endif
-                                        </tbody>
-                                    </table>
+                                <div class="p-2 text-right">
+                                    <div class=" font-semibold text-3xl font-poppins text-purple-600"> {{
+                                        number_format($item->Price, 0, '.', '.') }} VND</div>
                                 </div>
-
+                            </div>
+                            <div class="flex justify-center items-center px-2 pb-2">
+                                <div class="w-1/2 p-2">
+                                    <a href="{{ route('admin.product.info' , $item->id) }}" class="block w-full hover:text-white bg-purple-500 hover:bg-purple-600 text-white border-2 border-purple-500 hover:border-purple-600 px-3 py-2 rounded-lg uppercase font-poppins font-medium">
+                                        Details
+                                    </a>
+                                </div>
+                                <div class="w-1/2 p-2">
+                                    <form action="{{ route('admin.product.edit', $item->id) }}">
+                                        <button type="submit" class="block w-full bg-white hover:bg-gray-100 text-purple-500 border-2 hover:text-purple-600 border-purple-500 px-3 py-2 rounded-lg uppercase font-poppins font-medium">Update</button>
+                                    </form>
+                                </div>
+                                <div class=" w-1/2 p-2">
+                                    <form action="{{ route('admin.product.destroy', $item->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete the product?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="block w-full bg-white hover:bg-gray-100 text-purple-500 border-2 hover:text-purple-600 border-purple-500 px-3 py-2 rounded-lg uppercase font-poppins font-medium">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
+
+
+
             </div>
 
             <footer class="footer">
@@ -243,9 +209,11 @@
                         </ul>
                     </nav>
                     <p class="copyright pull-right">
-                        &copy; <script>
+                        &copy;
+                        <script>
                             document.write(new Date().getFullYear())
-                        </script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                        </script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better
+                        web
                     </p>
                 </div>
             </footer>
@@ -278,6 +246,7 @@
 @php
 $successMessage = session('success');
 @endphp
+
 <script type="text/javascript">
     $(document).ready(function() {
         demo.initChartist();
@@ -289,7 +258,7 @@ $successMessage = session('success');
                 message: successMessage
             }, {
                 type: 'success',
-                timer: 4000
+                timer: 2000
             });
         }
     });

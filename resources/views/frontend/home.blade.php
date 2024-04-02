@@ -216,34 +216,31 @@
         <i class="bi bi-messenger" style="color: white;"></i>
     </button>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const viewDetailsButtons = document.querySelectorAll('.view-details');
-            viewDetailsButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-product-id');
-                    window.location.href = '/product/' + productId;
-                });
-            });
-
-            // Khôi phục giá trị của cartItemCount từ localStorage
+        window.onload = function() {
+            // Khi trang được tải lại, kiểm tra xem đã có giá trị số lượng trong Local Storage chưa
             let cartCounter = document.getElementById('cartCounter');
-            let count = parseInt(localStorage.getItem('cartItemCount')) || 0;
+            let count = parseInt(localStorage.getItem('cartItemCount'));
+
+            if (!isNaN(count)) {
+                // Nếu đã có giá trị trong Local Storage, cập nhật số lượng hiển thị trên trang
+                cartCounter.innerText = count;
+            }
+        };
+
+        function addToCart(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của nút
+
+            let cartCounter = document.getElementById('cartCounter');
+            let count = parseInt(cartCounter.innerText);
+
+            count++;
             cartCounter.innerText = count;
 
-            function addToCart(event) {
-                event.preventDefault(); // Ngăn chặn hành động mặc định của nút
+            // Lưu giá trị mới vào Local Storage
+            localStorage.setItem('cartItemCount', count.toString());
 
-                count++;
-                cartCounter.innerText = count;
-
-                // Lưu giá trị mới vào Local Storage
-                localStorage.setItem('cartItemCount', count.toString());
-            }
-
-            // Gắn sự kiện click cho nút thêm vào giỏ hàng
-            const addToCartButton = document.querySelector('.btn-success');
-            addToCartButton.addEventListener('click', addToCart);
-        });
+            document.getElementById('addToCartForm').submit();
+        }
     </script>
 </body>
 

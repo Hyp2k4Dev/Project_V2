@@ -30,15 +30,24 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="{{ asset('assets/css/pe-icon-7-stroke.css') }}" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'top-color': '#8e4d57',
+                        'heading': '#fcfbfc',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body>
-
     <div class="wrapper">
         <div class="sidebar" data-color="purple" data-image="{{ asset('assets/img/sidebar-5.jpg') }}">
-
-
-
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="/admin/dashboard" class="simple-text">
@@ -53,7 +62,7 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="/admin/userList">
                             <i class="pe-7s-user"></i>
                             <p>User Profile</p>
@@ -65,12 +74,13 @@
                             <p>Order List</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="/admin/product">
                             <i class="pe-7s-shopbag"></i>
                             <p>Products</p>
                         </a>
                     </li>
+
                     <li class="active-pro">
                         <a href="{{ url('upgrade') }}">
                             <i class="pe-7s-rocket"></i>
@@ -91,10 +101,9 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <p class="navbar-brand">User Profile</p>
+                        <p class="navbar-brand">Product List</p>
                     </div>
-                    <div class="collapse navbar-collapse">
-
+                    <div class="collapse navbar-collapse" style="display: block ;visibility: visible ;opacity: 1 ; transform: none ; ">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                 <a href="/admin/userList">
@@ -111,12 +120,6 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/admin/product/add-product">ADD PRODUCT</a></li>
-                                    <!-- <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li> -->
                                 </ul>
                             </li>
                             <li>
@@ -131,88 +134,102 @@
             </nav>
 
             <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="header" style="width: 100%; display: flex; justify-content: space-between;">
-                                    <h4 class="title">List User</h4>
-                                    <div class="row mb-4" style="margin-right: 10px; display: flex;">
-                                        <div style="width: 100%;">
-                                            <form id="roleForm" action="{{ route('admin.userList') }}" method="GET">
-                                                <div class="filter-form">
-                                                    <label for="filterRole">Filter Role:</label>
-                                                    <select class="form-control" id="filterRole" name="role">
-                                                        <option value="all-role" {{ $role == 'all-role' ? 'selected' : '' }}>All Role</option>
-                                                        <option value="Admin" {{ $role == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                                        <option value="Seller" {{ $role == 'Seller' ? 'selected' : '' }}>Seller</option>
-                                                        <option value="User" {{ $role == 'User' ? 'selected' : '' }}>User</option>
-                                                    </select>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <script>
-                                        document.getElementById('filterRole').addEventListener('change', function() {
-                                            document.getElementById('roleForm').submit();
-                                        });
-                                    </script>
-
-
-                                </div>
-                                <div class="content table-responsive table-full-width">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>Address</th>
-                                            <th>Phone Number</th>
-                                            <th>Role</th>
-                                            <th>Status</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($users as $user)
-                                            <tr>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->address }}</td>
-                                                <td>{{ $user->phone_number }}</td>
-                                                <td>{{ $user->role }}</td>
-                                                <td>{{ $user->is_active ? 'Activated' : 'Not Activated' }}</td>
-                                                <td>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <a href="{{ route('admin.editUserForm', ['user' => $user->id]) }}" class="btn btn-primary search">{{ __('Edit User') }}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <form action="{{ route('admin.deleteUser', ['user' => $user->id]) }}" method="POST" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xoá người dùng không?');">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger">{{ __('Block') }}</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                            @if($users->isEmpty())
-                                            <tr>
-                                                <td colspan="8">No users found.</td>
-                                            </tr>
-                                            @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-
+                <div class="bg-gray-100 ">
+                    <div class="border-1 shadow-md shadow-gray-700 rounded-lg">
+                        <div class="flex rounded-t-lg sm:px-2 w-full">
+                            <div class=" overflow-hidden sm:rounded-[15px] sm:relative sm:p-0 top-10 left-5 p-3">
+                                <img src="{{$product->Image}}" class="object-cover h-[250px] w-full" />
                             </div>
                         </div>
+
+                        <div class="p-5 mt-8">
+                            <div class="flex flex-col sm:flex-row sm:mt-16">
+                                <div class="flex flex-col sm:w-1/3">
+                                    <div class="py-3 sm:order-none order-3">
+                                        <h2 class="text-4xl font-poppins font-bold text-top-color">Name Product</h2>
+                                        <div class="border-2 w-20 border-top-color my-3"></div>
+                                        <div class="flex mt-3 mb-8">
+                                            <p class="ml-3 font-medium text-4xl font-poppins"> {{$product->Name_sneaker}}</p>
+                                        </div>
+
+                                        <h2 class="text-4xl font-poppins font-bold text-top-color">Main Information</h2>
+                                        <div class="border-2 w-20 border-top-color my-3"></div>
+                                        <div class="flex my-3">
+                                            <p class="font-semibold text-3xl font-poppins">Pricre:</p>
+                                            <p class="ml-3 font-medium text-3xl font-poppins"> {{number_format($product->Price, 0, '.', '.') }} VND</p>
+                                        </div>
+                                        @foreach($product->sizes as $size)
+                                        <div class="flex">
+                                            <div class="flex my-3">
+                                                <p class="font-semibold text-3xl font-poppins">Size:</p>
+                                                <p class="ml-3 font-medium text-3xl font-poppins">{{ $size->size_name }}</p>
+                                            </div>
+                                            <div class="flex my-3 mx-5">
+                                                <p class="font-semibold text-3xl font-poppins">Quantity: </p>
+                                                <p class="ml-3 font-medium text-3xl font-poppins"> {{ $size->quantity }}</p>
+                                            </div>
+                                        </div>
+                                        @endforeach
+
+                                        <h2 class="text-4xl font-poppins font-bold mt-3 text-top-color">Status:</h2>
+                                        <div class="border-2 w-20 border-top-color my-3"></div>
+                                        <div class="flex mt-3 mb-8">
+                                            <p class="ml-3 font-medium font-poppins"> {{$product->Status_Sneaker}}</p>
+                                        </div>
+
+                                        <h2 class="text-4xl font-poppins font-bold text-top-color">Code :</h2>
+                                        <div class="border-2 w-20 border-top-color my-3"></div>
+                                        <div class="flex mt-3 mb-8">
+                                            <p class="ml-3 font-medium font-poppins"> {{$product->Product_Code }}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col sm:w-2/3 md:ml-3 order-first sm:order-none ">
+                                    <div class="py-3">
+                                        <h2 class="text-4xl font-poppins font-bold text-top-color">Description</h2>
+                                        <div class="border-2 w-20 border-top-color my-3"></div>
+                                        <p>
+                                            {{$product->Description}}
+                                        </p>
+                                    </div>
+                                    <div class="py-3">
+                                        <h2 class="text-4xl font-poppins font-bold text-top-color">Origin</h2>
+                                        <div class="border-2 w-20 border-top-color my-3"></div>
+                                        <p>
+                                            {{$product->Origin}}
+                                        </p>
+                                    </div>
+                                    <div class="py-3">
+                                        <h2 class="text-4xl font-poppins font-bold text-top-color">Brand</h2>
+                                        <div class="border-2 w-20 border-top-color my-3"></div>
+                                        <p>
+                                            {{$product->Brand}}
+                                        </p>
+                                    </div>
+                                    <div class="py-3">
+                                        <h2 class="text-4xl font-poppins font-bold text-top-color">Color</h2>
+                                        <div class="border-2 w-20 border-top-color my-3"></div>
+                                        <p>
+                                            {{$product->Color}}
+                                        </p>
+                                    </div>
+                                    <div class="py-3">
+                                        <h2 class="text-4xl font-poppins font-bold text-top-color">Material</h2>
+                                        <div class="border-2 w-20 border-top-color my-3"></div>
+                                        <p>
+                                            {{$product->Material}}
+                                        </p>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
+
                 </div>
             </div>
 
