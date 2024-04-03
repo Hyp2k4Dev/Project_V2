@@ -147,7 +147,9 @@
                             </div>
                             <div class="flex justify-between items-start px-2 pt-2">
                                 <div class="p-2 flex-grow">
-                                    <h1 class="font-medium text-[20px]  font-poppins">{{ $item->Name_sneaker }}</h1>
+                                    <h1 class="font-medium text-[20px] font-poppins">
+                                        <?php echo strlen($item->Name_sneaker) > 30 ? substr($item->Name_sneaker, 0, 30) . ' ...' : $item->Name_sneaker; ?>
+                                    </h1>
                                 </div>
                                 <div class="p-2 text-right">
                                     <div class=" font-semibold text-3xl font-poppins text-purple-600"> {{

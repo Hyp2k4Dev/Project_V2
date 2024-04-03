@@ -20,7 +20,9 @@ class ProductController extends Controller
 
     public function addImage()
     {
-        return view('admin.product.addProduct');
+        $user = Auth::user();
+
+        return view('admin.product.addProduct', compact('user'));
     }
     public function productList()
     {

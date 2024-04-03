@@ -83,28 +83,3 @@ function removeSizeForm(sizeFormId) {
         sizeForm.parentNode.removeChild(sizeForm);
     }
 }
-
-// var form = event.target;
-
-// fetch(form.action, {
-//     method: form.method,
-//     body: new FormData(form)
-// })
-// .then(response => {
-//     if (response.ok) {
-//         document.getElementById('successMessage').style.display = 'block';
-//         // var confirmation = confirm('Bạn có muốn thêm sản phẩm khác không?');
-//         // if (!confirmation) {
-//         //     window.location.href = "{{ route('admin.dashboard') }}";
-//         // } else {
-//         //     form.reset();
-//         //     document.getElementById('imagePreview').style.display = 'none';
-//         // }
-//     } else {
-//         console.log('Lỗi server:', response.statusText);
-//         document.getElementById('failMessage').style.display = 'block';
-//     }
-// })
-// .catch(error => {
-//     console.error('Lỗi khi gửi dữ liệu form:', error);
-// });
