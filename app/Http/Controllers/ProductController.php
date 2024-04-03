@@ -168,7 +168,6 @@ class ProductController extends Controller
         $extension = $request->file('image')->getClientOriginalExtension();
         $fileName = $randomize . '.' . $extension;
 
-        // $imagePath = $request->file('image')->storeAs($destinationPath, $fileName);
         do {
             $productCode = 'HTH-' . mt_rand(1000, 999999);
         } while (Product::where('Product_Code', $productCode)->exists());
@@ -183,7 +182,9 @@ class ProductController extends Controller
         $product->Status_Sneaker = $request->status;
         $product->Product_Code = $productCode;
         $product->Price = $request->price;
+        $request->file('image')->storeAs($destinationPath, $fileName);
         $product->Image = Storage::url("$destinationPath/$fileName");
+
         $product->save();
 
         $product_id = $product->id;
@@ -215,6 +216,7 @@ class ProductController extends Controller
 
         return redirect("/admin/product/add-product")->with('success', 'Product uploaded successfully.');
     }
+
 
     public function viewImage()
     {
