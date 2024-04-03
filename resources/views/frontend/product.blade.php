@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -27,9 +28,9 @@
         <div class="header-left">
             <a href="{{ route('frontend.home') }}"><img src="{{ asset('images/logo-shop.png') }}" alt="Mô tả của hình ảnh"></a>
             <div class="option-header">
-                <a href="/product">Products</a>
+                <a href="/product">Product</a>
                 <a href="#">About</a>
-                <a href="/blog">Blogs</a>
+                <a href="#">Blog</a>
             </div>
         </div>
         <div class="header-right">
@@ -206,6 +207,8 @@
                                     </div>
                                     <div class="card-body">
                                         <a href="{{ route('frontend.productdetails', $product->id) }}" class="h3 text-decoration-none">{{ $product->Name_sneaker }}</a>
+                                        <br>
+                                        <p> Color: {{$product->Color}}</p>
                                         <p class="text-center mb-0">{{ number_format($product->Price, 0, ',', '.') }} VNĐ</p>
                                     </div>
                                 </div>
@@ -352,19 +355,6 @@
                             </div>
                         </div>
                         <script>
-                            function addToCart(event) {
-                                event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-
-                                let cartCounter = document.getElementById('cartCounter');
-                                let count = parseInt(cartCounter.innerText);
-
-                                count++;
-                                cartCounter.innerText = count;
-
-                                document.getElementById('addToCartForm').submit();
-                            }
-                        </script>
-                        <script>
                             document.addEventListener('DOMContentLoaded', function() {
                                 const viewDetailsButtons = document.querySelectorAll('.view-details');
                                 viewDetailsButtons.forEach(button => {
@@ -373,6 +363,40 @@
                                         window.location.href = '/product/' + productId;
                                     });
                                 });
+
+                                // Khởi tạo mảng chứa các sản phẩm trong giỏ hàng từ localStorage
+                                let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+                                // Hiển thị số lượng sản phẩm trong giỏ hàng
+                                let cartCounter = document.getElementById('cartCounter');
+                                cartCounter.innerText = cartItems.length;
+
+                                function addToCart(event) {
+                                    event.preventDefault(); // Ngăn chặn hành động mặc định của nút
+
+                                    // Lấy thông tin sản phẩm từ DOM
+                                    const productName = document.querySelector('.pro-d-title').innerText;
+                                    const productPrice = document.querySelector('.pro-price').innerText;
+
+                                    // Tạo một đối tượng mới đại diện cho sản phẩm được thêm vào giỏ hàng
+                                    const newItem = {
+                                        name: productName,
+                                        price: productPrice
+                                    };
+
+                                    // Thêm sản phẩm vào mảng cartItems
+                                    cartItems.push(newItem);
+
+                                    // Cập nhật số lượng sản phẩm trong giỏ hàng
+                                    cartCounter.innerText = cartItems.length;
+
+                                    // Lưu mảng cartItems vào localStorage
+                                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                                }
+
+                                // Gắn sự kiện click cho nút thêm vào giỏ hàng
+                                const addToCartButton = document.querySelector('.btn-success');
+                                addToCartButton.addEventListener('click', addToCart);
                             });
                         </script>
                     </footer>
@@ -382,128 +406,6 @@
                     <script src="{{ asset('js/templatemo.js') }}"></script>
                     <script src="{{ asset('js/custom.js') }}"></script>
                 </div>
-    <footer class="bg-dark" id="tempaltemo_footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Sneaker Store</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li>
-                            <i class="fas fa-map-marker-alt fa-fw"></i>
-                            4th floor, VTC Online Building, 18 Tam Trinh Street, Hai Ba Trung, Ha Noi
-                        </li>
-                        <li>
-                            <i class="fa fa-phone fa-fw"></i>
-                            <a class="text-decoration-none" href="tel:010-020-0340">(84) 393234822</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@company.com">sneakerstore@gmail.com</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Home</a></li>
-                        <li><a class="text-decoration-none" href="#">About Us</a></li>
-                        <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
-                        <li><a class="text-decoration-none" href="#">FAQs</a></li>
-                        <li><a class="text-decoration-none" href="#">Contact</a></li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="row text-light mb-4">
-                <div class="col-12 mb-3">
-                    <div class="w-100 my-3 border-top border-light"></div>
-                </div>
-                <div class="col-auto me-auto">
-                    <ul class="list-inline text-left footer-icons">
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-auto">
-                    <label class="sr-only" for="subscribeEmail">sneakerstore@gmail.com</label>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
-                        <div class="input-group-text btn-success text-light">Subscribe</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="w-100 bg-black py-3">
-            <div class="container">
-                <div class="row pt-2">
-                    <div class="col-12">
-                        <p class="text-left text-light">
-                            Copyright &copy; 2024 Sneaker Store 
-                            | Designed by <a rel="sponsored" href="#" target="_blank">HTH TEAM</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-                    function addToCart(event) {
-                        event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-
-                        let cartCounter = document.getElementById('cartCounter');
-                        let count = parseInt(cartCounter.innerText);
-
-                        count++;
-                        cartCounter.innerText = count;
-
-                        // Lưu giá trị mới vào Local Storage
-                        localStorage.setItem('cartItemCount', count.toString());
-
-                    }
-                </script>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const viewDetailsButtons = document.querySelectorAll('.view-details');
-                        viewDetailsButtons.forEach(button => {
-                            button.addEventListener('click', function() {
-                                const productId = this.getAttribute('data-product-id');
-                                window.location.href = '/product/' + productId;
-                            });
-                        });
-                    });
-                </script>
-    </footer>
-    <script src="{{ asset('js/jquery-1.11.0.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-migrate-1.2.1.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('js/templatemo.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
-    </div>
 </body>
 
 </html>

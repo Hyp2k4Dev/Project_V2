@@ -60,21 +60,39 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/userList">
+                        <a href="{{route('admin.userList')}}">
                             <i class="pe-7s-user"></i>
                             <p>User Profile</p>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('table') }}">
+                        <a href="#">
                             <i class="pe-7s-note2"></i>
-                            <p>Order List</p>
+                            <p>Table List</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/product">
-                            <i class="pe-7s-shopbag"></i>
-                            <p>Products</p>
+                        <a href="#">
+                            <i class="pe-7s-news-paper"></i>
+                            <p>Typography</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="pe-7s-science"></i>
+                            <p>Icons</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="pe-7s-map-marker"></i>
+                            <p>Maps</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="pe-7s-bell"></i>
+                            <p>Notifications</p>
                         </a>
                     </li>
                     <li class="active-pro">
@@ -103,7 +121,7 @@
                         <ul class="nav navbar-nav navbar-left">
                             <li>
                                 <a href="/admin/dashboard" class="dropdown-toggle" data-toggle="dropdown">
-                                    <!-- <i class="fa fa-dashboard"></i> -->
+                                    <i class="fa fa-dashboard"></i>
                                     <p class="hidden-lg hidden-md">Dashboard</p>
                                 </a>
                             </li>
@@ -134,8 +152,8 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="/admin/userList">
-                                    <p>{{ $user->name }} ( {{$user->role}} )</p>
+                                <a href="">
+                                    <p>Account</p>
                                 </a>
                             </li>
                             <li class="dropdown">
@@ -350,36 +368,21 @@
 <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <script src="{{ asset('assets/js/demo.js') }}"></script>
 
-
-@php
-$successMessage = session('success');
-@endphp
-
 <script type="text/javascript">
     $(document).ready(function() {
+
         demo.initChartist();
 
-        var successMessage = "{{ $successMessage }}";
+        $.notify({
+            icon: 'pe-7s-gift',
+            message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
 
-        if (successMessage) {
-            $.notify({
-                message: successMessage
-            }, {
-                type: 'success',
-                timer: 4000
-            });
-        } else {
-            $.notify({
-                icon: 'pe-7s-gift',
-                message: "Welcome to <b>THT Admin</b> ."
-            }, {
-                type: 'info',
-                timer: 4000
-            });
-        }
+        }, {
+            type: 'info',
+            timer: 4000
+        });
+
     });
 </script>
-
-
 
 </html>
