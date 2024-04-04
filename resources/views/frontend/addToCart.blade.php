@@ -52,7 +52,7 @@
                                 <th style="width:12%">Price</th>
                                 <th style="width:10%">Quantity</th>
                                 <th style="width:10%">Total Amount</th> <!-- Thêm cột Total Amount -->
-                                <th style="width:8%"></th>
+                                <th style="width:8%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -146,16 +146,32 @@
 
             // Hàm để hiển thị cảnh báo khi bấm vào nút xoá
             function confirmDelete(index) {
-                // Sử dụng hàm confirm để hiển thị cảnh báo
+                // Lấy ID của sản phẩm cần xoá
+                let productId = cartItems[index].id;
+
+                // Hiển thị cảnh báo và xác nhận xoá
                 if (confirm("Bạn có chắc chắn muốn xoá không?")) {
                     // Nếu người dùng chấp nhận, thực hiện hành động xoá
                     // Đây là nơi bạn có thể thêm mã để thực hiện hành động xoá
-                    alert("Đã xoá!"); // Đây là chỉ là cảnh báo tạm thời, bạn có thể thay thế bằng mã xoá thực tế
+                    removeItemFromCart(productId); // Gọi hàm xoá sản phẩm với ID tương ứng
                 } else {
                     // Nếu người dùng không chấp nhận, không thực hiện hành động xoá
                     // Bạn có thể không cần thêm bất kỳ mã nào ở đây
                 }
             }
+
+            function removeItemFromCart(productId) {
+                // Tìm index của sản phẩm trong mảng cartItems dựa trên productId
+                const index = cartItems.findIndex(item => item.id === productId);
+
+                // Nếu tìm thấy sản phẩm, xoá nó khỏi mảng cartItems
+                if (index !== -1) {
+                    cartItems.splice(index, 1); // Xoá sản phẩm khỏi mảng cartItems
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Cập nhật localStorage
+                    location.reload(); // Tải lại trang để cập nhật danh sách sản phẩm trong giỏ hàng
+                }
+            }
+
 
             // Hàm định dạng số tiền sang chuẩn VNĐ
             function formatCurrency(amount) {
