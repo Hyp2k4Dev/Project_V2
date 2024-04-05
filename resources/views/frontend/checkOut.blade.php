@@ -7,6 +7,7 @@
     <title>HTH SNEAKER STORE</title>
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/fe/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fe/checkout.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -79,6 +80,16 @@
                                 <input type="text" id="adr" name="address" placeholder="Ha Noi City, etc">
                             </div>
                         </div>
+                        <div class="col-25">
+                            <div class="container">
+                                <h4>Cart
+                                    <span class="price" style="color:black">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </span>
+                                    <p></p>
+                                </h4>
+                            </div>
+                        </div>
                         <label>
                             <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
                         </label>
@@ -88,16 +99,6 @@
                 </div>
             </div>
 
-            <div class="col-25">
-                <div class="container">
-                    <h4>Cart
-                        <span class="price" style="color:black">
-                            <i class="fa fa-shopping-cart"></i>
-                        </span>
-                        <p></p>
-                    </h4>
-                </div>
-            </div>
         </div>
     </main>
 
@@ -113,14 +114,27 @@
 
                 // Hiển thị thông tin sản phẩm
                 let productsContainer = document.querySelector('.col-25 .container p');
+                let totalPrice = 0;
                 checkOutItems.forEach(item => {
-                    productsContainer.innerHTML += `${item.name}:  <br>${item.quantity} x ${item.price}<br>`;
+                    productsContainer.innerHTML += `Name: ${item.name}  <br> Quantity: ${item.quantity}<br>Price: ${formatCurrency(item.price)}<br>`;
+                    totalPrice += item.price * item.quantity;
                 });
+                let totalPriceElement = document.createElement('p'); // Tạo phần tử mới
+                totalPriceElement.innerHTML = `Total Price: ${formatCurrency(totalPrice)}`; // Thiết lập nội dung của phần tử
+                productsContainer.parentNode.appendChild(totalPriceElement);
             } else {
                 // Nếu không có thông tin trong localStorage, hiển thị thông báo rỗng
                 document.querySelector('.col-25 .container p').innerText = 'No products in the cart';
             }
         });
+
+        function formatCurrency(amount) {
+            return amount.toLocaleString('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+                minimumFractionDigits: 0 // Số lượng chữ số sau dấu phẩy (để không hiển thị phần thập phân)
+            });
+        }
     </script>
 
 </body>

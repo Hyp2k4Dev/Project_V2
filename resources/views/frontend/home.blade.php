@@ -217,32 +217,14 @@
     </button>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const viewDetailsButtons = document.querySelectorAll('.view-details');
-            viewDetailsButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-product-id');
-                    window.location.href = '/product/' + productId;
-                });
-            });
+            // Get the cart counter element
+            const cartCounter = document.getElementById('cartCounter');
 
-            // Khôi phục giá trị của cartItemCount từ localStorage
-            let cartCounter = document.getElementById('cartCounter');
-            let count = parseInt(localStorage.getItem('cartItemCount')) || 0;
-            cartCounter.innerText = count;
+            // Get the cart items from local storage or initialize to an empty array if not present
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-            function addToCart(event) {
-                event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-
-                count++;
-                cartCounter.innerText = count;
-
-                // Lưu giá trị mới vào Local Storage
-                localStorage.setItem('cartItemCount', count.toString());
-            }
-
-            // Gắn sự kiện click cho nút thêm vào giỏ hàng
-            const addToCartButton = document.querySelector('.btn-success');
-            addToCartButton.addEventListener('click', addToCart);
+            // Update the cart counter with the length of cart items
+            cartCounter.textContent = cartItems.length;
         });
     </script>
 </body>

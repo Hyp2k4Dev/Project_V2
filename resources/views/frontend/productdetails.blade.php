@@ -137,7 +137,7 @@
             // Lấy thông tin sản phẩm từ DOM
             const productName = document.querySelector('.pro-d-title').innerText;
             const productPriceText = document.querySelector('.pro-price').innerText;
-            const productPrice = parseFloat(productPriceText.replace(/[^\d.]/g, '')); // Chuyển đổi giá thành số
+            const productPrice = parseFloat(productPriceText.replace(/[^\d.]/g, ''));
             const selectedSize = document.getElementById('sizeSelect').value;
             const productBrand = document.querySelector('.product_meta .posted_in').innerText;
             const productOrigin = document.querySelector('.product_meta .tagged_as').innerText;

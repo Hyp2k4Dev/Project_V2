@@ -80,24 +80,29 @@
         </div>
     </section>
     <script>
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         document.addEventListener('DOMContentLoaded', function() {
             // Lấy dữ liệu từ localStorage
-            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const deleteButtons = document.querySelectorAll('.delete-item');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
 
-            // Tạo biến để lưu HTML hiển thị danh sách sản phẩm trong giỏ hàng
+                    const index = this.getAttribute('data-index');
+
+                    removeItem(index);
+
+                });
+            });
             let cartItemsHTML = '';
 
-            // Tính tổng giá của các sản phẩm trong giỏ hàng
             let total = 0;
 
-            // Duyệt qua mỗi sản phẩm trong giỏ hàng và tạo HTML cho từng sản phẩm
             cartItems.forEach((item, index) => {
-                // Đảm bảo định dạng giá và giá VNĐ trước khi hiển thị
                 item.price = parseFloat(item.price); // Chuyển đổi giá về số thập phân
                 item.priceVN = formatCurrency(item.price); // Định dạng giá VNĐ
                 total += item.price * item.quantity; // Tính tổng giá
 
-                // Tạo HTML cho mỗi sản phẩm
                 const productHTML = `
 <tr>
     <td class="p-4">
@@ -122,14 +127,11 @@
     </td>
     <td class="text-right align-middle px-4" id="totalPrice${index}">${formatCurrency(item.price * item.quantity)}</td> <!-- Hiển thị tổng giá trị của sản phẩm -->
     <td class="text-center align-middle px-0">
-        <a href="#" class="shop-tooltip close float-none" title="" data-original-title="Remove" onclick="confirmDelete(${index})">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" color="black" viewBox="0 0 512 512">
-                <path fill="currentColor" d="M42.7 469.3c0 23.5 19.1 42.7 42.7 42.7h341.3c23.5 0 42.7-19.1 42.7-42.7V192H42.7v277.3zm320-213.3h42.7v192h-42.7V256zm-128 0h42.7v192h-42.7V256zm-128 0h42.7v192h-42.7V256zm384-170.7h-128V42.7C362.7 19.1 343.5 0 320 0H192c-23.5 0-42.7 19.1-42.7 42.7v42.7h-128C9.5 85.3 0 94.9 0 106.7V128c0 11.8 9.5 21.3 21.3 21.3h469.3c11.8 0 21.3-9.5 21.3-21.3v-21.3c.1-11.8-9.4-21.4-21.2-21.4zm-170.7 0H192V42.7h128v42.6z" />
-            </svg>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </a>
-    </td>
+    <a href="#" class="shop-tooltip close float-none delete-item" title="Remove" data-index="${index}">
+        Xoá
+    </a>
+</td>
+
 </tr>
 `;
 
@@ -144,40 +146,13 @@
             const totalPriceElement = document.getElementById('totalPrice');
             totalPriceElement.innerText = formatCurrency(total);
 
-            // Hàm để hiển thị cảnh báo khi bấm vào nút xoá
-            function confirmDelete(index) {
-                // Lấy ID của sản phẩm cần xoá
-                let productId = cartItems[index].id;
-
-                // Hiển thị cảnh báo và xác nhận xoá
-                if (confirm("Bạn có chắc chắn muốn xoá không?")) {
-                    // Nếu người dùng chấp nhận, thực hiện hành động xoá
-                    // Đây là nơi bạn có thể thêm mã để thực hiện hành động xoá
-                    removeItemFromCart(productId); // Gọi hàm xoá sản phẩm với ID tương ứng
-                } else {
-                    // Nếu người dùng không chấp nhận, không thực hiện hành động xoá
-                    // Bạn có thể không cần thêm bất kỳ mã nào ở đây
-                }
-            }
-
-            function removeItemFromCart(productId) {
-                // Tìm index của sản phẩm trong mảng cartItems dựa trên productId
-                const index = cartItems.findIndex(item => item.id === productId);
-
-                // Nếu tìm thấy sản phẩm, xoá nó khỏi mảng cartItems
-                if (index !== -1) {
-                    cartItems.splice(index, 1); // Xoá sản phẩm khỏi mảng cartItems
-                    localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Cập nhật localStorage
-                    location.reload(); // Tải lại trang để cập nhật danh sách sản phẩm trong giỏ hàng
-                }
-            }
-
 
             // Hàm định dạng số tiền sang chuẩn VNĐ
             function formatCurrency(amount) {
                 return amount.toLocaleString('vi-VN', {
                     style: 'currency',
-                    currency: 'VND'
+                    currency: 'VND',
+                    minimumFractionDigits: 0 // Số lượng chữ số sau dấu phẩy (để không hiển thị phần thập phân)
                 });
             }
 
@@ -198,6 +173,7 @@
                     } else {
                         event.target.value = 1;
                     }
+                    location.reload();
                 }
             });
 
@@ -210,8 +186,14 @@
                 // Hiển thị tổng giá trị của tất cả các sản phẩm trong giỏ hàng
                 totalPriceElement.innerText = formatCurrency(total);
             }
+            // Hàm để xoá sản phẩm khỏi giỏ hàng
+            function removeItem(index) {
+                cartItems.splice(index, 1);
+                localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Cập nhật lại localStorage
 
-            // Gọi hàm updateTotalPrice() sau khi tạo danh sách sản phẩm trong giỏ hàng
+                // Reload trang để cập nhật giao diện
+                location.reload();
+            }
             updateTotalPrice();
 
         });
@@ -225,14 +207,13 @@
             document.querySelectorAll('.table tbody tr').forEach(row => {
                 let productName = row.querySelector('.media-body h5').innerText;
                 let productPriceText = row.querySelector('.font-weight-semibold').innerText; // Lấy văn bản giá sản phẩm từ hàng hiện tại
-                const productPrice = parseFloat(productPriceText.replace(/[^\d.]/g, '')); // Chuyển đổi giá thành số thực
-
+                const productPrice = parseInt(productPriceText.replace(/\D/g, ''));
                 let productQuantity = parseInt(row.querySelector('.quantity-input').value); // Lấy giá trị số lượng từ ô nhập số lượng trong hàng hiện tại và chuyển đổi thành số nguyên
 
                 // Tạo đối tượng mô tả thông tin của mỗi sản phẩm
                 let item = {
                     name: productName,
-                    price: productPrice, // Giữ giá dưới dạng số thực, không định dạng VNĐ
+                    price: productPrice, // Giữ giá dưới dạng số nguyên
                     quantity: productQuantity
                 };
 
@@ -246,13 +227,13 @@
 
 
         // Hàm định dạng số tiền sang chuẩn VNĐ
-        function formatCurrency(amount) {
-            return amount.toLocaleString('vi-VN', {
-                style: 'currency',
-                currency: 'VND',
-                minimumFractionDigits: 0 // Số lượng chữ số sau dấu phẩy (để không hiển thị phần thập phân)
-            });
-        }
+        // function formatCurrency(amount) {
+        //     return amount.toLocaleString('vi-VN', {
+        //         style: 'currency',
+        //         currency: 'VND',
+        //         minimumFractionDigits: 0 // Số lượng chữ số sau dấu phẩy (để không hiển thị phần thập phân)
+        //     });
+        // }
     </script>
 
 
