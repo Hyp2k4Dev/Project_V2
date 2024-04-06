@@ -78,7 +78,7 @@
                     }
                     ?>
                 </p>
-                <p class="price"> {{ $product->Price }} đ</p>
+                <p class="price">{{ number_format($product->Price, 0, ',', '.') }} đ</p>
             </div>
         </a>
         @endforeach
@@ -216,31 +216,16 @@
         <i class="bi bi-messenger" style="color: white;"></i>
     </button>
     <script>
-        window.onload = function() {
-            // Khi trang được tải lại, kiểm tra xem đã có giá trị số lượng trong Local Storage chưa
-            let cartCounter = document.getElementById('cartCounter');
-            let count = parseInt(localStorage.getItem('cartItemCount'));
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the cart counter element
+            const cartCounter = document.getElementById('cartCounter');
 
-            if (!isNaN(count)) {
-                // Nếu đã có giá trị trong Local Storage, cập nhật số lượng hiển thị trên trang
-                cartCounter.innerText = count;
-            }
-        };
+            // Get the cart items from local storage or initialize to an empty array if not present
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-        function addToCart(event) {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-
-            let cartCounter = document.getElementById('cartCounter');
-            let count = parseInt(cartCounter.innerText);
-
-            count++;
-            cartCounter.innerText = count;
-
-            // Lưu giá trị mới vào Local Storage
-            localStorage.setItem('cartItemCount', count.toString());
-
-            document.getElementById('addToCartForm').submit();
-        }
+            // Update the cart counter with the length of cart items
+            cartCounter.textContent = cartItems.length;
+        });
     </script>
 </body>
 

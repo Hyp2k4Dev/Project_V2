@@ -13,6 +13,7 @@ class Size extends Model
         'product_code',
         'size_name',
         'quantity',
+        
     ];
 
     public function product()

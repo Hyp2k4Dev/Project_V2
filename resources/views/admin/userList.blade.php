@@ -37,6 +37,7 @@
     <div class="wrapper">
         <div class="sidebar" data-color="purple" data-image="{{ asset('assets/img/sidebar-5.jpg') }}">
 
+            <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
 
 
             <div class="sidebar-wrapper">
@@ -54,7 +55,7 @@
                         </a>
                     </li>
                     <li class="active">
-                        <a href="/admin/userList">
+                        <a href="{{ url('user') }}">
                             <i class="pe-7s-user"></i>
                             <p>User Profile</p>
                         </a>
@@ -62,13 +63,31 @@
                     <li>
                         <a href="{{ url('table') }}">
                             <i class="pe-7s-note2"></i>
-                            <p>Order List</p>
+                            <p>Table List</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/product">
-                            <i class="pe-7s-shopbag"></i>
-                            <p>Products</p>
+                        <a href="{{ url('typography') }}">
+                            <i class="pe-7s-news-paper"></i>
+                            <p>Typography</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('icons') }}">
+                            <i class="pe-7s-science"></i>
+                            <p>Icons</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('maps') }}">
+                            <i class="pe-7s-map-marker"></i>
+                            <p>Maps</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('notifications') }}">
+                            <i class="pe-7s-bell"></i>
+                            <p>Notifications</p>
                         </a>
                     </li>
                     <li class="active-pro">
@@ -91,32 +110,64 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <p class="navbar-brand">User Profile</p>
+                        <a class="navbar-brand" href="#">Table List</a>
                     </div>
                     <div class="collapse navbar-collapse">
+                        <!-- <ul class="nav navbar-nav navbar-left">
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-dashboard"></i>
+                                    <p class="hidden-lg hidden-md">Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret hidden-sm hidden-xs"></b>
+                                    <span class="notification hidden-sm hidden-xs">5</span>
+                                    <p class="hidden-lg hidden-md">
+                                        5 Notifications
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Notification 1</a></li>
+                                    <li><a href="#">Notification 2</a></li>
+                                    <li><a href="#">Notification 3</a></li>
+                                    <li><a href="#">Notification 4</a></li>
+                                    <li><a href="#">Another notification</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-search"></i>
+                                    <p class="hidden-lg hidden-md">Search</p>
+                                </a>
+                            </li>
+                        </ul> -->
 
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="/admin/userList">
-                                    <p>{{ $user->name }} ( {{$user->role}} )</p>
+                                <a href="">
+                                    <p>Account</p>
                                 </a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <p>
-                                        Action
+                                        Dropdown
                                         <b class="caret"></b>
                                     </p>
 
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/admin/product/add-product">ADD PRODUCT</a></li>
-                                    <!-- <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
                                     <li><a href="#">Something</a></li>
                                     <li><a href="#">Another action</a></li>
                                     <li><a href="#">Something</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li> -->
+                                    <li><a href="#">Separated link</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -135,30 +186,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="header" style="width: 100%; display: flex; justify-content: space-between;">
+                                <div class="header">
                                     <h4 class="title">List User</h4>
-                                    <div class="row mb-4" style="margin-right: 10px; display: flex;">
-                                        <div style="width: 100%;">
-                                            <form id="roleForm" action="{{ route('admin.userList') }}" method="GET">
-                                                <div class="filter-form">
-                                                    <label for="filterRole">Filter Role:</label>
-                                                    <select class="form-control" id="filterRole" name="role">
-                                                        <option value="all-role" {{ $role == 'all-role' ? 'selected' : '' }}>All Role</option>
-                                                        <option value="Admin" {{ $role == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                                        <option value="Seller" {{ $role == 'Seller' ? 'selected' : '' }}>Seller</option>
-                                                        <option value="User" {{ $role == 'User' ? 'selected' : '' }}>User</option>
-                                                    </select>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <script>
-                                        document.getElementById('filterRole').addEventListener('change', function() {
-                                            document.getElementById('roleForm').submit();
-                                        });
-                                    </script>
-
-
+                                    <p class="category">ADMIN - SELLER</p>
                                 </div>
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-hover table-striped">
@@ -194,7 +224,7 @@
                                                             <form action="{{ route('admin.deleteUser', ['user' => $user->id]) }}" method="POST" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xoá người dùng không?');">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger">{{ __('Block') }}</button>
+                                                                <button type="submit" class="btn btn-danger">{{ __('Delete User') }}</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -275,24 +305,6 @@
 
 <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <script src="{{ asset('assets/js/demo.js') }}"></script>
-@php
-$successMessage = session('success');
-@endphp
-<script type="text/javascript">
-    $(document).ready(function() {
-        demo.initChartist();
 
-        var successMessage = "{{ $successMessage }}";
-
-        if (successMessage) {
-            $.notify({
-                message: successMessage
-            }, {
-                type: 'success',
-                timer: 4000
-            });
-        }
-    });
-</script>
 
 </html>

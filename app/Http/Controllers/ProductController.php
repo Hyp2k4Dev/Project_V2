@@ -159,7 +159,7 @@ class ProductController extends Controller
             'status' => 'required|string',
             'price' => 'required|numeric|min:0',
             'sizes.*.size' => 'required|string',
-            'sizes.*.quantity' => 'required|numeric|min:0',
+            'sizes.*.quantity' => 'required|numeric|min:1',
         ]);
 
 
@@ -168,7 +168,6 @@ class ProductController extends Controller
         $extension = $request->file('image')->getClientOriginalExtension();
         $fileName = $randomize . '.' . $extension;
 
-        // $imagePath = $request->file('image')->storeAs($destinationPath, $fileName);
         do {
             $productCode = 'HTH-' . mt_rand(1000, 999999);
         } while (Product::where('Product_Code', $productCode)->exists());
@@ -183,7 +182,9 @@ class ProductController extends Controller
         $product->Status_Sneaker = $request->status;
         $product->Product_Code = $productCode;
         $product->Price = $request->price;
+        $request->file('image')->storeAs($destinationPath, $fileName);
         $product->Image = Storage::url("$destinationPath/$fileName");
+
         $product->save();
 
         $product_id = $product->id;
