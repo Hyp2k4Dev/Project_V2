@@ -7,15 +7,14 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Size;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-        return view('admin.dashboard', compact('user'));
+        $products = Product::with('sizes')->get();
+        return view('admin.dashboard', compact('products'));
     }
 
     public function addImage()
@@ -24,24 +23,11 @@ class ProductController extends Controller
 
         return view('admin.product.addProduct', compact('user'));
     }
-    public function productList()
-    {
-        $user = Auth::user();
-        $product = Product::get();
-        return view('admin.productList', compact('product', 'user'));
-    }
 
     public function edit($id)
     {
-        $user = Auth::user();
         $product = Product::with('sizes')->findOrFail($id);
-        return view('admin.product.edit', compact('product', 'user'));
-    }
-    public function info($id)
-    {
-        $user = Auth::user();
-        $product = Product::with('sizes')->findOrFail($id);
-        return view('admin.product.infoProduct', compact('product', 'user'));
+        return view('admin.product.edit', compact('product'));
     }
 
 
@@ -130,13 +116,13 @@ class ProductController extends Controller
                 ->where('size_name', $sizeName)
                 ->delete();
         }
-        return redirect("/admin/product")->with('success', 'Successfully updated the product.');
+        return redirect("/admin/dashboard")->with('success', 'Successfully updated the product.');
     }
 
     public function destroy($id)
     {
         Product::findOrFail($id)->delete();
-        return redirect("/admin/product")->with('success', 'Product deleted successfully');
+        return redirect()->route('admin.dashboard')->with('success', 'Product deleted successfully');
     }
 
     public function search(Request $request)
@@ -217,6 +203,7 @@ class ProductController extends Controller
         return redirect("/admin/product/add-product")->with('success', 'Product uploaded successfully.');
     }
 
+
     public function viewImage()
     {
         $imageData = Postimage::all();
@@ -227,14 +214,11 @@ class ProductController extends Controller
     {
         return Product::all();
     }
-    public function getProductSizes()
-    {
-        return Size::all();
-    }
 
     public function showProductDetails($id)
     {
-        $product = Product::with('sizes')->findOrFail($id);
-        return view('frontend.productdetails', compact('product'));
+        $productDetails = Product::with('sizes')->findOrFail($id);
+
+        return view('frontend.productdetails', compact('productDetails'));
     }
 }

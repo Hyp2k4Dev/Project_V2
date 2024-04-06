@@ -6,6 +6,7 @@ body {
     /* Loại bỏ thanh cuộn ngang */
 }
 
+
 .container {
     position: relative;
     left: 50px;
@@ -13,6 +14,7 @@ body {
     max-width: 100%;
     box-sizing: border-box;
     margin: 0 auto;
+    
 }
 
 .card {
@@ -140,3 +142,6 @@ button {
     background-color: #20bf6b;
     transition-delay: 1150ms;
 }
+
+
+
