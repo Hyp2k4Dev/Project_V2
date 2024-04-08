@@ -28,9 +28,9 @@
         <div class="header-left">
             <a href="{{ route('frontend.home') }}"><img src="{{ asset('images/logo-shop.png') }}" alt="Mô tả của hình ảnh"></a>
             <div class="option-header">
-                <a href="/product">Product</a>
+                <a href="/product">Products</a>
                 <a href="#">About</a>
-                <a href="#">Blog</a>
+                <a href="/blog">Blogs</a>
             </div>
         </div>
         <div class="header-right">
@@ -49,6 +49,7 @@
             </a>
         </div>
     </div>
+
     <div class="test">
         <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">

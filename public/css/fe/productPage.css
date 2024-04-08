@@ -60,11 +60,38 @@ a{
 .header-right {
     padding: 15px 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 185px;
-    background-color: #77dada;
     border-radius: 15px;
+}
+.add-cart {
+    color: black;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.btn-contact {
+
+    padding: 20px;
+    color: #000;
+    background-color: #77dada;
+    width: 100px;
+    justify-content: flex-end;
+    border-radius: 20px;
+}
+
+.cart-counter {
+    position: relative;
+    bottom: 10px;
+    font-size: 10px;
+    color: red;
+    border-radius: 50%;
 }
 .customerSelect a{
     color: #000;
