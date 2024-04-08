@@ -1,0 +1,621 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Archivo, sans-serif;
+    text-decoration: none;
+    outline: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    height: 1000px;
+}
+
+a {
+    color: none;
+    text-decoration: none;
+}
+
+.back-to-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background-color: rgb(134, 235, 248);
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    transition: all 0.3s ease;
+    z-index: 9999;
+}
+
+.back-to-top-btn:hover {
+    background-color: #0056b3;
+}
+
+.back-to-top-btn i {
+    font-size: 24px;
+}
+
+.chat-btn {
+    position: fixed;
+    border: none;
+    border-radius: 50%;
+    background-color: cornflowerblue;
+    width: 50px;
+    height: 50px;
+    bottom: 80px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 20;
+    border-bottom: 1px solid #eaecf0;
+    width: 100%;
+    margin-bottom: 35px;
+    display: flex;
+    align-items: center;
+    padding: 10px 55px;
+    justify-content: space-between;
+}
+
+.header a {
+    text-decoration: none;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-left img {
+    width: 80px;
+    border-radius: 30%;
+    margin-right: 35px;
+}
+
+.option-header {
+    display: flex;
+    gap: 30px;
+}
+
+.option-header a,
+.header-right {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    color: black;
+}
+
+.header-right {
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 185px;
+    border-radius: 15px;
+}
+
+.banner {
+    max-width: 1380px;
+    margin: 0 auto;
+}
+
+.banner .img-bander {
+    position: relative;
+    opacity: 0.8;
+}
+
+.img-bander img {
+    border-radius: 26px;
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+}
+
+.search-banner {
+    position: absolute;
+    bottom: -65px;
+    transform: translateX(-50%);
+    left: 50%;
+    padding: 40px 24px 24px;
+    width: 1008px;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    border-radius: 30px;
+    align-items: center;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.06),
+        0px 1px 3px 0px rgba(16, 24, 40, 0.1);
+}
+
+.search-banner h4 {
+    font-weight: 700;
+    color: #101828;
+    font-size: 36px;
+    line-height: 44px;
+    margin-bottom: 8px;
+}
+
+.search-banner p {
+    color: #757575;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 44px;
+}
+
+.search-banner .input-search {
+    padding: 6px;
+}
+
+.search-banner .input-search input {
+    border: none;
+    margin-left: 15px;
+    font-size: 20px;
+}
+
+.search-banner form button {
+    border: none;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #77dada;
+    cursor: pointer;
+}
+
+.search-banner form {
+    margin-top: 25px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-hot-new {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 25px;
+    max-width: 1280px;
+    margin: 8rem auto 0 auto;
+}
+
+.product-hot-new a {
+    text-decoration: none;
+}
+
+.product-hot-new p {
+    color: #000;
+}
+
+.item-product {
+    padding: 18px;
+    border-radius: 25px;
+    box-shadow: 0px 2px 1px 0px rgba(16, 24, 40, 0.06),
+        0px 1px 10px 0px rgba(16, 24, 40, 0.1);
+}
+
+.item-product img {
+    border-radius: 20px;
+    height: 216px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 1s ease-in-out;
+}
+
+.img-product {
+    text-decoration: none;
+    margin-bottom: 15px;
+    height: 216px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.item-product img:hover {
+    transform: scale(1.09);
+}
+
+.item-product .title {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 700;
+    color: #20252e;
+    margin-bottom: 8px;
+}
+
+.item-product .price {
+    margin-top: auto;
+    font-size: 18px;
+    margin-right: 10px;
+    font-weight: 700;
+    color: #e76868;
+    text-align: end;
+}
+
+.item-product .description {
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #475467;
+}
+
+.reviewSection {
+    position: relative;
+    padding: 50px 0;
+}
+
+.reviewSection>img {
+    background-color: #f3ffff;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+}
+
+.homeReview {
+    position: absolute;
+    top: 100px;
+    padding: 0 20px 20px 80px;
+}
+
+.upper-case {
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 24px;
+    font-weight: 600px;
+}
+
+.reviews-container {
+    width: 600px;
+    overflow: hidden;
+}
+
+.review {
+    display: none;
+    padding: 10px;
+}
+
+.review.active {
+    display: block;
+}
+
+.infor {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    height: 150px;
+}
+
+.review {
+    display: none;
+    padding: 10px;
+}
+
+.review-buttons {
+    display: flex;
+    position: absolute;
+}
+
+.review-buttons>button {
+    text-align: center;
+    background-color: #FFF8F8;
+    border-radius: 10px;
+    width: 150px;
+    height: 35px;
+    padding: 0 10px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.review-buttons>button:hover {
+    background-color: #dddddd;
+}
+
+.partnerSection>img {
+    background-color: #f2f4f7;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+}
+
+.partnerSection {
+    position: relative;
+    padding: 50px 0;
+}
+
+.homePartner img {
+    margin-bottom: 25px;
+}
+
+.homePartner {
+    position: absolute;
+    top: 100px;
+    margin-left: 150px;
+}
+
+.logoPartner {
+    display: flex;
+    height: 120px;
+    width: 80%;
+}
+
+.logoPartner>img {
+    padding: 0 35px;
+}
+
+.homePartner>p {
+    position: absolute;
+    margin-top: 70px;
+    text-align: center;
+    width: 500px;
+    overflow: hidden;
+    left: 400px;
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 10px;
+}
+
+.footer-section li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.footer-section li a {
+    font-size: 14px;
+    color: white;
+}
+
+.footer-section h3 {
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+.footer-section p {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.newBlog {
+    padding: 50px 0;
+}
+
+.card {
+    width: 400px;
+    margin: 20px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col {
+    flex: 0 0 auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+.boxNew {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 40px;
+    max-width: 180px;
+    margin: 8rem auto 0 auto;
+}
+
+.card-img-top {
+    width: 450px;
+    height: 350px;
+    object-fit: unset;
+}
+
+.text-center {
+    padding-top: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.btn-primary-more {
+    margin-top: 25px;
+    border-radius: 10px;
+    padding: 15px 25px;
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    margin-top: 15px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    font-size: 12px;
+}
+
+.card-title {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    margin-bottom: 25px;
+}
+
+#showMoreBtn {
+    margin-top: 10px;
+}
+
+.about-blog {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 40px;
+    max-width: 1580px;
+    margin: 3rem auto;
+}
+
+.btn-more {
+    padding: 20px 35px;
+}
+
+.add-cart {
+    color: black;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.btn-contact {
+    padding: 20px;
+    color: #000;
+    background-color: #77dada;
+    width: 100px;
+    justify-content: flex-end;
+    border-radius: 20px;
+}
+
+.cart-counter {
+    position: relative;
+    bottom: 10px;
+    font-size: 10px;
+    color: red;
+    border-radius: 50%;
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 -16px;
+}
+
+.col-25 {
+    -ms-flex: 25%;
+    flex: 25%;
+}
+
+.col-50 {
+    -ms-flex: 50%;
+    flex: 50%;
+}
+
+.col-75 {
+    -ms-flex: 75%;
+    flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+    padding: 0 16px;
+}
+
+.container {
+    background-color: #f2f2f2;
+    padding: 5px 20px 15px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+input[type=text] {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.icon-container {
+    margin-bottom: 20px;
+    padding: 7px 0;
+    font-size: 24px;
+}
+
+.btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+span.price {
+    float: right;
+    color: grey;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column-reverse;
+    }
+
+    .col-25 {
+        margin-bottom: 20px;
+    }
+}
+
+img{
+    width: 400px;
+}

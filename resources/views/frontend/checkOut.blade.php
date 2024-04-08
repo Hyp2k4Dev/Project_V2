@@ -17,6 +17,29 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <style>
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cart-table th,
+        .cart-table td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            word-wrap: break-word;
+            /* Đảm bảo từng từ trong cột "Tên" có thể ngắt dòng */
+        }
+
+        .cart-table th {
+            background-color: #f2f2f2;
+        }
+
+        .cart-table td {
+            text-align: left;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -112,16 +135,33 @@
                 // Chuyển đổi JSON thành đối tượng JavaScript
                 checkOutItems = JSON.parse(checkOutItems);
 
-                // Hiển thị thông tin sản phẩm
-                let productsContainer = document.querySelector('.col-25 .container p');
+                // Tạo bảng
+                let table = document.createElement('table');
+                table.classList.add('cart-table');
+
+                // Tạo header cho bảng
+                let headerRow = document.createElement('tr');
+                headerRow.innerHTML = '<th>Name</th><th>Quantity</th><th>Price</th>';
+                table.appendChild(headerRow);
+
                 let totalPrice = 0;
+
+                // Thêm dòng cho từng sản phẩm
                 checkOutItems.forEach(item => {
-                    productsContainer.innerHTML += `Name: ${item.name}  <br> Quantity: ${item.quantity}<br>Price: ${formatCurrency(item.price)}<br>`;
+                    let row = document.createElement('tr');
+                    row.innerHTML = `<td>${item.name}</td><td>${item.quantity}</td><td>${formatCurrency(item.price)}</td>`;
+                    table.appendChild(row);
                     totalPrice += item.price * item.quantity;
                 });
+
+                // Hiển thị bảng
+                let productsContainer = document.querySelector('.col-25 .container');
+                productsContainer.appendChild(table);
+
+                // Hiển thị tổng giá tiền
                 let totalPriceElement = document.createElement('p'); // Tạo phần tử mới
                 totalPriceElement.innerHTML = `Total Price: ${formatCurrency(totalPrice)}`; // Thiết lập nội dung của phần tử
-                productsContainer.parentNode.appendChild(totalPriceElement);
+                productsContainer.appendChild(totalPriceElement);
             } else {
                 // Nếu không có thông tin trong localStorage, hiển thị thông báo rỗng
                 document.querySelector('.col-25 .container p').innerText = 'No products in the cart';
@@ -136,6 +176,7 @@
             });
         }
     </script>
+
 
 </body>
 

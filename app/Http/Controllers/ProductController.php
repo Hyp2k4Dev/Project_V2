@@ -13,8 +13,9 @@ class ProductController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
         $products = Product::with('sizes')->get();
-        return view('admin.dashboard', compact('products'));
+        return view('admin.dashboard', compact('products', 'user'));
     }
 
     public function addImage()
