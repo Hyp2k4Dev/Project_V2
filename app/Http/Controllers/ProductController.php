@@ -24,11 +24,23 @@ class ProductController extends Controller
 
         return view('admin.product.addProduct', compact('user'));
     }
-
+    public function productList()
+    {
+        $user = Auth::user();
+        $product = Product::get();
+        return view('admin.productList', compact('product', 'user'));
+    }
+    public function info($id)
+    {
+        $user = Auth::user();
+        $product = Product::with('sizes')->findOrFail($id);
+        return view('admin.product.infoProduct', compact('product', 'user'));
+    }
     public function edit($id)
     {
+        $user = Auth::user();
         $product = Product::with('sizes')->findOrFail($id);
-        return view('admin.product.edit', compact('product'));
+        return view('admin.product.edit', compact('product', 'user'));
     }
 
 
