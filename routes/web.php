@@ -23,6 +23,7 @@ Route::get('/product/{id}',  [HomeFE::class, 'show'])->name('frontend.productdet
 //order
 Route::get('/order', [OrderController::class, 'index'])->name('frontend.order');
 Route::post('/order-submit', [OrderController::class, 'createOrder']);
+Route::post('/order-submit', [OrderController::class, 'createOrder'])->name('frontend.createOrder');
 
 // Authentication routes
 Route::get('/login-register', [LoginController::class, 'showLoginForm'])->name('login');

@@ -177,6 +177,7 @@
                 }
             });
 
+
             // Hàm cập nhật tổng giá trị của tất cả các sản phẩm trong giỏ hàng
             function updateTotalPrice() {
                 let total = 0;
@@ -197,6 +198,24 @@
             updateTotalPrice();
 
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.delete-item');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const index = this.getAttribute('data-index');
+                    console.log('Remove button clicked for index:', index); // Kiểm tra sự kiện click đã được bắt chưa
+                    removeItem(index);
+                });
+            });
+
+            function removeItem(index) {
+                cartItems.splice(index, 1); // Xoá chỉ mục tương ứng từ mảng cartItems
+                localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Cập nhật lại localStorage
+                location.reload(); // Tải lại trang để cập nhật giao diện
+            }
+        });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -209,12 +228,13 @@
                 let productPriceText = row.querySelector('.font-weight-semibold').innerText; // Lấy văn bản giá sản phẩm từ hàng hiện tại
                 const productPrice = parseInt(productPriceText.replace(/\D/g, ''));
                 let productQuantity = parseInt(row.querySelector('.quantity-input').value); // Lấy giá trị số lượng từ ô nhập số lượng trong hàng hiện tại và chuyển đổi thành số nguyên
-
+                let productSize = row.querySelector('ul li').innerText;
                 // Tạo đối tượng mô tả thông tin của mỗi sản phẩm
                 let item = {
                     name: productName,
                     price: productPrice, // Giữ giá dưới dạng số nguyên
-                    quantity: productQuantity
+                    quantity: productQuantity,
+                    size: productSize
                 };
 
                 // Thêm đối tượng vào mảng checkOutItems

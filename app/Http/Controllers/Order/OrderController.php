@@ -35,7 +35,7 @@ class OrderController extends Controller
         $order->order_date = now();
         $order->total_amount = 0;
         $order->status_order = 'pending'; // Đặt trạng thái của đơn hàng là chờ xử lý
-        $order->save();
+        $order->save(); // Lưu đơn hàng vào cơ sở dữ liệu
 
         // Duyệt qua các sản phẩm trong đơn hàng từ dữ liệu được gửi từ client
         foreach ($dataFromClient['products'] as $productData) {
@@ -49,7 +49,7 @@ class OrderController extends Controller
 
             // Tạo chi tiết đơn hàng cho mỗi sản phẩm
             $orderDetail = new OrderDetail();
-            $orderDetail->order_id = $order->id;
+            $orderDetail->order_id = $order->id; // Gán order_id từ đơn hàng mới được tạo
             $orderDetail->product_id = $product->id;
             $orderDetail->quantity = $productData['quantity'];
             $orderDetail->size = $productData['size'];
@@ -66,6 +66,8 @@ class OrderController extends Controller
         // Điều hướng người dùng đến trang cảm ơn hoặc trang khác tuỳ theo yêu cầu của bạn
         return redirect('/thank-you')->with('success', 'Đã tạo đơn hàng thành công');
     }
+
+
     public function saveOrderDetails(Request $request)
     {
         // Lấy dữ liệu được gửi từ trình duyệt
@@ -142,7 +144,7 @@ class OrderController extends Controller
 
         // Create a new order record
         $order = new Order();
-        $order->Name_customer = $request->input('Name_customer');
+        $order->Name_customer = $request->input('name');
         $order->email = $request->input('email');
         $order->phone = $request->input('phone');
         $order->address = $request->input('address');
@@ -160,6 +162,24 @@ class OrderController extends Controller
 
         // Return a success response
         return redirect('/')->with('success', 'Đã tạo đơn hàng thành công');
+    }
+    public function storeProduct(Request $request)
+    {
+        // Lấy thông tin đơn hàng từ request
+        $orderDetails = $request->input('orderDetails');
+
+        // Lưu thông tin đơn hàng vào cơ sở dữ liệu
+        foreach ($orderDetails as $detail) {
+            Order::create([
+                'name' => $detail['name'],
+                'quantity' => $detail['quantity'],
+                'size' => $detail['size'],
+                'price' => $detail['price'],
+                // Thêm các trường dữ liệu khác cần thiết
+            ]);
+        }
+
+        return response()->json(['message' => 'Order submitted successfully'], 200);
     }
 
 

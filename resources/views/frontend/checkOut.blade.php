@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="col-75">
                         <div class="container">
-                            <form id="orderForm" action="{{ route('frontend.checkOut') }}" method="POST">
+                            <form id="orderForm" action="/order-submit" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-50">
@@ -73,7 +73,7 @@
                                                     <circle cx="12" cy="7" r="4" />
                                                 </g>
                                             </svg> Full Name</label>
-                                        <input type="text" id="name" name="Name_customer" placeholder="Your name" required>
+                                        <input type="text" id="name" name="name" placeholder="Your name" required>
                                         <label for="email"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" color="black" viewBox="0 0 24 24">
                                                 <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2">
                                                     <rect width="18" height="14" x="3" y="5" stroke-dasharray="64" stroke-dashoffset="64" rx="1">
@@ -83,14 +83,14 @@
                                                         <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.4s" values="24;0" />
                                                     </path>
                                                 </g>
-                                            </svg> Email</label>
-                                        <input type="text" id="email" name="email" placeholder="abc@example.com" required>
+                                            </svg> Email</label> <br>
+                                        <input type="text" id="email" name="email" placeholder="abc@example.com" required> <br>
                                         <label for="phone"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" color="black" viewBox="0 0 24 24">
                                                 <path fill="none" stroke="currentColor" stroke-dasharray="64" stroke-dashoffset="64" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3C8.5 3 10.5 7.5 10.5 8C10.5 9 9 10 8.5 11C8 12 9 13 10 14C10.3943 14.3943 12 16 13 15.5C14 15 15 13.5 16 13.5C16.5 13.5 21 15.5 21 16C21 18 19.5 19.5 18 20C16.5 20.5 15.5 20.5 13.5 20C11.5 19.5 10 19 7.5 16.5C5 14 4.5 12.5 4 10.5C3.5 8.5 3.5 7.5 4 6C4.5 4.5 6 3 8 3Z">
                                                     <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="64;0" />
                                                 </path>
                                             </svg> Phone Number</label>
-                                        <input type="text" id="adr" name="phone" placeholder="Phone number">
+                                        <input type="text" id="phone" name="phone" placeholder="Phone number">
                                         <label for="email"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48">
                                                 <g fill="none">
                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M4 42h40" />
@@ -100,7 +100,7 @@
                                                     <path fill="currentColor" d="M22 10h4v4h-4zm8 0h4v4h-4zm-8 7h4v4h-4zm8 0h4v4h-4zm0 7h4v4h-4zm0 7h4v4h-4z" />
                                                 </g>
                                             </svg> Address</label>
-                                        <input type="text" id="adr" name="address" placeholder="Ha Noi City, etc">
+                                        <input type="text" id="address" name="address" placeholder="Ha Noi City, etc">
                                     </div>
                                 </div>
                                 <div class="col-25">
@@ -117,7 +117,7 @@
                                     <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
                                 </label>
                                 <br>
-                                <input type="submit" value="Continue to checkout">
+                                <button class="button-30" role="button">Check Out</button>
                             </form>
                         </div>
                     </div>
@@ -127,12 +127,12 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     // Lấy thông tin từ localStorage
-                    let checkOutItems = localStorage.getItem('checkOutItems');
+                    let products = localStorage.getItem('checkOutItems');
 
                     // Kiểm tra xem có thông tin trong localStorage không
-                    if (checkOutItems) {
+                    if (products) {
                         // Chuyển đổi JSON thành đối tượng JavaScript
-                        checkOutItems = JSON.parse(checkOutItems);
+                        products = JSON.parse(products);
 
                         // Tạo bảng
                         let table = document.createElement('table');
@@ -140,15 +140,15 @@
 
                         // Tạo header cho bảng
                         let headerRow = document.createElement('tr');
-                        headerRow.innerHTML = '<th>Name</th><th>Quantity</th><th>Price</th>';
+                        headerRow.innerHTML = '<th>Name</th><th>Quantity</th><th>Size</th><th>Price</th>';
                         table.appendChild(headerRow);
 
                         let totalPrice = 0;
 
                         // Thêm dòng cho từng sản phẩm
-                        checkOutItems.forEach(item => {
+                        products.forEach(item => {
                             let row = document.createElement('tr');
-                            row.innerHTML = `<td>${item.name}</td><td>${item.quantity}</td><td>${formatCurrency(item.price)}</td>`;
+                            row.innerHTML = `<td>${item.name}</td><td>${item.quantity}</td><td>${item.size}</td><td>${formatCurrency(item.price)}</td>`;
                             table.appendChild(row);
                             totalPrice += item.price * item.quantity;
                         });
@@ -171,6 +171,7 @@
 
                     // Lấy thông tin đơn hàng từ localStorage
                     let orderDetails = JSON.parse(localStorage.getItem('checkOutItems'));
+                    console.log('Order details:', orderDetails); // Ghi lại thông tin đơn hàng từ localStorage
 
                     // Gửi dữ liệu lên máy chủ bằng fetch
                     fetch('{{ route("frontend.checkOut") }}', {
@@ -184,14 +185,15 @@
                             })
                         })
                         .then(response => {
+                            console.log('Response status:', response.status); // Ghi lại trạng thái của response từ server
                             if (response.ok) {
                                 // Xử lý phản hồi từ máy chủ nếu cần
-                                console.log('Đã gửi dữ liệu thành công.');
+                                alert('Đã gửi dữ liệu thành công.');
                                 // Xóa dữ liệu khỏi localStorage sau khi gửi thành công
                                 localStorage.removeItem('checkOutItems');
                             } else {
                                 // Xử lý lỗi nếu cần
-                                console.error('Đã xảy ra lỗi khi gửi dữ liệu.');
+                                alert('Đã xảy ra lỗi khi gửi dữ liệu.');
                             }
                         })
                         .catch(error => {
@@ -199,6 +201,8 @@
                             console.error('Đã xảy ra lỗi khi gửi dữ liệu:', error);
                         });
                 });
+
+
 
 
                 function formatCurrency(amount) {
@@ -209,7 +213,6 @@
                     });
                 }
             </script>
-
 
         </body>
 
