@@ -178,7 +178,7 @@
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Đảm bảo gửi token CSRF
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
                             },
                             body: JSON.stringify({
                                 orderDetails: orderDetails
@@ -187,17 +187,13 @@
                         .then(response => {
                             console.log('Response status:', response.status); // Ghi lại trạng thái của response từ server
                             if (response.ok) {
-                                // Xử lý phản hồi từ máy chủ nếu cần
                                 alert('Đã gửi dữ liệu thành công.');
-                                // Xóa dữ liệu khỏi localStorage sau khi gửi thành công
                                 localStorage.removeItem('checkOutItems');
                             } else {
-                                // Xử lý lỗi nếu cần
                                 alert('Đã xảy ra lỗi khi gửi dữ liệu.');
                             }
                         })
                         .catch(error => {
-                            // Xử lý lỗi nếu cần
                             console.error('Đã xảy ra lỗi khi gửi dữ liệu:', error);
                         });
                 });

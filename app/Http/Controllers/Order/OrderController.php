@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -18,54 +19,43 @@ class OrderController extends Controller
     }
     public function createOrder(Request $request)
     {
-        $dataFromClient = $request->all();
+        // Nhận dữ liệu từ request
+        $orderDetails = $request->input('orderDetails');
 
-        // Tạo khách hàng mới nếu không tìm thấy thông tin trong cơ sở dữ liệu
-        $customer = Customer::firstOrCreate([
-            'phone' => $dataFromClient['phone'],
-            'Name_customer' => $dataFromClient['name'],
-            'address' => $dataFromClient['address'],
-            'gmail' => $dataFromClient['email'],
-            'status' => true,
-        ]);
+        // Xử lý và lưu dữ liệu vào cơ sở dữ liệu
+        foreach ($orderDetails as $productData) {
+            // Tạo mới đơn hàng
+            $order = new Order();
+            $order->customer_id = auth()->user()->id; // hoặc lấy thông tin khách hàng từ form
+            $order->order_date = now();
+            $order->total_amount = 0;
+            $order->status_order = 'pending';
+            $order->save();
 
-        // Tạo đơn hàng mới
-        $order = new Order();
-        $order->customer_id = $customer->id;
-        $order->order_date = now();
-        $order->total_amount = 0;
-        $order->status_order = 'pending'; // Đặt trạng thái của đơn hàng là chờ xử lý
-        $order->save(); // Lưu đơn hàng vào cơ sở dữ liệu
-
-        // Duyệt qua các sản phẩm trong đơn hàng từ dữ liệu được gửi từ client
-        foreach ($dataFromClient['products'] as $productData) {
+            // Lưu chi tiết đơn hàng
             $product = Product::find($productData['product_id']);
+            if ($product) {
+                $orderDetail = new OrderDetail();
+                $orderDetail->order_id = $order->id;
+                $orderDetail->product_id = $product->id;
+                $orderDetail->quantity = $productData['quantity'];
+                $orderDetail->size = $productData['size'];
+                $orderDetail->subtotal = $product->Price * $productData['quantity'];
+                $orderDetail->save();
 
-            if (!$product) {
-                // Nếu sản phẩm không tồn tại, hủy đơn hàng và trả về thông báo lỗi
-                $order->delete();
-                return response()->json(['message' => 'Sản phẩm không tồn tại'], 404);
+                // Cập nhật số lượng sản phẩm trong kho
+                $product->quantity -= $productData['quantity'];
+                $product->save();
+
+                // Cập nhật tổng giá tiền của đơn hàng
+                $order->total_amount += $orderDetail->subtotal;
+                $order->save();
             }
-
-            // Tạo chi tiết đơn hàng cho mỗi sản phẩm
-            $orderDetail = new OrderDetail();
-            $orderDetail->order_id = $order->id; // Gán order_id từ đơn hàng mới được tạo
-            $orderDetail->product_id = $product->id;
-            $orderDetail->quantity = $productData['quantity'];
-            $orderDetail->size = $productData['size'];
-            $orderDetail->subtotal = $product->Price * $productData['quantity']; // Tính tổng tiền cho mỗi sản phẩm
-            $orderDetail->save();
-
-            // Cập nhật tổng số tiền của đơn hàng
-            $order->total_amount += $orderDetail->subtotal;
         }
 
-        // Lưu lại tổng số tiền của đơn hàng
-        $order->save();
-
-        // Điều hướng người dùng đến trang cảm ơn hoặc trang khác tuỳ theo yêu cầu của bạn
         return redirect('/thank-you')->with('success', 'Đã tạo đơn hàng thành công');
     }
+
 
 
     public function saveOrderDetails(Request $request)
@@ -175,7 +165,6 @@ class OrderController extends Controller
                 'quantity' => $detail['quantity'],
                 'size' => $detail['size'],
                 'price' => $detail['price'],
-                // Thêm các trường dữ liệu khác cần thiết
             ]);
         }
 
@@ -185,9 +174,9 @@ class OrderController extends Controller
 
     public function checkOut()
     {
+
         $orderDetails = OrderDetail::all(); // Ví dụ
         $totalPrice = 0;
-
         // Gọi hàm từ controller khác để lấy dữ liệu sản phẩm
         $otherController = new ProductController();
         $products = $otherController->getProducts();
@@ -196,5 +185,25 @@ class OrderController extends Controller
             $totalPrice += $detail->subtotal;
         }
         return view('frontend.checkOut', compact('orderDetails', 'orderDetails', 'products'));
+    }
+    public function orderSubmit(Request $request)
+    {
+        $fullName = $request->input('name');
+        $email = $request->input('email');
+        $phone = $request->input('phone');
+        $address = $request->input('address');
+
+        $customer = new Customer();
+        $customer->Name_customer = $fullName;
+        $customer->gmail = $email;
+        $customer->phone = $phone;
+        $customer->address = $address;
+        $customer->status = true; // Giả sử mặc định là true
+        $customer->save();
+
+        $orderDetails = json_decode($request->input('orderDetails'));
+
+
+        return response()->json(['message' => 'Order placed successfully']);
     }
 }
