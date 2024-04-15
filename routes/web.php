@@ -65,6 +65,7 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
 
 Route::post('/add-to-cart', [OrderController::class, 'addToCart'])->name('frontend.addToCart');
 Route::post('/check-out', [OrderController::class, 'checkOut'])->name('frontend.checkOut');
+Route::post('/payment', [OrderController::class, 'orderSubmit'])->name('frontend.checkOut');
 // User routes
 Route::middleware(['role:user'])->prefix('user')->group(function () {
     Route::get('/main', [UserController::class, 'main'])->name('main');

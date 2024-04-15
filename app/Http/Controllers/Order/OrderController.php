@@ -188,6 +188,8 @@ class OrderController extends Controller
     }
     public function orderSubmit(Request $request)
     {
+        echo'ádasd';
+        die();
         $fullName = $request->input('name');
         $email = $request->input('email');
         $phone = $request->input('phone');

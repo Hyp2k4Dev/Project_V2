@@ -64,6 +64,10 @@ a {
     right: 20px;
     z-index: 1000;
 }
+.chat-btn:hover {
+    background-color: rgb(94, 94, 239);
+    cursor: pointer;
+}
 
 .header {
     position: sticky;

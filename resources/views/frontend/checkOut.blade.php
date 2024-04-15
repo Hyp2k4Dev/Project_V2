@@ -159,7 +159,8 @@
 
                         // Hiển thị tổng giá tiền
                         let totalPriceElement = document.createElement('p'); // Tạo phần tử mới
-                        totalPriceElement.innerHTML = `Total Price: ${formatCurrency(totalPrice)}`; // Thiết lập nội dung của phần tử
+
+                        totalPriceElement.innerHTML = `<strong>Total Price: <span>${formatCurrency(totalPrice)}</span></strong>`; // Thiết lập nội dung của phần tử
                         productsContainer.appendChild(totalPriceElement);
                     } else {
                         document.querySelector('.col-25 .container p').innerText = 'No products in the cart';
