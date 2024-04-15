@@ -14,6 +14,7 @@ class HomeFE extends Controller
     }
     public function product()
     {
+        $sizes = Size::all(); // hoặc lấy dữ liệu size từ database theo cách bạn muốn
         $products = Product::with('sizes')->get();
         $products = Product::get();
         $products = Product::latest()->paginate(9);

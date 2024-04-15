@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DataController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AdminDashboardController;
 use App\Http\Controllers\Backend\LoginController;
@@ -13,12 +14,14 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 
 // Frontend routes
+Route::get('/getData', [DataController::class, 'getData']);
 Route::get('/', [HomeFE::class, 'index'])->name('frontend.home');
 Route::get('/product', [HomeFE::class, 'product'])->name('frontend.product');
 Route::get('/about', [HomeFE::class, 'product'])->name('frontend.product');
 Route::get('/blog', [HomeFE::class, 'blog'])->name('frontend.blog');
 Route::get('/productdetails', [HomeFE::class, 'productdetails'])->name('frontend.productdetails');
 Route::get('/product/{id}', 'ProductController@show')->name('frontend.productdetails');
+Route::get('/getDataBySize', [DataController::class, 'getProductBySize']);
 
 
 //order
