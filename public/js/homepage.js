@@ -94,12 +94,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 //customer nhan tin ho tro voi staff
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var chatButton = document.querySelector('.chat-btn');
 
     chatButton.addEventListener('click', function () {
         // Open chat window or initiate chat action here
         // For example, open a new chat page in a new window
-        window.open('https://example.com/chat', '_blank', 'width=400,height=600');
+        window.open('https://www.messenger.com/t/274283589104715', '_blank', 'width=800,height=600');
     });
 });

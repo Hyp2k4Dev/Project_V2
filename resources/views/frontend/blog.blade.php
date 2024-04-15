@@ -60,20 +60,23 @@
             </div>
             <div class="col-md-4 mb-3 boxCard">
                 <div class="card">
-                    <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
+                    <img src="{{ asset('images\anta-kai-1-enlightened-warrior-release-date.webp') }}" class="card-img-top" alt="#">
                     <div class="card-body">
-                        <h5 class="card-title">Card title 2</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">Where To Buy Kyrie Irving’s ANTA KAI 1 “Enlightened Warrior”
+                        </h5>
+                        <p class="card-text">This post contains references to products from one or more of our advertisers. We may receive compensation when you click on links to those products. The opinions and information provided on this site are original editorial content of Sneaker News.</p>
+                        <a href="https://sneakernews.com/2024/04/05/anta-kai-1-enlightened-warrior-release-date/" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-3 boxCard">
                 <div class="card">
-                    <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
+                    <img src="{{ asset('images\nikecom14_720.webp') }}" class="card-img-top" alt="#">
                     <div class="card-body">
-                        <h5 class="card-title">Card title 3</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h5 class="card-title">First Look At The Nike SB PS8
+                        </h5>
+                        <p class="card-text">The arrival of Olympic Skateboarding has opened so many doors, both for pro skaters and the sponsors that outfit them. Among the latter of those two groups, Nike SB is leading the charge by introducing a new model ahead of the 2024 Paris Games; the Nike SB PS8.
+                        </p>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>

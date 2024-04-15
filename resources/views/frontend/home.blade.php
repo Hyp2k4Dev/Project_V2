@@ -98,7 +98,7 @@
                 <div class="review">
                     <p class="subHeading">Quality and Design:</p>
                     <p>These shoes truly stand out with their premium materials and exquisite design. I highly appreciate their durability and the delicacy in every stitch. This clearly demonstrates the product's quality.</p>
-                    <p class="author">- Ms. Duc Anh</p>
+                    <p class="author">- Mr. Duc Anh</p>
                 </div>
                 <div class="review">
                     <p class="subHeading">Comfort Throughout the Day:</p>
@@ -125,22 +125,6 @@
             </div>
         </div>
     </div>
-    <div class="partnerSection">
-        <img src="{{ asset('images/section-background.png') }}" alt="Image description">
-        <div class="homePartner">
-            <h1>Partnering with Famous Brands</h1>
-            <img src="{{ asset('images/heading-border.png') }}" alt="Border image"> <br>
-            <div class="logoPartner">
-                <img src="{{ asset('images\logoadidas.jpg') }}" alt="#"> <br>
-                <img src="{{ asset('images\logonike.jpg') }}" alt="#"> <br>
-                <img src="{{ asset('images\logojordan.jpg') }}" alt="#"> <br>
-                <img src="{{ asset('images\logovans.jpg') }}" alt="#"> <br>
-                <img src="{{ asset('images\logobalenciaga.jpg') }}" alt="#"> <br>
-                <img src="{{ asset('images\logoconverse.jpg') }}" alt="#"> <br>
-            </div>
-            <p>Explore the world of shoes with top brands like Nike, Adidas, Balenciaga, Converse, and Vans - where diversity and high style meet every preference and trend.</p>
-        </div>
-    </div>
     <div class="newBlog">
         <div style="margin-left: 80px;">
             <h1>Update the latest news:</h1><br>
@@ -150,30 +134,36 @@
         <div class="about-blog" id="cardContainer">
             <div class="col-md-4 mb-3 boxCard">
                 <div class="card">
-                    <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
+                    <img src="{{ asset('images\adidas-harden-vol-8-flamingo-pink-ie2698-release-date-1.webp') }}" class="card-img-top" alt="#">
                     <div class="card-body">
-                        <h5 class="card-title">Card title 1</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">The adidas Harden Vol 8 “Flamingo Pink” Releases On April 15th
+                        </h5>
+                        <p class="card-text">Andrew Rizzo
+                            April 11, 2024
+                            This post contains references to products from one or more of our advertisers. We may receive compensation when you click on links to those products. The opinions and information provided on this site are original editorial content of Sneaker News.</p>
+                        <a href="https://sneakernews.com/2024/04/11/adidas-harden-vol-8-flamingo-pink-ie2698-release-date/" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-3 boxCard">
                 <div class="card">
-                    <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
+                    <img src="{{ asset('images\anta-kai-1-enlightened-warrior-release-date.webp') }}" class="card-img-top" alt="#">
                     <div class="card-body">
-                        <h5 class="card-title">Card title 2</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">Where To Buy Kyrie Irving’s ANTA KAI 1 “Enlightened Warrior”
+                        </h5>
+                        <p class="card-text">This post contains references to products from one or more of our advertisers. We may receive compensation when you click on links to those products. The opinions and information provided on this site are original editorial content of Sneaker News.</p>
+                        <a href="https://sneakernews.com/2024/04/05/anta-kai-1-enlightened-warrior-release-date/" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-3 boxCard">
                 <div class="card">
-                    <img src="{{ asset('images\logoconverse.jpg') }}" class="card-img-top" alt="#">
+                    <img src="{{ asset('images\nikecom14_720.webp') }}" class="card-img-top" alt="#">
                     <div class="card-body">
-                        <h5 class="card-title">Card title 3</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h5 class="card-title">First Look At The Nike SB PS8
+                        </h5>
+                        <p class="card-text">The arrival of Olympic Skateboarding has opened so many doors, both for pro skaters and the sponsors that outfit them. Among the latter of those two groups, Nike SB is leading the charge by introducing a new model ahead of the 2024 Paris Games; the Nike SB PS8.
+                        </p>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
@@ -186,6 +176,22 @@
         </div>
     </div>
     <div class="footer">
+        <div class="partnerSection" style="color:black">
+            <img src="{{ asset('images/section-background.png') }}" alt="Image description">
+            <div class="homePartner">
+                <h1>Partnering with Famous Brands</h1>
+                <img src="{{ asset('images/heading-border.png') }}" alt="Border image"> <br>
+                <div class="logoPartner">
+                    <img src="{{ asset('images\logoadidas.jpg') }}" alt="#"> <br>
+                    <img src="{{ asset('images\logonike.jpg') }}" alt="#"> <br>
+                    <img src="{{ asset('images\logojordan.jpg') }}" alt="#"> <br>
+                    <img src="{{ asset('images\logovans.jpg') }}" alt="#"> <br>
+                    <img src="{{ asset('images\logobalenciaga.jpg') }}" alt="#"> <br>
+                    <img src="{{ asset('images\logoconverse.jpg') }}" alt="#"> <br>
+                </div>
+                <p>Explore the world of shoes with top brands like Nike, Adidas, Balenciaga, Converse, and Vans - where diversity and high style meet every preference and trend.</p>
+            </div>
+        </div>
         <div class="footer-container">
             <div class="footer-section">
                 <h3>Store Information</h3>
@@ -212,9 +218,12 @@
         </div>
     </div>
     <a href="#" class="back-to-top-btn"><i class="bi bi-arrow-up-short"></i></a>
-    <button class="btn-circle chat-btn">
-        <i class="bi bi-messenger" style="color: white;"></i>
-    </button>
+    <a href="https://www.messenger.com/t/274283589104715" target="_blank">
+        <button class="btn-circle chat-btn">
+            <i class="bi bi-messenger" style="color: white;"></i>
+        </button>
+    </a>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get the cart counter element
