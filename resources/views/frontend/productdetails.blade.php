@@ -101,7 +101,7 @@
                             </div>
 
                         </div>
-                        <a class="btn btn-success text-white" onclick="addToCart(event);" href="{{ route('addToCart', ['id' => $productDetails->id]) }}">Add to Cart</a>
+                        <a class="btn btn-success text-white" onclick="addToCart(event);" href="{{ route('frontend.addToCart', ['id' => $productDetails->id]) }}">Add to Cart</a>
 
                         </p>
                     </div>
