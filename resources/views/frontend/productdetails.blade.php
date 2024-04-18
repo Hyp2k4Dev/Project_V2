@@ -97,7 +97,7 @@
                             <input class="form-control quantity-input" type="number" value="${item.quantity}" min="1">
                             <div class="m-bot15">
                                 <strong>Price:</strong>
-                                <span class="pro-price">{{ number_format($productDetails->Price) }}(VNĐ)</span>
+                                <span class="pro-price">{{ number_format($productDetails->Price) }}(VND)</span>
                             </div>
 
                         </div>

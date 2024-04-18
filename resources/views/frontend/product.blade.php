@@ -210,7 +210,7 @@
                                         <a href="{{ route('frontend.productdetails', $product->id) }}" class="h3 text-decoration-none">{{ $product->Name_sneaker }}</a>
                                         <br>
                                         <p> Color: {{$product->Color}}</p>
-                                        <p class="text-center mb-0">{{ number_format($product->Price, 0, ',', '.') }} VNĐ</p>
+                                        <p class="text-center mb-0">{{ number_format($product->Price, 0, ',', '.') }} VND </p>
                                     </div>
                                 </div>
                             </div>

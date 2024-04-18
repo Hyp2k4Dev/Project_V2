@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\LoginController;
+use App\Http\Controllers\BackEnd\LoginController;
 use App\Http\Controllers\Backend\RegisterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;

@@ -61,7 +61,7 @@
                     </table>
                     <div class="float-right text-right">
                         <h4>Total price:</h4>
-                        <h1 id="totalPrice">$0.00</h1>
+                        <h1 id="totalPrice">0 VND</h1>
                     </div>
                 </div>
             </div>
@@ -79,31 +79,37 @@
             </div>
         </div>
     </section>
-    <script>
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        document.addEventListener('DOMContentLoaded', function() {
-            // Lấy dữ liệu từ localStorage
-            const deleteButtons = document.querySelectorAll('.delete-item');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
+   <script>
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lấy dữ liệu từ localStorage
+        if (cartItems.length === 0) {
+            const cartTable = document.getElementById('shoppingCart');
+            const cartTableBody = cartTable.querySelector('tbody');
+            cartTableBody.innerHTML = '<tr><td colspan="5">No products in cart</td></tr>';
+            return; // Dừng việc thực thi tiếp các đoạn mã khác
+        }
+        const deleteButtons = document.querySelectorAll('.delete-item');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
 
-                    const index = this.getAttribute('data-index');
+                const index = this.getAttribute('data-index');
 
-                    removeItem(index);
+                removeItem(index);
 
-                });
             });
-            let cartItemsHTML = '';
+        });
+        let cartItemsHTML = '';
 
-            let total = 0;
+        let total = 0;
 
-            cartItems.forEach((item, index) => {
-                item.price = parseFloat(item.price); // Chuyển đổi giá về số thập phân
-                item.priceVN = formatCurrency(item.price); // Định dạng giá VNĐ
-                total += item.price * item.quantity; // Tính tổng giá
+        cartItems.forEach((item, index) => {
+            item.price = parseFloat(item.price); // Chuyển đổi giá về số thập phân
+            item.priceVN = formatCurrency(item.price); // Định dạng giá VNĐ
+            total += item.price * item.quantity; // Tính tổng giá
 
-                const productHTML = `
+            const productHTML = `
 <tr>
     <td class="p-4">
         <div class="media align-items-center" style="display: flex;">
@@ -135,88 +141,94 @@
 </tr>
 `;
 
-                // Thêm HTML của sản phẩm vào biến cartItemsHTML
-                cartItemsHTML += productHTML;
-            });
+            // Thêm HTML của sản phẩm vào biến cartItemsHTML
+            cartItemsHTML += productHTML;
+        });
 
-            // Hiển thị HTML của danh sách sản phẩm lên trang
-            document.querySelector('.table tbody').innerHTML = cartItemsHTML;
+        // Hiển thị HTML của danh sách sản phẩm lên trang
+        document.querySelector('.table tbody').innerHTML = cartItemsHTML;
 
-            // Hiển thị tổng giá trị của các sản phẩm trong giỏ hàng trên trang web
-            const totalPriceElement = document.getElementById('totalPrice');
-            totalPriceElement.innerText = formatCurrency(total);
+        // Hiển thị tổng giá trị của các sản phẩm trong giỏ hàng trên trang web
+        const totalPriceElement = document.getElementById('totalPrice');
+        totalPriceElement.innerText = formatCurrency(total);
 
 
-            // Hàm định dạng số tiền sang chuẩn VNĐ
-            function formatCurrency(amount) {
-                return amount.toLocaleString('vi-VN', {
-                    style: 'currency',
-                    currency: 'VND',
-                    minimumFractionDigits: 0 // Số lượng chữ số sau dấu phẩy (để không hiển thị phần thập phân)
-                });
-            }
+        // Hàm định dạng số tiền sang chuẩn VNĐ
+        // Hàm định dạng số tiền sang chuẩn VNĐ
+function formatCurrency(amount) {
+    // Chuyển đổi số thành chuỗi và thêm đơn vị tiền tệ
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+        currencyDisplay: 'code', // Hiển thị mã tiền tệ thay vì ký hiệu
+        minimumFractionDigits: 0 // Số lượng chữ số sau dấu phẩy (để không hiển thị phần thập phân)
+    });
+    return formatter.format(amount).replace('₫', 'VND'); // Thay thế ký hiệu tiền tệ từ "₫" sang "VND"
+}
 
-            // Sự kiện change cho các ô nhập số lượng
-            document.querySelector('.table tbody').addEventListener('change', function(event) {
-                if (event.target.classList.contains('quantity-input')) {
-                    let index = event.target.dataset.index;
-                    let newQuantity = parseInt(event.target.value);
-                    if (!isNaN(newQuantity) && newQuantity > 0) {
-                        if (cartItems && cartItems.length > 0 && cartItems[index]) {
-                            let itemPrice = parseFloat(cartItems[index].price);
-                            cartItems[index].quantity = newQuantity;
-                            let totalPrice = itemPrice * newQuantity;
-                            document.getElementById('totalPrice' + index).innerText = formatCurrency(totalPrice);
-                            updateTotalPrice();
-                            localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Lưu danh sách sản phẩm mới vào localStorage
-                        }
-                    } else {
-                        event.target.value = 1;
+
+        // Sự kiện change cho các ô nhập số lượng
+        document.querySelector('.table tbody').addEventListener('change', function(event) {
+            if (event.target.classList.contains('quantity-input')) {
+                let index = event.target.dataset.index;
+                let newQuantity = parseInt(event.target.value);
+                if (!isNaN(newQuantity) && newQuantity > 0) {
+                    if (cartItems && cartItems.length > 0 && cartItems[index]) {
+                        let itemPrice = parseFloat(cartItems[index].price);
+                        cartItems[index].quantity = newQuantity;
+                        let totalPrice = itemPrice * newQuantity;
+                        document.getElementById('totalPrice' + index).innerText = formatCurrency(totalPrice);
+                        updateTotalPrice();
+                        localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Lưu danh sách sản phẩm mới vào localStorage
                     }
-                    location.reload();
+                } else {
+                    event.target.value = 1;
                 }
-            });
-
-
-            // Hàm cập nhật tổng giá trị của tất cả các sản phẩm trong giỏ hàng
-            function updateTotalPrice() {
-                let total = 0;
-                cartItems.forEach(item => {
-                    total += parseFloat(item.price) * item.quantity;
-                });
-                // Hiển thị tổng giá trị của tất cả các sản phẩm trong giỏ hàng
-                totalPriceElement.innerText = formatCurrency(total);
-            }
-            // Hàm để xoá sản phẩm khỏi giỏ hàng
-            function removeItem(index) {
-                cartItems.splice(index, 1);
-                localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Cập nhật lại localStorage
-
-                // Reload trang để cập nhật giao diện
                 location.reload();
             }
-            updateTotalPrice();
-
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const deleteButtons = document.querySelectorAll('.delete-item');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const index = this.getAttribute('data-index');
-                    console.log('Remove button clicked for index:', index); // Kiểm tra sự kiện click đã được bắt chưa
-                    removeItem(index);
-                });
+
+        // Hàm cập nhật tổng giá trị của tất cả các sản phẩm trong giỏ hàng
+        function updateTotalPrice() {
+            let total = 0;
+            cartItems.forEach(item => {
+                total += parseFloat(item.price) * item.quantity;
             });
+            // Hiển thị tổng giá trị của tất cả các sản phẩm trong giỏ hàng
+            totalPriceElement.innerText = formatCurrency(total);
+        }
+        // Hàm để xoá sản phẩm khỏi giỏ hàng
+        function removeItem(index) {
+            cartItems.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Cập nhật lại localStorage
 
-            function removeItem(index) {
-                cartItems.splice(index, 1); // Xoá chỉ mục tương ứng từ mảng cartItems
-                localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Cập nhật lại localStorage
-                location.reload(); // Tải lại trang để cập nhật giao diện
-            }
+            // Reload trang để cập nhật giao diện
+            location.reload();
+        }
+        updateTotalPrice();
+
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteButtons = document.querySelectorAll('.delete-item');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const index = this.getAttribute('data-index');
+                console.log('Remove button clicked for index:', index); // Kiểm tra sự kiện click đã được bắt chưa
+                removeItem(index);
+            });
         });
-    </script>
+
+        function removeItem(index) {
+            cartItems.splice(index, 1); // Xoá chỉ mục tương ứng từ mảng cartItems
+            localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Cập nhật lại localStorage
+            location.reload(); // Tải lại trang để cập nhật giao diện
+        }
+    });
+</script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Lấy thông tin từ các mục trong trang
