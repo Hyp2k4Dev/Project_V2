@@ -28,7 +28,6 @@
                     padding: 8px;
                     border-bottom: 1px solid #ddd;
                     word-wrap: break-word;
-                    /* Đảm bảo từng từ trong cột "Tên" có thể ngắt dòng */
                 }
 
                 .cart-table th {
@@ -62,45 +61,20 @@
                 <div class="row">
                     <div class="col-75">
                         <div class="container">
-                            <form id="orderForm" action="/order-submit" method="post">
+                            <form id="orderForm" action="{{ route('frontend.checkout.submit') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-50">
                                         <h3>Billing Address</h3>
-                                        <label for="name"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" color="black" viewBox="0 0 24 24">
-                                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                                                    <circle cx="12" cy="7" r="4" />
-                                                </g>
-                                            </svg> Full Name</label>
+                                        <label for="name">Full Name</label>
                                         <input type="text" id="name" name="name" placeholder="Your name" required>
-                                        <label for="email"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" color="black" viewBox="0 0 24 24">
-                                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2">
-                                                    <rect width="18" height="14" x="3" y="5" stroke-dasharray="64" stroke-dashoffset="64" rx="1">
-                                                        <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="64;0" />
-                                                    </rect>
-                                                    <path stroke-dasharray="24" stroke-dashoffset="24" d="M3 6.5L12 12L21 6.5">
-                                                        <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.4s" values="24;0" />
-                                                    </path>
-                                                </g>
-                                            </svg> Email</label> <br>
-                                        <input type="text" id="email" name="email" placeholder="abc@example.com" required> <br>
-                                        <label for="phone"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" color="black" viewBox="0 0 24 24">
-                                                <path fill="none" stroke="currentColor" stroke-dasharray="64" stroke-dashoffset="64" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3C8.5 3 10.5 7.5 10.5 8C10.5 9 9 10 8.5 11C8 12 9 13 10 14C10.3943 14.3943 12 16 13 15.5C14 15 15 13.5 16 13.5C16.5 13.5 21 15.5 21 16C21 18 19.5 19.5 18 20C16.5 20.5 15.5 20.5 13.5 20C11.5 19.5 10 19 7.5 16.5C5 14 4.5 12.5 4 10.5C3.5 8.5 3.5 7.5 4 6C4.5 4.5 6 3 8 3Z">
-                                                    <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="64;0" />
-                                                </path>
-                                            </svg> Phone Number</label>
+                                        <label for="email">Email</label>
+                                        <input type="text" id="email" name="email" placeholder="abc@example.com" required>
+                                        <label for="phone">Phone Number</label>
                                         <input type="text" id="phone" name="phone" placeholder="Phone number">
-                                        <label for="email"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48">
-                                                <g fill="none">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M4 42h40" />
-                                                    <rect width="8" height="16" x="8" y="26" stroke="currentColor" stroke-linejoin="round" stroke-width="4" rx="2" />
-                                                    <path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="4" d="M12 34h1" />
-                                                    <rect width="24" height="38" x="16" y="4" stroke="currentColor" stroke-linejoin="round" stroke-width="4" rx="2" />
-                                                    <path fill="currentColor" d="M22 10h4v4h-4zm8 0h4v4h-4zm-8 7h4v4h-4zm8 0h4v4h-4zm0 7h4v4h-4zm0 7h4v4h-4z" />
-                                                </g>
-                                            </svg> Address</label>
+                                        <label for="address">Address</label>
                                         <input type="text" id="address" name="address" placeholder="Ha Noi City, etc">
+                                        <input type="hidden" id="productData" name="productData">
                                     </div>
                                 </div>
                                 <div class="col-25">
@@ -117,7 +91,7 @@
                                     <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
                                 </label>
                                 <br>
-                                <button class="button-30" role="button">Check Out</button>
+                                <button type="submit" class="button-30" role="button">Check Out</button> <!-- Thay đổi type thành submit -->
                             </form>
                         </div>
                     </div>
@@ -127,80 +101,82 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     // Lấy thông tin từ localStorage
-                    let products = localStorage.getItem('checkOutItems');
+                    let products = localStorage.getItem('cartItems');
 
                     // Kiểm tra xem có thông tin trong localStorage không
                     if (products) {
                         // Chuyển đổi JSON thành đối tượng JavaScript
                         products = JSON.parse(products);
 
-                        // Tạo bảng
-                        let table = document.createElement('table');
-                        table.classList.add('cart-table');
+                        // Điền dữ liệu vào các trường của biểu mẫu
+                        document.getElementById('name').value = products.name || '';
+                        document.getElementById('email').value = products.email || '';
+                        document.getElementById('phone').value = products.phone || '';
+                        document.getElementById('address').value = products.address || '';
 
-                        // Tạo header cho bảng
-                        let headerRow = document.createElement('tr');
-                        headerRow.innerHTML = '<th>Name</th><th>Quantity</th><th>Size</th><th>Price</th>';
-                        table.appendChild(headerRow);
-
-                        let totalPrice = 0;
-
-                        // Thêm dòng cho từng sản phẩm
-                        products.forEach(item => {
-                            let row = document.createElement('tr');
-                            row.innerHTML = `<td>${item.name}</td><td>${item.quantity}</td><td>${item.size}</td><td>${formatCurrency(item.price)}</td>`;
-                            table.appendChild(row);
-                            totalPrice += item.price * item.quantity;
-                        });
-
-                        // Hiển thị bảng
-                        let productsContainer = document.querySelector('.col-25 .container');
-                        productsContainer.appendChild(table);
-
-                        // Hiển thị tổng giá tiền
-                        let totalPriceElement = document.createElement('p'); // Tạo phần tử mới
-
-                        totalPriceElement.innerHTML = `<strong>Total Price: <span>${formatCurrency(totalPrice)}</span></strong>`; // Thiết lập nội dung của phần tử
-                        productsContainer.appendChild(totalPriceElement);
-                    } else {
-                        document.querySelector('.col-25 .container p').innerText = 'No products in the cart';
+                        displayCart(products);
                     }
                 });
 
                 document.getElementById('orderForm').addEventListener('submit', function(event) {
                     event.preventDefault();
 
-                    // Lấy thông tin đơn hàng từ localStorage
-                    let orderDetails = JSON.parse(localStorage.getItem('checkOutItems'));
-                    console.log('Order details:', orderDetails); // Ghi lại thông tin đơn hàng từ localStorage
+                    let orderDetails = JSON.parse(localStorage.getItem('cartItems'));
 
-                    // Gửi dữ liệu lên máy chủ bằng fetch
-                    fetch('{{ route("frontend.checkOut") }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            body: JSON.stringify({
-                                orderDetails: orderDetails
-                            })
-                        })
-                        .then(response => {
-                            console.log('Response status:', response.status); // Ghi lại trạng thái của response từ server
-                            if (response.ok) {
-                                alert('Đã gửi dữ liệu thành công.');
-                                localStorage.removeItem('checkOutItems');
-                            } else {
-                                alert('Đã xảy ra lỗi khi gửi dữ liệu.');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Đã xảy ra lỗi khi gửi dữ liệu:', error);
-                        });
+                    let productsData = [];
+
+                    orderDetails.forEach(item => {
+                        let productInfo = {
+                            id: item.id.toString(),
+                            quantity: item.quantity.toString(),
+                            size: item.size.toString()
+                        };
+                        productsData.push(productInfo);
+                    });
+
+                    function customStringify(obj) {
+                        return JSON.stringify(obj)
+                            .replace(/[\u007F-\uFFFF]/g, function(chr) {
+                                return "\\u" + ("0000" + chr.charCodeAt(0).toString(16)).substr(-4);
+                            });
+                    }
+                    let productsDataJSON = customStringify(productsData);
+
+                    document.getElementById('productData').value = productsDataJSON;
+
+                    this.submit();
                 });
 
+                function displayCart(products) {
+                    // Tạo bảng
+                    let table = document.createElement('table');
+                    table.classList.add('cart-table');
 
+                    // Tạo header cho bảng
+                    let headerRow = document.createElement('tr');
+                    headerRow.innerHTML = '<th>Name</th><th>Quantity</th><th>Size</th><th>Price</th>';
+                    table.appendChild(headerRow);
 
+                    let totalPrice = 0;
+
+                    // Thêm dòng cho từng sản phẩm
+                    products.forEach(item => {
+                        let row = document.createElement('tr');
+                        row.innerHTML = `<td>${item.name}</td><td>${item.quantity}</td><td>${item.size}</td><td>${formatCurrency(item.price)}</td>`;
+                        table.appendChild(row);
+                        totalPrice += item.price * item.quantity;
+                    });
+
+                    // Hiển thị bảng
+                    let productsContainer = document.querySelector('.col-25 .container');
+                    productsContainer.innerHTML = ''; // Xóa nội dung cũ trước khi thêm mới
+                    productsContainer.appendChild(table);
+
+                    // Hiển thị tổng giá tiền
+                    let totalPriceElement = document.createElement('p'); // Tạo phần tử mới
+                    totalPriceElement.innerHTML = `<strong>Total Price: <span>${formatCurrency(totalPrice)}</span></strong>`; // Thiết lập nội dung của phần tử
+                    productsContainer.appendChild(totalPriceElement);
+                }
 
                 function formatCurrency(amount) {
                     return amount.toLocaleString('vi-VN', {

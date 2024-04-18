@@ -135,6 +135,7 @@
             event.preventDefault(); // Ngăn chặn hành động mặc định của nút
 
             // Lấy thông tin sản phẩm từ DOM
+            const productId = "{{ $productDetails->id }}";
             const productName = document.querySelector('.pro-d-title').innerText;
             const productPriceText = document.querySelector('.pro-price').innerText;
             const productPrice = parseFloat(productPriceText.replace(/[^\d.]/g, ''));
@@ -145,20 +146,46 @@
             const productImage = document.querySelector('.pro-img-details img').getAttribute('src'); // Lấy đường dẫn hình ảnh sản phẩm
             const productQuantity = parseInt(document.querySelector('.quantity-input').value); // Lấy giá trị quantity từ input
 
-            // Tạo một đối tượng mới đại diện cho sản phẩm được thêm vào giỏ hàng
-            const newItem = {
-                name: productName,
-                price: productPrice, // Lưu giá theo định dạng số của Việt Nam Đồng
-                size: selectedSize, // Thêm thông tin về kích thước vào đối tượng sản phẩm
-                brand: productBrand, // Thêm thông tin về thương hiệu vào đối tượng sản phẩm
-                origin: productOrigin, // Thêm thông tin về xuất xứ vào đối tượng sản phẩm
-                image: productImage, // Thêm thông tin về đường dẫn hình ảnh vào đối tượng sản phẩm
-                color: productColor,
-                quantity: productQuantity // Thêm thông tin về số lượng vào đối tượng sản phẩm
-            };
+            // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+            const existingItemIndex = cartItems.findIndex(item => item.id === productId && item.size === selectedSize);
 
-            // Thêm sản phẩm vào mảng cartItems
-            cartItems.push(newItem);
+            if (existingItemIndex !== -1) {
+                // Nếu sản phẩm đã tồn tại trong giỏ hàng với cùng kích thước, chỉ cập nhật số lượng của sản phẩm
+                cartItems[existingItemIndex].quantity += productQuantity;
+            } else {
+                // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng với kích thước khác hay chưa
+                const existingItemDifferentSizeIndex = cartItems.findIndex(item => item.id === productId && item.size !== selectedSize);
+
+                if (existingItemDifferentSizeIndex !== -1) {
+                    // Nếu sản phẩm đã tồn tại trong giỏ hàng với kích thước khác, thêm một mục mới vào giỏ hàng với kích thước và số lượng mới
+                    const newItem = {
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        size: selectedSize,
+                        brand: productBrand,
+                        origin: productOrigin,
+                        image: productImage,
+                        color: productColor,
+                        quantity: productQuantity
+                    };
+                    cartItems.push(newItem);
+                } else {
+                    // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm một mục mới vào giỏ hàng với kích thước và số lượng được chọn
+                    const newItem = {
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        size: selectedSize,
+                        brand: productBrand,
+                        origin: productOrigin,
+                        image: productImage,
+                        color: productColor,
+                        quantity: productQuantity
+                    };
+                    cartItems.push(newItem);
+                }
+            }
 
             // Cập nhật số lượng sản phẩm trong giỏ hàng
             cartCounter.innerText = cartItems.length;
@@ -166,7 +193,6 @@
             // Lưu mảng cartItems vào localStorage
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
         }
-
 
         // Gắn sự kiện click cho nút thêm vào giỏ hàng
         const addToCartButton = document.querySelector('.btn-success');

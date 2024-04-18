@@ -67,7 +67,7 @@
             </div>
             <div class="row mt-4 d-flex align-items-center">
                 <div class="col-sm-6 order-md-2 text-right">
-                    <form action="{{ route('frontend.checkOut') }}" method="POST">
+                    <form action="{{ route('frontend.checkOut') }}" method="GET">
                         @csrf
                         <button type="submit" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</button>
                     </form>
@@ -256,68 +256,5 @@
         // }
     </script>
 </body>
-<script>
-    function addToCart(event) {
-    event.preventDefault(); // Ngăn chặn hành động mặc định của nút
 
-    // Lấy thông tin sản phẩm từ DOM
-    const productId = "{{ $productDetails->id }}";
-    const productName = document.querySelector('.pro-d-title').innerText;
-    const productPriceText = document.querySelector('.pro-price').innerText;
-    const productPrice = parseFloat(productPriceText.replace(/[^\d.]/g, ''));
-    const selectedSize = document.getElementById('sizeSelect').value;
-    const productBrand = document.querySelector('.product_meta .posted_in').innerText;
-    const productOrigin = document.querySelector('.product_meta .tagged_as').innerText;
-    const productColor = document.querySelector('.color').innerText;
-    const productImage = document.querySelector('.pro-img-details img').getAttribute('src'); // Lấy đường dẫn hình ảnh sản phẩm
-    const productQuantity = parseInt(document.querySelector('.quantity-input').value); // Lấy giá trị quantity từ input
-
-    // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
-    const existingItemIndex = cartItems.findIndex(item => item.id === productId && item.size === selectedSize);
-
-    if (existingItemIndex !== -1) {
-        // Nếu sản phẩm đã tồn tại trong giỏ hàng với cùng kích thước, chỉ cập nhật số lượng của sản phẩm
-        cartItems[existingItemIndex].quantity += productQuantity;
-    } else {
-        // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng với kích thước khác hay chưa
-        const existingItemDifferentSizeIndex = cartItems.findIndex(item => item.id === productId && item.size !== selectedSize);
-
-        if (existingItemDifferentSizeIndex !== -1) {
-            // Nếu sản phẩm đã tồn tại trong giỏ hàng với kích thước khác, thêm một mục mới vào giỏ hàng với kích thước và số lượng mới
-            const newItem = {
-                id: productId,
-                name: productName,
-                price: productPrice,
-                size: selectedSize,
-                brand: productBrand,
-                origin: productOrigin,
-                image: productImage,
-                color: productColor,
-                quantity: productQuantity
-            };
-            cartItems.push(newItem);
-        } else {
-            // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm một mục mới vào giỏ hàng với kích thước và số lượng được chọn
-            const newItem = {
-                id: productId,
-                name: productName,
-                price: productPrice,
-                size: selectedSize,
-                brand: productBrand,
-                origin: productOrigin,
-                image: productImage,
-                color: productColor,
-                quantity: productQuantity
-            };
-            cartItems.push(newItem);
-        }
-    }
-
-    // Cập nhật số lượng sản phẩm trong giỏ hàng
-    cartCounter.innerText = cartItems.length;
-
-    // Lưu mảng cartItems vào localStorage
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-}
-</script>
 </html>

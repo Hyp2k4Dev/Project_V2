@@ -22,8 +22,8 @@ Route::get('/product/{id}',  [HomeFE::class, 'show'])->name('frontend.productdet
 
 //order
 Route::get('/order', [OrderController::class, 'index'])->name('frontend.order');
-Route::post('/order-submit', [OrderController::class, 'createOrder']);
-Route::post('/order-submit', [OrderController::class, 'createOrder'])->name('frontend.createOrder');
+Route::post('/order-submit', [OrderController::class, 'createOrder'])->name('frontend.checkout.submit');
+// Route::post('/order-submit', [OrderController::class, 'createOrder'])->name('frontend.createOrder');
 
 // Authentication routes
 Route::get('/login-register', [LoginController::class, 'showLoginForm'])->name('login');
@@ -64,8 +64,8 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
 });
 
 Route::post('/add-to-cart', [OrderController::class, 'addToCart'])->name('frontend.addToCart');
-Route::post('/check-out', [OrderController::class, 'checkOut'])->name('frontend.checkOut');
-Route::post('/payment', [OrderController::class, 'orderSubmit'])->name('frontend.checkOut');
+Route::get('/check-out', [OrderController::class, 'checkOut'])->name('frontend.checkOut');
+Route::post('/payment', [OrderController::class, 'orderSubmit']);
 // User routes
 Route::middleware(['role:user'])->prefix('user')->group(function () {
     Route::get('/main', [UserController::class, 'main'])->name('main');

@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Size;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
@@ -19,39 +20,53 @@ class OrderController extends Controller
     }
     public function createOrder(Request $request)
     {
-        // Nhận dữ liệu từ request
-        $orderDetails = $request->input('orderDetails');
+        $requestData = $request->all();
+        $customer = Customer::where('phone', $requestData['phone'])->first();
 
-        // Xử lý và lưu dữ liệu vào cơ sở dữ liệu
-        foreach ($orderDetails as $productData) {
-            // Tạo mới đơn hàng
-            $order = new Order();
-            $order->customer_id = auth()->user()->id; // hoặc lấy thông tin khách hàng từ form
-            $order->order_date = now();
-            $order->total_amount = 0;
-            $order->status_order = 'pending';
-            $order->save();
-
-            // Lưu chi tiết đơn hàng
-            $product = Product::find($productData['product_id']);
-            if ($product) {
-                $orderDetail = new OrderDetail();
-                $orderDetail->order_id = $order->id;
-                $orderDetail->product_id = $product->id;
-                $orderDetail->quantity = $productData['quantity'];
-                $orderDetail->size = $productData['size'];
-                $orderDetail->subtotal = $product->Price * $productData['quantity'];
-                $orderDetail->save();
-
-                // Cập nhật số lượng sản phẩm trong kho
-                $product->quantity -= $productData['quantity'];
-                $product->save();
-
-                // Cập nhật tổng giá tiền của đơn hàng
-                $order->total_amount += $orderDetail->subtotal;
-                $order->save();
-            }
+        if (!$customer) {
+            $customer = Customer::create([
+                'Name_customer' => $requestData['name'],
+                'phone' => $requestData['phone'],
+                'address' => $requestData['address'],
+                'gmail' => $requestData['email'],
+                'status' => true,
+            ]);
+        } else {
+            $customer->update(['address' => $requestData['address']]);
         }
+
+        $order = new Order([
+            'customer_id' => $customer->id,
+            'order_date' => now(),
+            'total_amount' => 0,
+        ]);
+        $order->save();
+
+        $productData = json_decode($requestData['productData'], true);
+        $totalAmount = 0;
+        foreach ($productData as $item) {
+            $product = Product::find($item['id']);
+            $size = Size::where('product_id', $product->id)
+                ->where('size_name', $item['size'])
+                ->first();
+
+            if ($size) {
+                $size->update(['quantity' => $size->quantity - $item['quantity']]);
+            }
+
+            $totalAmount += $product->Price * $item['quantity'];
+
+            $orderDetail = new OrderDetail([
+                'order_id' => $order->order_id,
+                'product_id' => $product->id,
+                'quantity' => $item['quantity'],
+                'size' => $item['size'],
+                'subtotal' => $product->Price * $item['quantity'],
+            ]);
+            $orderDetail->save();
+        }
+
+        $order->update(['total_amount' => $totalAmount]);
 
         return redirect('/thank-you')->with('success', 'Đã tạo đơn hàng thành công');
     }
@@ -175,20 +190,12 @@ class OrderController extends Controller
     public function checkOut()
     {
 
-        $orderDetails = OrderDetail::all(); // Ví dụ
-        $totalPrice = 0;
-        // Gọi hàm từ controller khác để lấy dữ liệu sản phẩm
-        $otherController = new ProductController();
-        $products = $otherController->getProducts();
-
-        foreach ($orderDetails as $detail) {
-            $totalPrice += $detail->subtotal;
-        }
-        return view('frontend.checkOut', compact('orderDetails', 'orderDetails', 'products'));
+        $orderDetails = OrderDetail::all();
+        return view('frontend.checkOut', compact('orderDetails'));
     }
     public function orderSubmit(Request $request)
     {
-        echo'ádasd';
+        echo 'ádasd';
         die();
         $fullName = $request->input('name');
         $email = $request->input('email');
@@ -200,7 +207,7 @@ class OrderController extends Controller
         $customer->gmail = $email;
         $customer->phone = $phone;
         $customer->address = $address;
-        $customer->status = true; // Giả sử mặc định là true
+        $customer->status = true;
         $customer->save();
 
         $orderDetails = json_decode($request->input('orderDetails'));
