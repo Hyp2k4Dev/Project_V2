@@ -68,7 +68,7 @@ class OrderController extends Controller
 
         $order->update(['total_amount' => $totalAmount]);
 
-        return redirect('/thank-you')->with('success', 'Đã tạo đơn hàng thành công');
+        return redirect('/invoice')->with('success', 'Đã tạo đơn hàng thành công');
     }
 
 
@@ -107,7 +107,13 @@ class OrderController extends Controller
             ->get();
         return view('admin.ordList', compact('pendingOrders'));
     }
+    public function showInvoice()
+    {
 
+        $orderDetails = OrderDetail::all();
+
+        return view('frontend.invoice', ['orderDetails' => $orderDetails]);
+    }
     public function addToCart() // Thêm tham số $id vào hàm
     {
         $orderDetails = OrderDetail::all(); // Example

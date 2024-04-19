@@ -74,9 +74,9 @@
                                 <label for="email">Email</label>
                                 <input type="text" id="email" name="email" placeholder="abc@example.com" required>
                                 <label for="phone">Phone Number</label>
-                                <input type="text" id="phone" name="phone" placeholder="Phone number">
+                                <input type="text" id="phone" name="phone" placeholder="Phone number" required>
                                 <label for="address">Address</label>
-                                <input type="text" id="address" name="address" placeholder="Ha Noi City, etc">
+                                <input type="text" id="address" name="address" placeholder="Ha Noi City, etc" required>
                                 <input type="hidden" id="productData" name="productData">
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                             <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
                         </label>
                         <br>
-                        <button type="submit" class="button-30" role="button">Check Out</button> 
+                        <button type="submit" class="button-30" role="button">Check Out</button>
                     </form>
                 </div>
             </div>
@@ -136,17 +136,45 @@
                 alert('No products in the cart.');
                 return; // Ngăn chặn tiếp tục thực hiện sự kiện submit
             }
-
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let phone = document.getElementById('phone').value;
+            let address = document.getElementById('address').value;
             let productsData = [];
+            let product = productsData;
+
+            let invoiceData = {
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+                product: product,
+                // Thêm order_id vào invoiceData
+                order_id: orderDetails[0].order_id // Giả sử order_id được lấy từ orderDetails[0]
+            };
 
             orderDetails.forEach(item => {
                 let productInfo = {
                     id: item.id.toString(),
+                    name: item.name.toString(),
                     quantity: item.quantity.toString(),
-                    size: item.size.toString()
+                    price: item.price,
+                    size: item.size.toString(),
+                    totalPrice: item.price * item.quantity,
+                    timestamp: new Date().toLocaleString('en-US', {
+                        timeZone: 'Asia/Ho_Chi_Minh',
+                        hour12: true,
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric'
+                    })
                 };
                 productsData.push(productInfo);
             });
+
 
             function customStringify(obj) {
                 return JSON.stringify(obj)
@@ -158,10 +186,14 @@
 
             document.getElementById('productData').value = productsDataJSON;
 
+            // Lưu invoiceData vào localStorage
+            localStorage.setItem('invoiceData', JSON.stringify(invoiceData));
+
             localStorage.removeItem('cartItems');
 
             this.submit();
         });
+
 
         function displayCart(products) {
             // Kiểm tra nếu không có sản phẩm trong giỏ hàng

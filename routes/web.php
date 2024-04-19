@@ -24,6 +24,9 @@ Route::get('/product/{id}',  [HomeFE::class, 'show'])->name('frontend.productdet
 Route::get('/order', [OrderController::class, 'index'])->name('frontend.order');
 Route::post('/order-submit', [OrderController::class, 'createOrder'])->name('frontend.checkout.submit');
 // Route::post('/order-submit', [OrderController::class, 'createOrder'])->name('frontend.createOrder');
+Route::get('/invoice', [OrderController::class, 'showInvoice'])->name('invoice');
+
+
 
 // Authentication routes
 Route::get('/login-register', [LoginController::class, 'showLoginForm'])->name('login');

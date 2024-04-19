@@ -69,10 +69,10 @@
     <div class="container bootdey">
         <div class="col-md-12">
             <section class="panel">
-                <div class="panel-body">
+                <div class="panel-body" style="width:100%">
                     <div class="col-md-6">
                         <div class="pro-img-details">
-                            <img src="{{$productDetails->Image}}" alt="">
+                            <img src="{{$productDetails->Image}}" alt="" >
                         </div>
                     </div>
                     <div class="col-md-6">
