@@ -66,7 +66,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('table') }}">
+                        <a href="/admin/order-list">
                             <i class="pe-7s-note2"></i>
                             <p>Order List</p>
                         </a>

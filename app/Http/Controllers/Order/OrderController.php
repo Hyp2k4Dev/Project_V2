@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Size;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -95,10 +96,11 @@ class OrderController extends Controller
 
     public function show()
     {
+        $user = Auth::user();
         $pendingOrders = Order::where('status_order', 'pending')
             ->with('customer', 'orderDetails.product')
             ->get();
-        return view('user.orderList', compact('pendingOrders'));
+        return view('user.orderList', compact('pendingOrders', 'user'));
     }
     public function showOrdAdmin()
     {
