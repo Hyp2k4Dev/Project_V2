@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Size;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -95,10 +96,11 @@ class OrderController extends Controller
 
     public function show()
     {
+        $user = Auth::user();
         $pendingOrders = Order::where('status_order', 'pending')
             ->with('customer', 'orderDetails.product')
             ->get();
-        return view('user.orderList', compact('pendingOrders'));
+        return view('user.orderList', compact('pendingOrders', 'user'));
     }
     public function showOrdAdmin()
     {
@@ -107,13 +109,41 @@ class OrderController extends Controller
             ->get();
         return view('admin.ordList', compact('pendingOrders'));
     }
+
     public function showInvoice()
     {
+        // Lấy đơn hàng cuối cùng
+        $latestOrder = Order::latest()->first();
 
-        $orderDetails = OrderDetail::all();
+        // Kiểm tra xem có đơn hàng nào không
+        if ($latestOrder) {
+            // Lấy order_id của đơn hàng cuối cùng
+            $order_id = $latestOrder->order_id;
 
-        return view('frontend.invoice', ['orderDetails' => $orderDetails]);
+            // Lấy thông tin của khách hàng từ đơn hàng cuối cùng
+            $customer_name = $latestOrder->customer->Name_customer;
+            $customer_email = $latestOrder->customer->gmail;
+            $customer_address = $latestOrder->customer->address;
+            $customer_phone = $latestOrder->customer->phone;
+
+            // Trả về view và truyền order_id và thông tin của khách hàng
+            return view('frontend.invoice', [
+                'order_id' => $order_id,
+
+                'customer_name' => $customer_name,
+                'customer_email' => $customer_email,
+                'customer_address' => $customer_address,
+                'customer_phone' => $customer_phone
+            ]);
+        } else {
+            // Nếu không có đơn hàng, bạn có thể truyền một thông báo
+            $message = "Không có đơn hàng nào.";
+            return view('frontend.invoice', ['message' => $message]);
+        }
     }
+
+
+
     public function addToCart() // Thêm tham số $id vào hàm
     {
         $orderDetails = OrderDetail::all(); // Example
@@ -195,7 +225,6 @@ class OrderController extends Controller
 
     public function checkOut()
     {
-
         $orderDetails = OrderDetail::all();
         return view('frontend.checkOut', compact('orderDetails'));
     }

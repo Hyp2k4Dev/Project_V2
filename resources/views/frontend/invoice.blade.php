@@ -63,14 +63,16 @@
         .invoice-info p {
             margin: 5px 0;
         }
-        .backBtn{
+
+        .backBtn {
             width: 100px;
             padding: 5px;
             border: 1px solid white;
             background-color: #333;
             border-radius: 5px;
         }
-        .backBtn a{
+
+        .backBtn a {
             color: white;
         }
     </style>
@@ -88,15 +90,12 @@
                             <a href="{{ route('frontend.home') }}">Back to Home</a>
                         </div>
                         <h2>Invoice</h2>
-                        @if(session('order_id'))
-                        <p>Đơn hàng của bạn có mã số: {{ session('order_id') }}</p>
-                        @else
-                        <p>Không có thông tin về đơn hàng.</p>
-                        @endif
+                        <p>Order ID: {{ $order_id }}</span></p>
+
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <!-- Customer info -->
+                            
                         </div>
                         <div class="col-xs-6 text-right">
                             <address>
@@ -135,9 +134,7 @@
             </div>
         </div>
     </div>
-    <div id="invoiceInfo">
-        <!-- Place to display invoice data from localStorage -->
-    </div>
+    
 
 
     <script>
@@ -148,23 +145,22 @@
             if (invoiceDataStr) {
                 var invoiceData = JSON.parse(invoiceDataStr);
 
-                // Add customer information to the div
                 var customerInfoDiv = document.querySelector('.col-xs-6');
                 if (customerInfoDiv) {
-                    customerInfoDiv.innerHTML += "<p><strong>Customer name: </strong>" + invoiceData.name + "</p>";
+
+                    customerInfoDiv.innerHTML += "<p><strong>Name: </strong>" + invoiceData.name + "</p>";
+                    customerInfoDiv.innerHTML += "<p><strong>Email: </strong>" + invoiceData.email + "</p>";
+                    customerInfoDiv.innerHTML += "<p><strong>Phone: </strong>" + invoiceData.phone + "</p>";
+                    customerInfoDiv.innerHTML += "<p><strong>Address: </strong>" + invoiceData.address + "</p>";
                 } else {
                     console.log("Couldn't find a div to contain customer information.");
                 }
 
-                // Find the reference to the table body
                 var invoiceTableBody = document.querySelector('.table-condensed tbody');
 
-                // Check if the reference exists and invoiceData.product also exists
                 if (invoiceTableBody && invoiceData.product) {
-                    // Clear all existing rows in the tbody
                     invoiceTableBody.innerHTML = '';
 
-                    // Loop through each product and add information to the tbody
                     for (var i = 0; i < invoiceData.product.length; i++) {
                         var product = invoiceData.product[i];
 
@@ -230,12 +226,11 @@
                 style: 'currency',
                 currency: 'VND',
                 currencyDisplay: 'code', // Display currency code instead of symbol
-                minimumFractionDigits: 0 // Number of digits after the decimal point (to hide decimal part)
+                minimumFractionDigits: 0
             });
-            return formatter.format(amount).replace('₫', 'VND'); // Replace currency symbol from "₫" to "VND"
+            return formatter.format(amount).replace('₫', 'VND');
         }
 
-        // Event listener to remove invoiceData from localStorage when the browser is closed
         window.addEventListener('unload', function(event) {
             // Check if localStorage exists and if invoiceData exists
             if (localStorage && localStorage.getItem('invoiceData')) {
@@ -243,6 +238,8 @@
                 localStorage.removeItem('invoiceData');
             }
         });
+
+        
     </script>
 </body>
 

@@ -72,7 +72,7 @@
                 <div class="panel-body" style="width:100%">
                     <div class="col-md-6">
                         <div class="pro-img-details">
-                            <img src="{{$productDetails->Image}}" alt="" >
+                            <img src="{{$productDetails->Image}}" alt="">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -94,7 +94,7 @@
                                 <option disabled>No sizes available</option>
                                 @endforelse
                             </select>
-                            <input class="form-control quantity-input" type="number" value="${item.quantity}" min="1">
+                            <input class="form-control quantity-input" type="number" value="1" min="1">
                             <div class="m-bot15">
                                 <strong>Price:</strong>
                                 <span class="pro-price">{{ number_format($productDetails->Price) }}(VND)</span>
@@ -145,7 +145,10 @@
             const productColor = document.querySelector('.color').innerText;
             const productImage = document.querySelector('.pro-img-details img').getAttribute('src'); // Lấy đường dẫn hình ảnh sản phẩm
             const productQuantity = parseInt(document.querySelector('.quantity-input').value); // Lấy giá trị quantity từ input
-
+            if (productQuantity < 1) {
+                alert("Quantity must be greater than 1 or equal to 1.");
+                return; // Kết thúc hàm nếu số lượng nhỏ hơn 1
+            }
             // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
             const existingItemIndex = cartItems.findIndex(item => item.id === productId && item.size === selectedSize);
 

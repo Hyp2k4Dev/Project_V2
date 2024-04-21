@@ -78,7 +78,7 @@
                     }
                     ?>
                 </p>
-                <p class="price">{{ number_format($product->Price, 0, ',', '.') }} đ</p>
+                <p class="price">{{ number_format($product->Price, 0, ',', '.') }} VND</p>
             </div>
         </a>
         @endforeach

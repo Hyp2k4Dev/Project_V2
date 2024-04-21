@@ -21,7 +21,7 @@ Route::get('/product/{id}',  [HomeFE::class, 'show'])->name('frontend.productdet
 
 
 //order
-Route::get('/order', [OrderController::class, 'index'])->name('frontend.order');
+// Route::get('/order', [OrderController::class, 'index'])->name('frontend.order');
 Route::post('/order-submit', [OrderController::class, 'createOrder'])->name('frontend.checkout.submit');
 // Route::post('/order-submit', [OrderController::class, 'createOrder'])->name('frontend.createOrder');
 Route::get('/invoice', [OrderController::class, 'showInvoice'])->name('invoice');
@@ -42,7 +42,7 @@ Route::middleware(['role:seller'])->prefix('seller')->group(function () {
 });
 // Admin routes
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
-    Route::get("/ordlist", [OrderController::class, 'showOrdAdmin'])->name('admin.ordList');
+    // Route::get("/ordlist", [OrderController::class, 'showOrdAdmin'])->name('admin.ordList');
     Route::get("/showAct", [UserController::class, 'filterUserStatus'])->name('admin.userList');
 
     Route::get('/product/add-product', [ProductController::class, 'addImage'])->name('admin.product.add-product');
@@ -62,6 +62,7 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     // Thêm route cho tính năng xoá sản phẩm
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('admin.product.destroy');
 
+    Route::get("/order-list", [OrderController::class, 'show'])->name('user.orderList');
 
     Route::get('/admin/delete-user/{user}', [UserController::class, 'deleteUser'])->name('admin.deleteUser');
 });
