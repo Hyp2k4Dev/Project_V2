@@ -85,17 +85,21 @@
             <div class="col-xs-12">
 
                 <div class="invoice-container">
-                    <div class="invoice-header">
+                    <div class="invoice-header" style="display: flex; align-items: center;">
                         <div class="backBtn">
                             <a href="{{ route('frontend.home') }}">Back to Home</a>
                         </div>
-                        <h2>Invoice</h2>
-                        <p>Order ID: {{ $order_id }}</span></p>
-
+                        <div style="margin-left: auto;">
+                            <img src="{{ asset('images/logo-shop.png') }}" alt="" width="150px">
+                            <h2>&nbsp;&nbsp;&nbsp;&nbsp;Invoice</h2>
+                        </div>
+                        <div style="margin-left: auto;">
+                            <p>Order ID: {{ $order_id }}</span></p>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            
+
                         </div>
                         <div class="col-xs-6 text-right">
                             <address>
@@ -134,7 +138,7 @@
             </div>
         </div>
     </div>
-    
+
 
 
     <script>
@@ -238,8 +242,6 @@
                 localStorage.removeItem('invoiceData');
             }
         });
-
-        
     </script>
 </body>
 
