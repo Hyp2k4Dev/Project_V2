@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackEnd\LoginController;
-use App\Http\Controllers\Backend\RegisterController;
+use App\Http\Controllers\BackEnd\RegisterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\HomeFE;
@@ -21,9 +21,7 @@ Route::get('/product/{id}',  [HomeFE::class, 'show'])->name('frontend.productdet
 
 
 //order
-// Route::get('/order', [OrderController::class, 'index'])->name('frontend.order');
 Route::post('/order-submit', [OrderController::class, 'createOrder'])->name('frontend.checkout.submit');
-// Route::post('/order-submit', [OrderController::class, 'createOrder'])->name('frontend.createOrder');
 Route::get('/invoice', [OrderController::class, 'showInvoice'])->name('invoice');
 
 

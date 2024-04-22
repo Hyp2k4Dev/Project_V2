@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTH Store: Sign in/up</title>
-    <!-- Paste your CSS links here -->
-    <link rel="stylesheet" href="your-css-file.css">
-    <!-- Paste your Font Awesome links here -->
-    <link rel="stylesheet" href="your-fontawesome-file.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
@@ -266,15 +265,33 @@
             color: #3c97bf;
             text-decoration: none;
         }
+
+        .error-message {
+            display: none;
+            /* Ẩn phần tử ban đầu */
+            color: red;
+            /* Các thuộc tính CSS khác tùy thuộc vào thiết kế của bạn */
+        }
     </style>
 </head>
 
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
+            @if(session('success'))
+            <script>
+                alert("Your account has been created! Please login.");
+            </script>
+            @endif
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <h1>Create Account</h1>
+                @if (session('error'))
+                <div id="error-message" class="error-message">
+                    {{ session('error') }}
+                </div>
+                @endif
+
                 <input type="text" placeholder="Name" id="name" name="name" required>
                 <input type="password" placeholder="Password" id="password" name="password" required>
                 <input type="password" placeholder="Confirm Password" id="password_confirmation" name="password_confirmation" required>
@@ -282,6 +299,34 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
+            @if (session('error'))
+            <script>
+                window.onload = function() {
+                    // Sử dụng hàm alert() của JavaScript để hiển thị thông báo
+                    alert("{{ session('error') }}");
+                };
+            </script>
+
+            <!-- Sử dụng mã CSS để thay đổi màu cho alert -->
+            <style>
+                /* Thay đổi màu nền của alert thành đỏ */
+                .alert {
+                    background-color: #f8d7da;
+                    /* Màu nền đỏ */
+                    border-color: #f5c6cb;
+                    /* Màu viền đỏ */
+                    color: #721c24;
+                    /* Màu chữ đỏ */
+                    padding: 8px 15px;
+                    /* Khoảng cách padding */
+                    margin-bottom: 15px;
+                    /* Khoảng cách giữa các alert */
+                    border-radius: 4px;
+                    /* Đường cong viền */
+                }
+            </style>
+            @endif
+
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <h1>Sign in</h1>

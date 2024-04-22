@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\BackEnd;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -30,7 +32,13 @@ class LoginController extends Controller
             'name' => 'required|string',
             'password' => 'required|string',
         ]);
-
+        $user = User::where('name', $credentials['name'])->first();
+        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+            // If the user does not exist or the password is incorrect
+            return redirect()->route('login')->withErrors([
+                'name' => 'User name/ password maybe incorrect, please check again.',
+            ]);
+        }
         // Attempt to authenticate the user
         if (Auth::attempt($credentials)) {
             // Get the authenticated user

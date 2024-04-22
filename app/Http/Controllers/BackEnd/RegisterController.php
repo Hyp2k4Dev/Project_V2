@@ -16,7 +16,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        return view('auth.login-register');
     }
 
     /**
@@ -33,14 +33,20 @@ class RegisterController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Create a new user
+        // Kiểm tra xem tên người dùng đã tồn tại trong cơ sở dữ liệu hay chưa
+        $existingUser = User::where('name', $request->name)->first();
+        if ($existingUser) {
+            // Nếu tên người dùng đã tồn tại, chuyển hướng lại đến trang đăng ký với thông báo lỗi
+            return redirect()->route('register')->with('error', 'Existed account. Please choose another username.');
+        }
+
+        // Nếu tên người dùng chưa tồn tại, tạo người dùng mới
         User::create([
             'name' => $request->name,
             'password' => Hash::make($request->password),
-            'role' => 'user', // Set default role to 'seller'
+            'role' => 'user', // Set default role to 'user'
         ]);
 
-        // Redirect to login page with success message
         return redirect()->route('login')->with('success', 'Your account has been created! Please login.');
     }
 }
