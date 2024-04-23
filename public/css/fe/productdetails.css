@@ -616,6 +616,7 @@ span.price {
     }
 }
 
-img{
-    width: 400px;
+.pro-img-details{
+    height: 200px;
+    object-fit: cover;
 }

@@ -80,6 +80,9 @@ a{
     position: absolute;
     width: 180px;
 }
+.card-body{
+    text-align: center;
+}
 .card-body .product-overlay li a.btn {
     opacity: 0; /* Ẩn nút ban đầu */
     transition: opacity 0.3s ease; /* Tạo hiệu ứng mượt mà */
@@ -125,4 +128,119 @@ a{
 }
 .collapse:not(.show) {
     display: block !important; /* hoặc bất kỳ giá trị nào bạn muốn */
+}
+/* CSS cho màn hình lớn (lg) */
+@media (min-width: 992px) {
+    .col-lg-3 {
+        width: 25%;
+        float: left;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+
+/* CSS cho màn hình trung bình (md) */
+@media (max-width: 991px) {
+    .col-lg-3 {
+        width: 50%;
+        float: left;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+
+/* CSS cho màn hình nhỏ (sm) và siêu nhỏ (xs) */
+@media (max-width: 767px) {
+    .col-lg-3 {
+        width: 100%;
+        float: none;
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+@media (max-width: 1024px) {
+    /* CSS cho kích thước màn hình iPad */
+    .btn-secondary{
+        background-color: #77dada;
+        color: #000;
+        margin:0 0 20px 300px;
+    }
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .dropdown-menu a {
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #000;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #f2f2f2;
+    }
+}
+@media (max-width: 767px) {
+    /* CSS cho kích thước màn hình iPad */
+    .btn-secondary{
+        background-color: #77dada;
+        color: #000;
+        margin:0 0 20px 170px;
+    }
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .dropdown-menu a {
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #000;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #f2f2f2;
+    }
+}
+/* Đảm bảo hiển thị đúng trên các màn hình nhỏ */
+@media (max-width: 991.98px) {
+    .dropdown-toggle::after {
+        display: none; /* Ẩn mũi tên chỉ trỏ xuống */
+    }
+}
+
+/* Đảm bảo dropdown menu hiển thị đúng trên các màn hình nhỏ */
+@media (max-width: 767.98px) {
+    .dropdown-menu {
+        position: relative;
+        width: 100%;
+    }
 }

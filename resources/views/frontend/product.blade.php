@@ -81,103 +81,122 @@
         </div>
         <div class="container py-5">
             <div class="row">
+                <script>
+                    $(document).ready(function() {
+                        // Xử lý khi nhấn vào nút "Categories"
+                        $('.dropdown-toggle').click(function() {
+                            $(this).next('.dropdown-menu').slideToggle();
+                        });
+                    });
+                </script>
+                
                 <div class="col-lg-3">
-                    <h1 class="h2 pb-4">Categories</h1>
-                    <ul class="list-unstyled customerSelect">
+                    <h1 class="h2 pb-4 d-lg-block d-none">Categories</h1>
+                    <div class="dropdown d-lg-none">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="categoriesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categories
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                            <a class="dropdown-item" href="#priceCollapseContent">Price</a>
+                            <a class="dropdown-item" href="#brandCollapseContent">Brand</a>
+                            <a class="dropdown-item" href="#sizeCollapseContent">Size</a>
+                        </div>
+                    </div>
+                    <ul class="list-unstyled customerSelect d-lg-block d-md-block d-sm-block d-none">
                         <li class="pb-3" id="priceCollapse">
-                            <a class="collapsed d-flex justify-content-between h3 text-decoration-none"
-                                data-toggle="collapse" href="#priceCollapseContent">
-                                Price
-                            </a>
-                            <ul class="list-group collapse" id="priceCollapseContent">
-                                <!-- Dữ liệu Price sẽ được thêm vào đây -->
-                            </ul>
-                        </li>
-                        <li class="pb-3" id="brandCollapse">
-                            <a class="collapsed d-flex justify-content-between h3 text-decoration-none"
-                                data-toggle="collapse" href="#brandCollapseContent">
-                                Brand
-                            </a>
-                            <ul class="list-group collapse" id="brandCollapseContent">
-                                <!-- Dữ liệu Brand sẽ được thêm vào đây -->
-                            </ul>
-                        </li>
-                        <li class="pb-3" id="sizeCollapse">
-                            <a class="collapsed d-flex justify-content-between h3 text-decoration-none"
-                                data-toggle="collapse" href="#sizeCollapseContent">
-                                Size
-                            </a>
-                            <div class="size">
-                                <div>
-                                    <input class="form-check-input me-1" type="checkbox" id="checkbox1"
-                                        name="listGroupSize" value="36">
-                                    <label class="form-check-label" for="checkbox1">36</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input me-1" type="checkbox" id="checkbox2"
-                                        name="listGroupSize" value="37">
-                                    <label class="form-check-label" for="checkbox2">37</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input me-1" type="checkbox" id="checkbox3"
-                                        name="listGroupSize" value="38">
-                                    <label class="form-check-label" for="checkbox3">38</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input me-1" type="checkbox" id="checkbox4"
-                                        name="listGroupSize" value="39">
-                                    <label class="form-check-label" for="checkbox4">39</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input me-1" type="checkbox" id="checkbox5"
-                                        name="listGroupSize" value="40">
-                                    <label class="form-check-label" for="checkbox5">40</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input me-1" type="checkbox" id="checkbox6"
-                                        name="listGroupSize" value="41">
-                                    <label class="form-check-label" for="checkbox6">41</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input me-1" type="checkbox" id="checkbox7"
-                                        name="listGroupSize" value="42">
-                                    <label class="form-check-label" for="checkbox7">42</label>
-                                </div>
-                                <div>
-                                    <input class="form-check-input me-1" type="checkbox" id="checkbox8"
-                                        name="listGroupSize" value="43">
-                                    <label class="form-check-label" for="checkbox8">43</label>
-                                </div>
+                            <div class="dropdown">
+                                <a class="collapsed d-flex justify-content-between h3 text-decoration-none dropdown-toggle"
+                                    data-toggle="dropdown" href="#" aria-expanded="false">
+                                    Price
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <div class="price">
+                                        <div>
+                                            <input class="form-check-input me-1" type="checkbox" id="checkbox1"
+                                                name="listGroupPrice" value="500K-1M">
+                                            <label class="form-check-label" for="checkbox1">500.000 VND - 1.000.000 VND</label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input me-1" type="checkbox" id="checkbox2"
+                                                name="listGroupPrice" value="1M-2M">
+                                            <label class="form-check-label" for="checkbox2">1.000.000 VND - 2.000.000 VND</label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input me-1" type="checkbox" id="checkbox3"
+                                                name="listGroupPrice" value="2M-3M">
+                                            <label class="form-check-label" for="checkbox3">2.000.000 VND - 3.000.000 VND</label>
+                                        </div>
+                                    </div>
+                                </ul>
                             </div>
                         </li>
-
+                        <li class="pb-3" id="brandCollapse">
+                            <div class="dropdown">
+                                <a class="collapsed d-flex justify-content-between h3 text-decoration-none dropdown-toggle"
+                                    data-toggle="dropdown" href="#" aria-expanded="false">
+                                    Brand
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <div class="brand">
+                                        <div>
+                                            <input class="form-check-input me-1" type="checkbox" id="checkbox4"
+                                                name="listGroupBrand" value="Adidas">
+                                            <label class="form-check-label" for="checkbox4">Adidas</label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input me-1" type="checkbox" id="checkbox5"
+                                                name="listGroupBrand" value="Nike">
+                                            <label class="form-check-label" for="checkbox5">Nike</label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input me-1" type="checkbox" id="checkbox6"
+                                                name="listGroupBrand" value="Puma">
+                                            <label class="form-check-label" for="checkbox6">Puma</label>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="pb-3" id="sizeCollapse">
+                            <div class="dropdown">
+                                <a class="collapsed d-flex justify-content-between h3 text-decoration-none dropdown-toggle"
+                                    data-toggle="dropdown" href="#" aria-expanded="false">
+                                    Size
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <div class="size">
+                                        <div>
+                                            <input class="form-check-input me-1" type="checkbox" id="checkbox7"
+                                                name="listGroupSize" value="36">
+                                            <label class="form-check-label" for="checkbox7">36</label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input me-1" type="checkbox" id="checkbox8"
+                                                name="listGroupSize" value="37">
+                                            <label class="form-check-label" for="checkbox8">37</label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input me-1" type="checkbox" id="checkbox9"
+                                                name="listGroupSize" value="38">
+                                            <label class="form-check-label" for="checkbox9">38</label>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="col-lg-9">
                     <div class="row">
-                        <div class="col-md-6">
-                            <ul class="list-inline shop-top-menu pb-3 pt-1">
-                                <li class="list-inline-item">
-                                    <a class="h3 text-dark text-decoration-none mr-3" href="#">All</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a class="h3 text-dark text-decoration-none mr-3" href="#">Men's</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a class="h3 text-dark text-decoration-none" href="#">Women's</a>
-                                </li>
-                            </ul>
-                        </div>
                         <div class="col-md-6 pb-4">
-                            <div class="d-flex">
-                                <select class="form-control">
-                                    <option>Featured</option>
-                                    <option>A to Z</option>
-                                    <option>Item</option>
-                                </select>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search for...">
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="bi bi-search"></i>
+                                </button>
                             </div>
-                        </div>
+                        </div>                        
                     </div>
                     <div class="container">
                         <div class="row">
@@ -205,7 +224,7 @@
                                         <a href="{{ route('frontend.productdetails', $product->id) }}"
                                             class="h3 text-decoration-none">{{ $product->Name_sneaker }}</a>
                                         <p class="text-center mb-0">{{ number_format($product->Price, 0, ',', '.') }}
-                                            VNĐ
+                                            VND
                                         </p>
                                     </div>
                                 </div>

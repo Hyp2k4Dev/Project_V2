@@ -7,12 +7,12 @@
     <title>HTH SNEAKER STORE</title>
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/fe/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fe/productdetails.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="{{ asset('js/homepage.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/fe/bootstrap.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
 
     <!-- Load fonts style after rendering the layout styles -->
@@ -69,7 +69,7 @@
     <div class="container bootdey">
         <div class="col-md-12">
             <section class="panel">
-                <div class="panel-body">
+                 <div class="panel-body">
                     <div class="col-md-6">
                         <div class="pro-img-details">
                             <img src="{{$productDetails->Image}}" alt="">
