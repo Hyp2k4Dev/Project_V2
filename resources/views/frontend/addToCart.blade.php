@@ -5,23 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTH SNEAKER STORE</title>
-    <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('css/fe/homepage.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/fe/cartpage.css') }}">
+    <link rel="shortcut icon" href="https://hyphoccode.id.vn/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://hyphoccode.id.vn/css/fe/homepage.css">
+    <link rel="stylesheet" href="https://hyphoccode.id.vn/css/fe/checkout.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="{{ asset('js/homepage.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/fe/bootstrap.min.css') }}">
+    <script src="https://hyphoccode.id.vn/js/homepage.js"></script>
+    <link rel="stylesheet" href="https://hyphoccode.id.vn/css/fe/bootstrap.min.css">
+    <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <style>
+        .cart-table {
+            width: calc(100% + 10px); /* Thêm 10px để làm rộng hơn */
+            border-collapse: collapse;
+        }
+
+        .cart-table th,
+        .cart-table td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            word-wrap: break-word;
+        }
+
+        .cart-table th {
+            background-color: #f2f2f2;
+        }
+
+        .cart-table td {
+            text-align: left;
+        }
+
+        .scroll-table-container {
+    overflow-x: auto;
+    width: 100%; /* Extend to full width */
+    max-width: 100%; /* Ensure it doesn't exceed parent's width */
+}
+    </style>
+
 </head>
 
 <body>
+    <div id="noProductMessage" style="display: none;">
+        <p>Không có sản phẩm nào.</p>
+    </div>
     <div class="header">
         <div class="header-left">
-            <a href="{{ route('frontend.home') }}"><img src="{{ asset('images/logo-shop.png') }}" alt="Mô tả của hình ảnh"></a>
+            <a href="https://hyphoccode.id.vn"><img src="https://hyphoccode.id.vn/images/logo-shop.png" alt="Mô tả của hình ảnh"></a>
             <div class="option-header">
                 <a href="/product">Product</a>
                 <a href="#">About</a>
@@ -30,246 +62,202 @@
         </div>
 
         <div class="header-right">
-            <form id="addToCartForm" action="{{ route('frontend.addToCart') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-            <a href="#" class="btn-contact">
-                Contact
-            </a>
+            <a href="https://www.facebook.com/profile.php?id=61558257755008" class="btn-contact">Contact</a>
         </div>
     </div>
-    <section class="pt-5 pb-5">
-        <div class="container">
-            <div class="row w-100">
-                <div class="col-lg-12 col-md-12 col-12 responsive-table-container">
-                    <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
-                    <p class="mb-5 text-center">
-                    </p>
-                    <div class="table-responsive"> <!-- Container có khả năng cuộn ngang -->
 
-                        <table id="shoppingCart" class="table table-condensed custom-table">
-                            <thead>
-                                <tr>
-                                    <th style="width:20%">Product Name & Details</th>
-                                    <th style="width:10%">Price</th>
-                                    <th style="width:5%">Quantity</th>
-                                    <th style="width:10%">Total Amount</th> <!-- Thêm cột Total Amount -->
-                                    <th style="width:5%">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Danh sách sản phẩm trong giỏ hàng sẽ được tạo ở đây -->
-                            </tbody>
-                        </table>
-                        <div class="float-right text-right">
-                            <h4>Total price:</h4>
-                            <h1 id="totalPrice">0 VND</h1>
+    <main>
+        <div class="row">
+            <div class="col-75">
+                <div class="container">
+                    <form id="orderForm" action="https://hyphoccode.id.vn/order-submit" method="post">
+                        <input type="hidden" name="_token" value="iVkdLvKtdjz4nbSi23qbTxFmcq78wATMMtxen6A7" autocomplete="off">                        <div class="row">
+                            <div class="col-50">
+                                <h3>Billing Address</h3>
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your name" required>
+                                <label for="email">Email</label>
+                                <input type="text" id="email" name="email" placeholder="abc@example.com" required>
+                                <label for="phone">Phone Number</label>
+                                <input type="text" id="phone" name="phone" placeholder="Phone number" required>
+                                <label for="address">Address</label>
+                                <input type="text" id="address" name="address" placeholder="Ha Noi City, etc" required>
+                                <input type="hidden" id="productData" name="productData">
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-4 d-flex align-items-center">
-                <div class="col-sm-6 order-md-2 text-right">
-                    <form action="{{ route('frontend.checkOut') }}" method="GET">
-                        @csrf
-                        <button type="submit" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</button>
+                        <div class="col-25" style="width: 60%;">
+<div class="container">
+    <h4>Cart
+        <span class="price" style="color:black">
+            <i class="fa fa-shopping-cart"></i>
+        </span>
+        <p></p>
+    </h4>
+
+    <div class="scroll-table-container">
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th style="width:50%">Name</th>
+                    <th style="width:29%">Quantity</th>
+                    <th style="width:15%">Size</th>
+                    <th style="width:10%">Price</th>
+                </tr>
+            </thead>
+            <tbody id="cartTableBody">
+                <!-- Dữ liệu của giỏ hàng sẽ được thêm vào đây bằng JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+                        <label>
+                            <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+                        </label>
+                        <br>
+                        <button type="submit" class="button-30" role="button">Check Out</button>
                     </form>
                 </div>
-                <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
-                    <a href="/product">
-                        <i class="fas fa-arrow-left mr-2"></i> Continue Shopping</a>
-                </div>
             </div>
         </div>
-    </section>
-    <script>
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        document.addEventListener('DOMContentLoaded', function() {
-            // Lấy dữ liệu từ localStorage
-            if (cartItems.length === 0) {
-                const cartTable = document.getElementById('shoppingCart');
-                const cartTableBody = cartTable.querySelector('tbody');
-                cartTableBody.innerHTML = '<tr><td colspan="5">No products in cart</td></tr>';
-                return; // Dừng việc thực thi tiếp các đoạn mã khác
-            }
-            const deleteButtons = document.querySelectorAll('.delete-item');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-
-                    const index = this.getAttribute('data-index');
-
-                    removeItem(index);
-
-                });
-            });
-            let cartItemsHTML = '';
-
-            let total = 0;
-
-            cartItems.forEach((item, index) => {
-                item.price = parseFloat(item.price); // Chuyển đổi giá về số thập phân
-                item.priceVN = formatCurrency(item.price); // Định dạng giá VNĐ
-                total += item.price * item.quantity; // Tính tổng giá
-
-                const productHTML = `
-<tr>
-    <td class="p-4">
-        <div class="media align-items-center" style="display: flex;">
-            <img src="${item.image}" width="200px" alt="imagePreview"> <!-- Sử dụng thuộc tính 'image' từ mỗi sản phẩm -->
-            <div class="media-body" style="padding-left: 20px;">
-                <h5>${item.name}</h5>
-                <small>
-                    <p class="text-muted">Color: ${item.color}</p>
-                    <p>Brand: ${item.brand}</p>
-                    <h2>Sizes</h2>
-                    <ul>
-                        <li>${item.size}</li>
-                    </ul>
-                </small>
-            </div>
-        </div>
-    </td>
-    <td class="text-right font-weight-semibold align-middle p-4">${item.priceVN}</td> <!-- Hiển thị giá ở đây -->
-    <td class="align-middle p-4">
-        <input class="form-control quantity-input" type="number" value="${item.quantity}" min="1" data-index="${index}">
-    </td>
-    <td class="text-right align-middle px-4" id="totalPrice${index}">${formatCurrency(item.price * item.quantity)}</td> <!-- Hiển thị tổng giá trị của sản phẩm -->
-    <td class="text-center align-middle px-0">
-    <a href="#" class="shop-tooltip close float-none delete-item" title="Remove" data-index="${index}">
-        Xoá
-    </a>
-</td>
-
-</tr>
-`;
-
-                // Thêm HTML của sản phẩm vào biến cartItemsHTML
-                cartItemsHTML += productHTML;
-            });
-
-            // Hiển thị HTML của danh sách sản phẩm lên trang
-            document.querySelector('.table tbody').innerHTML = cartItemsHTML;
-
-            // Hiển thị tổng giá trị của các sản phẩm trong giỏ hàng trên trang web
-            const totalPriceElement = document.getElementById('totalPrice');
-            totalPriceElement.innerText = formatCurrency(total);
-
-
-            // Hàm định dạng số tiền sang chuẩn VNĐ
-            // Hàm định dạng số tiền sang chuẩn VNĐ
-            function formatCurrency(amount) {
-                // Chuyển đổi số thành chuỗi và thêm đơn vị tiền tệ
-                const formatter = new Intl.NumberFormat('vi-VN', {
-                    style: 'currency',
-                    currency: 'VND',
-                    currencyDisplay: 'code', // Hiển thị mã tiền tệ thay vì ký hiệu
-                    minimumFractionDigits: 0 // Số lượng chữ số sau dấu phẩy (để không hiển thị phần thập phân)
-                });
-                return formatter.format(amount).replace('₫', 'VND'); // Thay thế ký hiệu tiền tệ từ "₫" sang "VND"
-            }
-
-
-            // Sự kiện change cho các ô nhập số lượng
-            document.querySelector('.table tbody').addEventListener('change', function(event) {
-                if (event.target.classList.contains('quantity-input')) {
-                    let index = event.target.dataset.index;
-                    let newQuantity = parseInt(event.target.value);
-                    if (!isNaN(newQuantity) && newQuantity > 0) {
-                        if (cartItems && cartItems.length > 0 && cartItems[index]) {
-                            let itemPrice = parseFloat(cartItems[index].price);
-                            cartItems[index].quantity = newQuantity;
-                            let totalPrice = itemPrice * newQuantity;
-                            document.getElementById('totalPrice' + index).innerText = formatCurrency(totalPrice);
-                            updateTotalPrice();
-                            localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Lưu danh sách sản phẩm mới vào localStorage
-                        }
-                    } else {
-                        event.target.value = 1;
-                    }
-                    location.reload();
-                }
-            });
-
-
-            // Hàm cập nhật tổng giá trị của tất cả các sản phẩm trong giỏ hàng
-            function updateTotalPrice() {
-                let total = 0;
-                cartItems.forEach(item => {
-                    total += parseFloat(item.price) * item.quantity;
-                });
-                // Hiển thị tổng giá trị của tất cả các sản phẩm trong giỏ hàng
-                totalPriceElement.innerText = formatCurrency(total);
-            }
-            // Hàm để xoá sản phẩm khỏi giỏ hàng
-            function removeItem(index) {
-                cartItems.splice(index, 1);
-                localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Cập nhật lại localStorage
-
-                // Reload trang để cập nhật giao diện
-                location.reload();
-            }
-            updateTotalPrice();
-
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const deleteButtons = document.querySelectorAll('.delete-item');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const index = this.getAttribute('data-index');
-                    console.log('Remove button clicked for index:', index); // Kiểm tra sự kiện click đã được bắt chưa
-                    removeItem(index);
-                });
-            });
-
-            function removeItem(index) {
-                cartItems.splice(index, 1); // Xoá chỉ mục tương ứng từ mảng cartItems
-                localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Cập nhật lại localStorage
-                location.reload(); // Tải lại trang để cập nhật giao diện
-            }
-        });
-    </script>
+    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Lấy thông tin từ các mục trong trang
-            let checkOutItems = [];
+            // Lấy thông tin từ localStorage
+            let products = localStorage.getItem('cartItems');
 
-            // Duyệt qua từng dòng trong bảng danh sách sản phẩm trong giỏ hàng
-            document.querySelectorAll('.table tbody tr').forEach(row => {
-                let productName = row.querySelector('.media-body h5').innerText;
-                let productPriceText = row.querySelector('.font-weight-semibold').innerText; // Lấy văn bản giá sản phẩm từ hàng hiện tại
-                const productPrice = parseInt(productPriceText.replace(/\D/g, ''));
-                let productQuantity = parseInt(row.querySelector('.quantity-input').value); // Lấy giá trị số lượng từ ô nhập số lượng trong hàng hiện tại và chuyển đổi thành số nguyên
-                let productSize = row.querySelector('ul li').innerText;
-                // Tạo đối tượng mô tả thông tin của mỗi sản phẩm
-                let item = {
-                    name: productName,
-                    price: productPrice, // Giữ giá dưới dạng số nguyên
-                    quantity: productQuantity,
-                    size: productSize
+            // Kiểm tra xem có thông tin trong localStorage không
+            if (!products || JSON.parse(products).length === 0) {
+                // Nếu không có sản phẩm trong giỏ hàng, hiển thị thông báo "No products in the cart"
+                let cartHeader = document.querySelector('.col-25 h4');
+                cartHeader.innerHTML = 'Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span><p>No products in the cart</p>';
+            } else {
+                // Nếu có sản phẩm, hiển thị giỏ hàng bình thường
+                products = JSON.parse(products);
+
+                // Điền dữ liệu vào các trường của biểu mẫu
+                document.getElementById('name').value = products.name || '';
+                document.getElementById('email').value = products.email || '';
+                document.getElementById('phone').value = products.phone || '';
+                document.getElementById('address').value = products.address || '';
+
+                displayCart(products);
+            }
+        });
+
+
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let orderDetails = JSON.parse(localStorage.getItem('cartItems'));
+
+            if (!orderDetails || orderDetails.length === 0) {
+                // Nếu không có sản phẩm trong giỏ hàng, hiển thị cảnh báo
+                alert('No products in the cart.');
+                return; // Ngăn chặn tiếp tục thực hiện sự kiện submit
+            }
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let phone = document.getElementById('phone').value;
+            let address = document.getElementById('address').value;
+            let productsData = [];
+            let product = productsData;
+
+            let invoiceData = {
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+                product: product,
+                // Thêm order_id vào invoiceData
+                order_id: orderDetails[0].order_id // Giả sử order_id được lấy từ orderDetails[0]
+            };
+
+            orderDetails.forEach(item => {
+                let productInfo = {
+                    id: item.id.toString(),
+                    name: item.name.toString(),
+                    quantity: item.quantity.toString(),
+                    price: item.price,
+                    size: item.size.toString(),
+                    totalPrice: item.price * item.quantity,
+                    timestamp: new Date().toLocaleString('en-US', {
+                        timeZone: 'Asia/Ho_Chi_Minh',
+                        hour12: true,
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric'
+                    })
                 };
-
-                // Thêm đối tượng vào mảng checkOutItems
-                checkOutItems.push(item);
+                productsData.push(productInfo);
             });
 
-            // Lưu mảng checkOutItems vào localStorage
-            localStorage.setItem('checkOutItems', JSON.stringify(checkOutItems));
+
+            function customStringify(obj) {
+                return JSON.stringify(obj)
+                    .replace(/[\u007F-\uFFFF]/g, function(chr) {
+                        return "\\u" + ("0000" + chr.charCodeAt(0).toString(16)).substr(-4);
+                    });
+            }
+            let productsDataJSON = customStringify(productsData);
+
+            document.getElementById('productData').value = productsDataJSON;
+
+            // Lưu invoiceData vào localStorage
+            localStorage.setItem('invoiceData', JSON.stringify(invoiceData));
+
+            localStorage.removeItem('cartItems');
+
+            this.submit();
         });
 
 
-        // Hàm định dạng số tiền sang chuẩn VNĐ
-        // function formatCurrency(amount) {
-        //     return amount.toLocaleString('vi-VN', {
-        //         style: 'currency',
-        //         currency: 'VND',
-        //         minimumFractionDigits: 0 // Số lượng chữ số sau dấu phẩy (để không hiển thị phần thập phân)
-        //     });
-        // }
+        function displayCart(products) {
+            // Kiểm tra nếu không có sản phẩm trong giỏ hàng
+            if (!products || products.length === 0) {
+                // Hiển thị cảnh báo
+                document.getElementById('noProductMessage').style.display = 'block';
+                // Ẩn form
+                document.getElementById('orderForm').style.display = 'none';
+                return;
+            }
+
+            // Lấy thẻ tbody của bảng
+            let tbody = document.getElementById('cartTableBody');
+
+            let totalPrice = 0;
+
+            // Thêm dòng cho từng sản phẩm
+            products.forEach(item => {
+                let row = document.createElement('tr');
+                row.innerHTML = `<td>${item.name}</td><td>${item.quantity}</td><td>${item.size}</td><td>${formatCurrency(item.price)}</td>`;
+                tbody.appendChild(row);
+                totalPrice += item.price * item.quantity;
+            });
+
+            // Hiển thị tổng giá tiền
+            let totalPriceElement = document.createElement('p'); // Tạo phần tử mới
+            totalPriceElement.innerHTML = `<strong>Total Price: <span>${formatCurrency(totalPrice)}</span></strong>`; // Thiết lập nội dung của phần tử
+            document.querySelector('.col-25 .container').appendChild(totalPriceElement);
+        }
+
+        function formatCurrency(amount) {
+            // Chuyển đổi số thành chuỗi và thêm đơn vị tiền tệ
+            const formatter = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+                currencyDisplay: 'code', // Hiển thị mã tiền tệ thay vì ký hiệu
+                minimumFractionDigits: 0 // Số lượng chữ số sau dấu phẩy (để không hiển thị phần thập phân)
+            });
+            return formatter.format(amount).replace('₫', 'VND'); // Thay thế ký hiệu tiền tệ từ "₫" sang "VND"
+        }
     </script>
+
 </body>
 
 </html>

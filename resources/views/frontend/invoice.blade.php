@@ -49,6 +49,7 @@
         .invoice-header h2 {
             margin: 0;
             color: #333;
+            font-size: 24px; /* Increase font size for title */
         }
 
         .invoice-header p {
@@ -75,6 +76,35 @@
         .backBtn a {
             color: white;
         }
+
+        .panel-title {
+            font-size: 20px; /* Increase font size for panel title */
+        }
+
+        .table-condensed {
+            border-collapse: separate;
+            border-spacing: 0 10px; /* Add spacing between rows */
+        }
+
+        .table-condensed th,
+        .table-condensed td {
+            padding: 10px; /* Add padding for better readability */
+        }
+
+        .table-condensed th {
+            font-size: 16px; /* Increase font size for table header */
+            background-color: #f5f5f5; /* Light gray background color for table header */
+        }
+
+        .table-condensed td {
+            font-size: 14px; /* Increase font size for table cells */
+            vertical-align: middle; /* Align content vertically in the middle */
+        }
+
+        .total-row td {
+            font-weight: bold; /* Make total row text bold */
+            color: red; /* Change total row text color to red */
+        }
     </style>
 </head>
 
@@ -83,7 +113,6 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-
                 <div class="invoice-container">
                     <div class="invoice-header" style="display: flex; align-items: center;">
                         <div class="backBtn">
@@ -99,7 +128,6 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-
                         </div>
                         <div class="col-xs-6 text-right">
                             <address>
@@ -139,110 +167,121 @@
         </div>
     </div>
 
+<script>
+    // Check if localStorage exists
+    if (localStorage) {
+        var invoiceDataStr = localStorage.getItem('invoiceData');
 
+        if (invoiceDataStr) {
+            var invoiceData = JSON.parse(invoiceDataStr);
 
-    <script>
-        // Check if localStorage exists
-        if (localStorage) {
-            var invoiceDataStr = localStorage.getItem('invoiceData');
+            var customerInfoDiv = document.querySelector('.col-xs-6');
+            if (customerInfoDiv) {
+                customerInfoDiv.innerHTML += "<p><strong>Name: </strong>" + invoiceData.name + "</p>";
+                customerInfoDiv.innerHTML += "<p><strong>Email: </strong>" + invoiceData.email + "</p>";
+                customerInfoDiv.innerHTML += "<p><strong>Phone: </strong>" + invoiceData.phone + "</p>";
+                customerInfoDiv.innerHTML += "<p><strong>Address: </strong>" + invoiceData.address + "</p>";
+            } else {
+                console.log("Couldn't find a div to contain customer information.");
+            }
 
-            if (invoiceDataStr) {
-                var invoiceData = JSON.parse(invoiceDataStr);
+            var invoiceTableBody = document.querySelector('.table-condensed tbody');
 
-                var customerInfoDiv = document.querySelector('.col-xs-6');
-                if (customerInfoDiv) {
+            if (invoiceTableBody && invoiceData.product) {
+                invoiceTableBody.innerHTML = '';
+                var totalOrderPrice = 0;
+                for (var i = 0; i < invoiceData.product.length; i++) {
+                    var product = invoiceData.product[i];
+                    var productTotalPrice = product.price * product.quantity;
+                    totalOrderPrice += productTotalPrice;
+                    // Create a new row in the table
+                    var row = document.createElement('tr');
 
-                    customerInfoDiv.innerHTML += "<p><strong>Name: </strong>" + invoiceData.name + "</p>";
-                    customerInfoDiv.innerHTML += "<p><strong>Email: </strong>" + invoiceData.email + "</p>";
-                    customerInfoDiv.innerHTML += "<p><strong>Phone: </strong>" + invoiceData.phone + "</p>";
-                    customerInfoDiv.innerHTML += "<p><strong>Address: </strong>" + invoiceData.address + "</p>";
-                } else {
-                    console.log("Couldn't find a div to contain customer information.");
-                }
+                    // Create cells for the row
+                    var itemNameCell = document.createElement('td');
+                    itemNameCell.textContent = product.name;
 
-                var invoiceTableBody = document.querySelector('.table-condensed tbody');
+                    var itemPriceCell = document.createElement('td');
+                    itemPriceCell.classList.add('text-center');
+                    // Format the product price using the formatCurrency function
+                    itemPriceCell.textContent = formatCurrency(product.price);
 
-                if (invoiceTableBody && invoiceData.product) {
-                    invoiceTableBody.innerHTML = '';
+                    var itemQuantityCell = document.createElement('td');
+                    itemQuantityCell.classList.add('text-center');
+                    itemQuantityCell.textContent = product.quantity;
 
-                    for (var i = 0; i < invoiceData.product.length; i++) {
-                        var product = invoiceData.product[i];
+                    var itemTotalCell = document.createElement('td');
+                    itemTotalCell.classList.add('text-right');
+                    // Format the total price of the product using the formatCurrency function
+                    itemTotalCell.textContent = formatCurrency(product.price * product.quantity);
 
-                        // Create a new row in the table
-                        var row = document.createElement('tr');
+                    // Add cells to the row
+                    row.appendChild(itemNameCell);
+                    row.appendChild(itemPriceCell);
+                    row.appendChild(itemQuantityCell);
+                    row.appendChild(itemTotalCell);
 
-                        // Create cells for the row
-                        var itemNameCell = document.createElement('td');
-                        itemNameCell.textContent = product.name;
-
-                        var itemPriceCell = document.createElement('td');
-                        itemPriceCell.classList.add('text-center');
-                        // Format the product price using the formatCurrency function
-                        itemPriceCell.textContent = formatCurrency(product.price);
-
-                        var itemQuantityCell = document.createElement('td');
-                        itemQuantityCell.classList.add('text-center');
-                        itemQuantityCell.textContent = product.quantity;
-
-                        var itemTotalCell = document.createElement('td');
-                        itemTotalCell.classList.add('text-right');
-                        // Format the total price of the product using the formatCurrency function
-                        itemTotalCell.textContent = formatCurrency(product.price * product.quantity);
-
-                        // Add cells to the row
-                        row.appendChild(itemNameCell);
-                        row.appendChild(itemPriceCell);
-                        row.appendChild(itemQuantityCell);
-                        row.appendChild(itemTotalCell);
-
-                        // Add the row to the tbody
-                        invoiceTableBody.appendChild(row);
-                    }
-                } else {
-                    console.log("Couldn't find the tbody of the table.");
-                }
-
-                // Display the order date
-                var orderDateDiv = document.querySelector('.col-xs-6.text-right address');
-                if (orderDateDiv) {
-                    // Create a <p> element to contain the order date information
-                    var pElement = document.createElement('p');
-                    // Get the order date from the first product
-                    var orderDate = invoiceData.product[0].timestamp;
-                    // Set the content of the <p> element with the order date information
-                    pElement.innerHTML = "Order Date: " + orderDate;
-                    // Add the <p> element to the target div
-                    orderDateDiv.appendChild(pElement);
-                } else {
-                    console.log("Couldn't find a div to contain order date information.");
+                    // Add the row to the tbody
+                    invoiceTableBody.appendChild(row);
                 }
             } else {
-                console.log("No invoice data found in localStorage.");
+                console.log("Couldn't find the tbody of the table.");
             }
+
+            // Display the order date
+            var orderDateDiv = document.querySelector('.col-xs-6.text-right address');
+            if (orderDateDiv) {
+                // Create a <p> element to contain the order date information
+                var pElement = document.createElement('p');
+                // Get the order date from the first product
+                var orderDate = invoiceData.product[0].timestamp;
+                // Set the content of the <p> element with the order date information
+                pElement.innerHTML = "Order Date: " + orderDate;
+                // Add the <p> element to the target div
+                orderDateDiv.appendChild(pElement);
+            } else {
+                console.log("Couldn't find a div to contain order date information.");
+            }
+
+            // Add total order price row
+            var totalRow = document.createElement('tr');
+            totalRow.classList.add('total-row'); // Add class for styling
+            var totalNameCell = document.createElement('td');
+            totalNameCell.textContent = 'Total Price';
+            totalNameCell.colSpan = 3; // Merge cells for name column
+            var totalValueCell = document.createElement('td');
+            totalValueCell.classList.add('text-right');
+            totalValueCell.textContent = formatCurrency(totalOrderPrice);
+            totalRow.appendChild(totalNameCell);
+            totalRow.appendChild(totalValueCell);
+            invoiceTableBody.appendChild(totalRow);
         } else {
-            console.log("Your browser does not support localStorage.");
+            console.log("No invoice data found in localStorage.");
         }
+    } else {
+        console.log("Your browser does not support localStorage.");
+    }
 
-        // Function to format currency
-        function formatCurrency(amount) {
-            // Convert the number to a string and add currency unit
-            const formatter = new Intl.NumberFormat('vi-VN', {
-                style: 'currency',
-                currency: 'VND',
-                currencyDisplay: 'code', // Display currency code instead of symbol
-                minimumFractionDigits: 0
-            });
-            return formatter.format(amount).replace('₫', 'VND');
-        }
-
-        window.addEventListener('unload', function(event) {
-            // Check if localStorage exists and if invoiceData exists
-            if (localStorage && localStorage.getItem('invoiceData')) {
-                // Remove invoiceData from localStorage
-                localStorage.removeItem('invoiceData');
-            }
+    // Function to format currency
+    function formatCurrency(amount) {
+        // Convert the number to a string and add currency unit
+        const formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+            currencyDisplay: 'code', // Display currency code instead of symbol
+            minimumFractionDigits: 0
         });
-    </script>
+        return formatter.format(amount).replace('₫', 'VND');
+    }
+
+    window.addEventListener('unload', function(event) {
+        // Check if localStorage exists and if invoiceData exists
+        if (localStorage && localStorage.getItem('invoiceData')) {
+            // Remove invoiceData from localStorage
+            localStorage.removeItem('invoiceData');
+        }
+    });
+</script>
 </body>
 
 </html>
