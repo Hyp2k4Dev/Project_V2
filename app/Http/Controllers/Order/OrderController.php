@@ -12,9 +12,53 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
+    public function update($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+
+        if ($order->status_order !== 'success') {
+            $order->status_order = 'success';
+            $order->status_updated_at = Carbon::now();
+            $order->save();
+            return redirect()->route('user.orderList')->with('success', 'Update successfully');
+        }
+        return redirect()->route('user.orderList')->with('success', 'Update Error');
+    }
+    public function deleteOrder($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+
+        if ($order->status_order !== 'Cancel') {
+            $order->status_order = 'Cancel';
+            $order->save();
+
+            // Update product quantity in size table
+            $orderDetails = $order->orderDetails;
+            foreach ($orderDetails as $detail) {
+                $productId = $detail->product_id;
+                $size = $detail->size;
+                $quantity = $detail->quantity;
+
+                // Check if ProductSize model exists (assuming existence)
+                $productSize = Size::where('product_id', $productId)
+                    ->where('size_name', $size)
+                    ->first();
+
+                if ($productSize) {
+                    $productSize->quantity += $quantity;
+                    $productSize->save();
+                }
+            }
+
+            return redirect()->route('user.orderList')->with('success', 'Order canceled successfully');
+        } else {
+            return redirect()->route('user.orderList')->with('error', 'Order is already canceled');
+        }
+    }
     public function index()
     {
         return view('frontend.Order');

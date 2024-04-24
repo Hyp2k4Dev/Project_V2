@@ -61,8 +61,9 @@ Route::middleware(['role:admin'])->prefix('admin')->group(function () {
 
     // Thêm route cho tính năng xoá sản phẩm
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('admin.product.destroy');
-
     Route::get("/order-list", [OrderController::class, 'show'])->name('user.orderList');
+    Route::get("/orders/{order_id}/update-status", [OrderController::class, 'update']);
+    Route::get("/orders/{order_id}/delete-order", [OrderController::class, 'deleteOrder']);
 
     Route::get('/admin/delete-user/{user}', [UserController::class, 'deleteUser'])->name('admin.deleteUser');
 });

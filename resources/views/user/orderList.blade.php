@@ -203,8 +203,16 @@
                                 <td>{{ $order->total_amount }}</td>
                                 <td>{{ $order->status_order }}</td>
                                 <td>
-                                    <p class="btn btn-danger">Danger</p>
-                                    <p class="btn btn-success">Success</p>
+                                    <form action="/admin/orders/{{ $order->order_id }}/delete-order" method="GET">
+                                        @csrf
+                                        @method('GET')
+                                        <button type="submit" class="btn btn-danger">Danger</button>
+                                    </form>
+                                    <form action="/admin/orders/{{ $order->order_id }}/update-status" method="GET">
+                                        @csrf
+                                        @method('GET')
+                                        <button type="submit" class="btn btn-success">Success</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
